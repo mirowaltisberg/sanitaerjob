@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 48" fill="none">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;900&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- Lightning bolt mark — single accent color like Qero's amber -->
+  <path d="M15.5 3L5.5 23h8L9.5 45 26 21h-8.5l5-18z" fill="#fba918"/>
+
+  <!-- Wordmark — all one color, confident and clean -->
+  <text x="36" y="36" font-family="'Nunito', sans-serif" font-size="33" font-weight="900" letter-spacing="-0.8" fill="#1e293b">Elektro<tspan fill="#fba918">job</tspan><tspan font-weight="400" fill="#94a3b8" font-size="26">.ch</tspan></text>
+</svg>

@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Elektrojob.ch
 
-## Getting Started
+Swiss job board for electrical trades — live at [elektrojob.ch](https://www.elektrojob.ch)
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Frontend**: Next.js 16, React 19, Tailwind CSS, shadcn/ui
+- **Backend**: Supabase (Postgres + Storage)
+- **Hosting**: Vercel
+- **Scraper**: Python (jobspy) — LinkedIn, Indeed, Google Jobs
+
+## Features
+
+- **Live job listings** — 2000+ scraped Swiss electrical jobs, updated regularly
+- **Search & filter** — by keyword, location (with radius), job type, workload, remote
+- **SEO landing pages** — pre-rendered pages for top role/canton combos
+- **CV upload & apply** — applicants submit name, email, phone + CV (PDF/DOCX), stored in Supabase Storage
+- **Swiss postal code autocomplete** — location search with PLZ support
+- **Vercel Analytics** — page view tracking
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── api/
+│   │   ├── applications/   # POST — job applications + CV upload
+│   │   ├── jobs/            # GET — search & detail endpoints
+│   │   ├── postal-codes/    # GET — Swiss PLZ autocomplete
+│   │   └── scrape/          # POST — trigger Python scraper
+│   ├── elektrojobs/         # SEO landing pages
+│   ├── jobs/[id]/           # Job detail page (SSR)
+│   └── page.tsx             # Homepage with search
+├── components/              # UI components (apply modal, search, etc.)
+├── lib/
+│   ├── supabase.ts          # Supabase client (public + admin)
+│   ├── job-catalog.ts       # Core search, filter, sort, scoring logic
+│   ├── scraped-jobs.ts      # Data layer (Supabase queries + JSON fallback)
+│   └── ...                  # Utils, types, location, text cleaning
+└── data/
+    └── scraped-jobs.json    # Local backup of scraped data
+scripts/
+├── scrape-jobs.py           # Job scraper (dual-write: JSON + Supabase)
+└── seed-supabase.ts         # One-time DB seed from JSON
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Database (Supabase)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Table | Purpose |
+|-------|---------|
+| `jobs` | All scraped job listings |
+| `applications` | Job applications with CV references |
+| `scrape_metadata` | Last scrape timestamp + total count |
+| `cvs` (storage) | Uploaded CV files (PDF/DOCX, max 10 MB) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Development
 
-## Learn More
+```bash
+npm install
+cp .env.local.example .env.local  # add your Supabase keys
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Scraping
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+cd scripts
+python -m venv .venv && source .venv/bin/activate
+pip install python-jobspy supabase
+python scrape-jobs.py
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+vercel --prod
+```

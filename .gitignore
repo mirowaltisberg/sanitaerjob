@@ -15,6 +15,7 @@
 
 # next.js
 /.next/
+/.next_backup*/
 /out/
 
 # production
@@ -39,3 +40,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# python venv
+scripts/.venv/
+
+# scraped data (lives in Supabase now)
+src/data/scraped-jobs.json
