@@ -34,6 +34,7 @@ import { FEATURE_FLAGS } from "@/lib/feature-flags";
 import { trackEvent } from "@/lib/analytics";
 import { TOP_LANDING_PAGES, getLandingPath } from "@/lib/landing-pages";
 import { calculateDistanceKm, resolveLocationCoordinate, type Coordinate } from "@/lib/location-distance";
+import { estimateSalary, formatSalaryRange } from "@/lib/salary-estimates";
 
 const JOB_SUGGESTIONS = [
   "Elektroinstallateur",
@@ -921,65 +922,89 @@ export default function Home() {
                       >
                         <Card className="job-card hover:border-primary/50 active:border-primary/40">
                           <CardContent className="p-4 sm:p-6">
-                            <div className="flex flex-col md:flex-row gap-3 sm:gap-4 justify-between">
-                              <div className="flex-1 min-w-0">
-                                <div className="flex flex-wrap items-center gap-2 mb-2">
-                                  <h3 className="text-base sm:text-xl font-bold text-slate-900 group-hover:text-primary transition-colors duration-200 break-words">
-                                    {job.title}
-                                  </h3>
-                                  <Badge
-                                    variant="outline"
-                                    className={isScrapedJob(job) ? "border-emerald-200 bg-emerald-50 text-emerald-700" : "border-slate-200 bg-slate-50 text-slate-600"}
-                                  >
-                                    <Building2 className="h-3 w-3" />
-                                    {isScrapedJob(job) ? "Live" : "Demo"}
-                                  </Badge>
-                                  {job.isNew && (
-                                    <Badge className="bg-accent text-slate-900 hover:bg-accent/90 badge-pulse-new">Neu</Badge>
-                                  )}
-                                  {job.isUrgent && (
-                                    <Badge variant="destructive" className="badge-pulse-urgent">Dringend</Badge>
-                                  )}
-                                  {job.salary && (
-                                    <Badge variant="outline" className="border-primary/30 bg-primary/5 text-primary">
-                                      <Wallet className="h-3 w-3" />
-                                      {job.salary}
-                                    </Badge>
-                                  )}
-                                  {job.isRemote === true && (
-                                    <Badge variant="outline" className="border-sky-200 bg-sky-50 text-sky-700">
-                                      Remote
-                                    </Badge>
-                                  )}
+                            {/* Title row */}
+                            <div className="flex flex-wrap items-center gap-2 mb-3">
+                              <h3 className="text-base sm:text-xl font-bold text-slate-900 group-hover:text-primary transition-colors duration-200 break-words">
+                                {job.title}
+                              </h3>
+                              <Badge
+                                variant="outline"
+                                className={isScrapedJob(job) ? "border-emerald-200 bg-emerald-50 text-emerald-700" : "border-slate-200 bg-slate-50 text-slate-600"}
+                              >
+                                <Building2 className="h-3 w-3" />
+                                {isScrapedJob(job) ? "Live" : "Demo"}
+                              </Badge>
+                              {job.isNew && (
+                                <Badge className="bg-accent text-slate-900 hover:bg-accent/90 badge-pulse-new">Neu</Badge>
+                              )}
+                              {job.isUrgent && (
+                                <Badge variant="destructive" className="badge-pulse-urgent">Dringend</Badge>
+                              )}
+                              {job.isRemote === true && (
+                                <Badge variant="outline" className="border-sky-200 bg-sky-50 text-sky-700">
+                                  Remote
+                                </Badge>
+                              )}
+                            </div>
+
+                            {/* Company */}
+                            <div className="flex items-center gap-1 text-sm font-medium text-slate-700 mb-3">
+                              <Briefcase className="h-4 w-4 text-primary" />
+                              {job.company}
+                            </div>
+
+                            {/* Structured info grid */}
+                            {(() => {
+                              const salaryDisplay = job.salary || (() => {
+                                const est = estimateSalary(job.title);
+                                return est ? `~${formatSalaryRange(est)}` : null;
+                              })();
+                              return (
+                                <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-slate-100 rounded-lg border border-slate-200 overflow-hidden mb-3">
+                                  <div className="bg-white px-3 py-2.5 flex flex-col gap-0.5">
+                                    <span className="flex items-center gap-1.5 text-sm font-semibold text-slate-900 truncate">
+                                      <MapPin className="h-3.5 w-3.5 text-primary shrink-0" />
+                                      {job.location}
+                                    </span>
+                                    <span className="text-[11px] text-slate-400 uppercase tracking-wide">Ort</span>
+                                  </div>
+                                  <div className="bg-white px-3 py-2.5 flex flex-col gap-0.5">
+                                    <span className="flex items-center gap-1.5 text-sm font-semibold text-slate-900 truncate">
+                                      <Wallet className="h-3.5 w-3.5 text-primary shrink-0" />
+                                      {salaryDisplay ?? "–"}
+                                    </span>
+                                    <span className="text-[11px] text-slate-400 uppercase tracking-wide">Lohn, CHF/Jahr</span>
+                                  </div>
+                                  <div className="bg-white px-3 py-2.5 flex flex-col gap-0.5">
+                                    <span className="flex items-center gap-1.5 text-sm font-semibold text-slate-900 truncate">
+                                      <Clock className="h-3.5 w-3.5 text-primary shrink-0" />
+                                      {job.workload}
+                                    </span>
+                                    <span className="text-[11px] text-slate-400 uppercase tracking-wide">Pensum</span>
+                                  </div>
+                                  <div className="bg-white px-3 py-2.5 flex flex-col gap-0.5">
+                                    <span className="flex items-center gap-1.5 text-sm font-semibold text-slate-900 truncate">
+                                      <CalendarDays className="h-3.5 w-3.5 text-primary shrink-0" />
+                                      {job.type}
+                                    </span>
+                                    <span className="text-[11px] text-slate-400 uppercase tracking-wide">Anstellungsart</span>
+                                  </div>
                                 </div>
+                              );
+                            })()}
 
-                                <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-y-1.5 sm:gap-x-4 sm:gap-y-1 text-sm text-slate-600 mb-3 sm:mb-4">
-                                  <span className="flex items-center gap-1 font-medium text-slate-700">
-                                    <Briefcase className="h-4 w-4" />
-                                    {job.company}
-                                  </span>
-                                  <span className="flex items-center gap-1">
-                                    <MapPin className="h-4 w-4" />
-                                    {job.location}
-                                  </span>
-                                  <span className="flex items-center gap-1">
-                                    <Clock className="h-4 w-4" />
-                                    {job.type} ({job.workload})
-                                  </span>
-                                </div>
-
-                                <p className="text-slate-600 text-sm line-clamp-2">{job.description}</p>
-                              </div>
-
-                              <div className="flex flex-col sm:flex-row md:flex-col items-start sm:items-center md:items-end gap-2 mt-3 md:mt-0">
+                            {/* Description + actions */}
+                            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+                              <p className="text-slate-600 text-sm line-clamp-2 flex-1 min-w-0">{job.description}</p>
+                              <div className="flex items-center gap-3 shrink-0">
                                 <Badge
                                   variant="secondary"
                                   className="bg-primary/10 text-primary hover:bg-primary/20 font-bold transition-colors duration-200"
                                 >
                                   <Zap className="h-3 w-3 mr-1 fill-current" />
-                                  Direkt bewerben
+                                  Bewerben
                                 </Badge>
-                                <span className="text-xs text-slate-400 sm:text-right flex items-center gap-1">
+                                <span className="text-xs text-slate-400 flex items-center gap-1 whitespace-nowrap">
                                   <CalendarDays className="h-3 w-3" />
                                   {new Date(job.datePosted).toLocaleDateString("de-CH")}
                                 </span>

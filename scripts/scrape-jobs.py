@@ -9,6 +9,7 @@ import sys
 import os
 import re
 import math
+import hashlib
 import argparse
 from datetime import datetime
 
@@ -530,8 +531,12 @@ def normalize_job(raw: dict, idx: int) -> dict | None:
     is_remote_val = raw.get("is_remote")
     is_remote = bool(is_remote_val) if is_remote_val is not None and not (isinstance(is_remote_val, float) and math.isnan(is_remote_val)) else False
 
+    # Stable ID from job URL so dedup works across runs
+    url_hash = hashlib.md5(job_url.encode()).hexdigest()[:12]
+    stable_id = f"scraped-{url_hash}"
+
     return {
-        "id": f"scraped-{idx}",
+        "id": stable_id,
         "title": title,
         "company": company,
         "location": location_str,
@@ -555,7 +560,7 @@ def normalize_job(raw: dict, idx: int) -> dict | None:
 
 def sync_to_supabase(normalized: list[dict], scraped_at: str):
     """Upsert all normalized jobs into Supabase."""
-    url = os.environ.get("SUPABASE_URL", "")
+    url = os.environ.get("SUPABASE_URL", "") or os.environ.get("NEXT_PUBLIC_SUPABASE_URL", "")
     key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
 
     if not HAS_SUPABASE:
@@ -634,7 +639,6 @@ def save_results(all_raw: list[dict], label: str = ""):
             filtered_out += 1
             continue
 
-        job["id"] = f"scraped-{len(normalized)}"
         normalized.append(job)
 
     normalized.sort(key=lambda j: j["datePosted"], reverse=True)
@@ -699,6 +703,9 @@ def load_existing_jobs() -> tuple[list[dict], set[str]]:
                 url = job.get("jobUrl", "")
                 if url and url not in seen_urls:
                     seen_urls.add(url)
+                    # Regenerate stable ID from URL
+                    url_hash = hashlib.md5(url.encode()).hexdigest()[:12]
+                    job["id"] = f"scraped-{url_hash}"
                     # Store as a pseudo-raw record so save_results can re-normalize
                     all_raw.append({
                         "_already_normalized": True,

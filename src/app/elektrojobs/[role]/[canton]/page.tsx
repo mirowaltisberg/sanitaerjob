@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Briefcase, Clock, MapPin } from "lucide-react";
+import { Briefcase, CalendarDays, Clock, MapPin, Wallet } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { findLandingPageBySlug, getLandingPath, TOP_LANDING_PAGES } from "@/lib/landing-pages";
 import { searchJobListings } from "@/lib/job-catalog";
 import type { JobListing } from "@/lib/job-types";
+import { estimateSalary, formatSalaryRange } from "@/lib/salary-estimates";
 
 interface LandingPageProps {
   params: Promise<{ role: string; canton: string }>;
@@ -101,37 +102,53 @@ export default async function LandingRolePage({ params }: LandingPageProps) {
             <Link key={`${job.source}-${job.id}`} href={buildJobHref(job, config.role, config.canton)} className="block group">
               <Card className="job-card hover:border-primary/50">
                 <CardContent className="p-4 sm:p-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2 mb-1.5">
-                        <h2 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-primary line-clamp-1">
-                          {job.title}
-                        </h2>
-                        <Badge
-                          variant="outline"
-                          className={job.source === "scraped" ? "border-emerald-200 bg-emerald-50 text-emerald-700" : "border-slate-200 bg-slate-50 text-slate-600"}
-                        >
-                          {job.source === "scraped" ? "Live" : "Demo"}
-                        </Badge>
-                      </div>
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-600">
-                        <span className="flex items-center gap-1">
-                          <Briefcase className="h-4 w-4" />
-                          {job.company}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <MapPin className="h-4 w-4" />
-                          {job.location}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Clock className="h-4 w-4" />
-                          {job.type} ({job.workload})
-                        </span>
-                      </div>
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <h2 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-primary line-clamp-1">
+                      {job.title}
+                    </h2>
+                    <Badge
+                      variant="outline"
+                      className={job.source === "scraped" ? "border-emerald-200 bg-emerald-50 text-emerald-700" : "border-slate-200 bg-slate-50 text-slate-600"}
+                    >
+                      {job.source === "scraped" ? "Live" : "Demo"}
+                    </Badge>
+                  </div>
+                  <div className="flex items-center gap-1 text-sm font-medium text-slate-700 mb-2.5">
+                    <Briefcase className="h-4 w-4 text-primary" />
+                    {job.company}
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-slate-100 rounded-lg border border-slate-200 overflow-hidden">
+                    <div className="bg-white px-2.5 py-2 flex flex-col gap-0.5">
+                      <span className="flex items-center gap-1 text-sm font-semibold text-slate-900 truncate">
+                        <MapPin className="h-3.5 w-3.5 text-primary shrink-0" />
+                        {job.location}
+                      </span>
+                      <span className="text-[11px] text-slate-400 uppercase tracking-wide">Ort</span>
                     </div>
-                    <span className="text-xs text-slate-400 shrink-0">
-                      {new Date(job.datePosted).toLocaleDateString("de-CH")}
-                    </span>
+                    <div className="bg-white px-2.5 py-2 flex flex-col gap-0.5">
+                      <span className="flex items-center gap-1 text-sm font-semibold text-slate-900 truncate">
+                        <Wallet className="h-3.5 w-3.5 text-primary shrink-0" />
+                        {job.salary || (() => {
+                          const est = estimateSalary(job.title);
+                          return est ? `~${formatSalaryRange(est)}` : "–";
+                        })()}
+                      </span>
+                      <span className="text-[11px] text-slate-400 uppercase tracking-wide">Lohn, CHF/Jahr</span>
+                    </div>
+                    <div className="bg-white px-2.5 py-2 flex flex-col gap-0.5">
+                      <span className="flex items-center gap-1 text-sm font-semibold text-slate-900 truncate">
+                        <Clock className="h-3.5 w-3.5 text-primary shrink-0" />
+                        {job.workload}
+                      </span>
+                      <span className="text-[11px] text-slate-400 uppercase tracking-wide">Pensum</span>
+                    </div>
+                    <div className="bg-white px-2.5 py-2 flex flex-col gap-0.5">
+                      <span className="flex items-center gap-1 text-sm font-semibold text-slate-900 truncate">
+                        <CalendarDays className="h-3.5 w-3.5 text-primary shrink-0" />
+                        {job.type}
+                      </span>
+                      <span className="text-[11px] text-slate-400 uppercase tracking-wide">Anstellungsart</span>
+                    </div>
                   </div>
                 </CardContent>
               </Card>

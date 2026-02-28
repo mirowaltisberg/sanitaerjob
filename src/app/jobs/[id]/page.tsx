@@ -19,6 +19,7 @@ import { getJobListingById, getSimilarJobListings } from "@/lib/job-catalog";
 import type { JobListing } from "@/lib/job-types";
 import { JobPrimaryAction, JobShareActions, RecentlyViewedJobs } from "@/components/job-detail-client-tools";
 import { TOP_LANDING_PAGES, getLandingPath } from "@/lib/landing-pages";
+import { estimateSalary, formatSalaryRange } from "@/lib/salary-estimates";
 
 interface JobDetailsPageProps {
   params: Promise<{ id: string }>;
@@ -157,12 +158,6 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
                         <Building2 className="h-3 w-3" />
                         {job.source === "scraped" ? "Live-Stelle" : "Demo-Stelle"}
                       </Badge>
-                      {job.salary && (
-                        <Badge variant="outline" className="border-primary/30 bg-primary/5 text-primary">
-                          <Wallet className="h-3 w-3" />
-                          {job.salary}
-                        </Badge>
-                      )}
                       {job.isRemote === true && (
                         <Badge variant="outline" className="border-sky-200 bg-sky-50 text-sky-700">
                           Remote
@@ -172,23 +167,44 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
                     <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 mb-3 sm:mb-4 break-words">
                       {job.title}
                     </h1>
-                    <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-y-2 sm:gap-x-4 text-sm text-slate-600">
-                      <span className="flex items-center gap-1 font-medium text-slate-900">
-                        <Briefcase className="h-5 w-5 text-primary" />
-                        {job.company}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <MapPin className="h-5 w-5 text-slate-400" />
-                        {job.location}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="h-5 w-5 text-slate-400" />
-                        {job.type} ({job.workload})
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <CalendarDays className="h-5 w-5 text-slate-400" />
-                        {new Date(job.datePosted).toLocaleDateString("de-CH")}
-                      </span>
+                    <div className="flex items-center gap-1 text-sm font-medium text-slate-900 mb-4">
+                      <Briefcase className="h-5 w-5 text-primary" />
+                      {job.company}
+                    </div>
+
+                    {/* Structured info grid */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-slate-100 rounded-xl border border-slate-200 overflow-hidden">
+                      <div className="bg-white px-3 sm:px-4 py-3 flex flex-col gap-0.5">
+                        <span className="flex items-center gap-1.5 text-sm font-semibold text-slate-900">
+                          <MapPin className="h-4 w-4 text-primary shrink-0" />
+                          {job.location}
+                        </span>
+                        <span className="text-[11px] text-slate-400 uppercase tracking-wide">Ort</span>
+                      </div>
+                      <div className="bg-white px-3 sm:px-4 py-3 flex flex-col gap-0.5">
+                        <span className="flex items-center gap-1.5 text-sm font-semibold text-slate-900">
+                          <Wallet className="h-4 w-4 text-primary shrink-0" />
+                          {job.salary || (() => {
+                            const est = estimateSalary(job.title);
+                            return est ? `~${formatSalaryRange(est)}` : "–";
+                          })()}
+                        </span>
+                        <span className="text-[11px] text-slate-400 uppercase tracking-wide">Lohn, CHF/Jahr</span>
+                      </div>
+                      <div className="bg-white px-3 sm:px-4 py-3 flex flex-col gap-0.5">
+                        <span className="flex items-center gap-1.5 text-sm font-semibold text-slate-900">
+                          <Clock className="h-4 w-4 text-primary shrink-0" />
+                          {job.workload}
+                        </span>
+                        <span className="text-[11px] text-slate-400 uppercase tracking-wide">Pensum</span>
+                      </div>
+                      <div className="bg-white px-3 sm:px-4 py-3 flex flex-col gap-0.5">
+                        <span className="flex items-center gap-1.5 text-sm font-semibold text-slate-900">
+                          <CalendarDays className="h-4 w-4 text-primary shrink-0" />
+                          {job.type}
+                        </span>
+                        <span className="text-[11px] text-slate-400 uppercase tracking-wide">Anstellungsart</span>
+                      </div>
                     </div>
                   </div>
 
@@ -297,6 +313,18 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
               <JobPrimaryAction job={job} />
 
               <div className="mt-6 pt-6 border-t text-sm text-slate-500 space-y-3">
+                {(() => {
+                  const salaryDisplay = job.salary || (() => {
+                    const est = estimateSalary(job.title);
+                    return est ? `~${formatSalaryRange(est)}` : null;
+                  })();
+                  return salaryDisplay ? (
+                    <div className="flex justify-between gap-3">
+                      <span>Lohn/Jahr</span>
+                      <span className="font-medium text-slate-900 text-right">{salaryDisplay}</span>
+                    </div>
+                  ) : null;
+                })()}
                 <div className="flex justify-between">
                   <span>Publiziert</span>
                   <span className="font-medium text-slate-900">
