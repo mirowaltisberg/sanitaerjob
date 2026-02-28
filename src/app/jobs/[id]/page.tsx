@@ -293,7 +293,7 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
       <header className="border-b sticky top-0 z-30 header-blur animate-header">
         <div className="container mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2">
           <Link href="/" className="flex items-center shrink-0">
-            <Image src="/logo.svg" alt="Elektrojob.ch" width={200} height={32} className="h-7 sm:h-8 w-auto" />
+            <Image src="/logo.svg" alt="elektrojob.ch — Elektrojobs in der Schweiz" width={200} height={32} className="h-7 sm:h-8 w-auto" />
           </Link>
           <nav className="shrink-0">
             <Button variant="ghost" size="sm" asChild className="text-sm px-2 sm:px-4 h-9 sm:h-10 btn-interactive">
@@ -316,7 +316,7 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           <div className="flex-1 min-w-0 space-y-6 sm:space-y-8">
             <AnimateOnScroll>
-              <div className="bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border shadow-sm">
+              <article className="bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border shadow-sm">
                 <div className="flex flex-col gap-4 mb-6">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-2">
@@ -387,7 +387,7 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
 
                   {job.responsibilities.length > 0 && (
                     <>
-                      <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-4">Deine Aufgaben</h3>
+                      <h2 className="text-lg sm:text-xl font-bold text-slate-900 mb-4">Deine Aufgaben</h2>
                       <ul className="space-y-2.5 sm:space-y-3 mb-8">
                         {job.responsibilities.map((item, i) => (
                           <li key={i} className="flex items-start gap-2.5 sm:gap-3">
@@ -401,7 +401,7 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
 
                   {job.requirements.length > 0 && (
                     <>
-                      <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-4">Dein Profil</h3>
+                      <h2 className="text-lg sm:text-xl font-bold text-slate-900 mb-4">Dein Profil</h2>
                       <ul className="space-y-2.5 sm:space-y-3 mb-8">
                         {job.requirements.map((item, i) => (
                           <li key={i} className="flex items-start gap-2.5 sm:gap-3">
@@ -415,7 +415,7 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
 
                   {job.benefits.length > 0 && (
                     <>
-                      <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-4">Was wir bieten</h3>
+                      <h2 className="text-lg sm:text-xl font-bold text-slate-900 mb-4">Was wir bieten</h2>
                       <ul className="space-y-2.5 sm:space-y-3">
                         {job.benefits.map((item, i) => (
                           <li key={i} className="flex items-start gap-2.5 sm:gap-3">
@@ -427,12 +427,12 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
                     </>
                   )}
                 </div>
-              </div>
+              </article>
             </AnimateOnScroll>
 
             <AnimateOnScroll delay={80}>
-              <div className="bg-white border rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-3">Ähnliche Jobs</h3>
+              <nav aria-label="Ähnliche Stellenangebote" className="bg-white border rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
+                <h2 className="text-base sm:text-lg font-bold text-slate-900 mb-3">Ähnliche Jobs</h2>
                 <div className="space-y-2">
                   {similarJobs.map((item) => (
                     <Link
@@ -445,7 +445,7 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
                     </Link>
                   ))}
                 </div>
-              </div>
+              </nav>
             </AnimateOnScroll>
 
             <AnimateOnScroll delay={100}>
@@ -453,8 +453,8 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
             </AnimateOnScroll>
 
             <AnimateOnScroll delay={120}>
-              <div className="bg-white border rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-3">Beliebte Suchseiten</h3>
+              <nav aria-label="Beliebte Stellenangebote" className="bg-white border rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
+                <h2 className="text-base sm:text-lg font-bold text-slate-900 mb-3">Beliebte Suchseiten</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {TOP_LANDING_PAGES.map((item) => (
                     <Link
@@ -466,14 +466,14 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
                     </Link>
                   ))}
                 </div>
-              </div>
+              </nav>
             </AnimateOnScroll>
           </div>
 
           <AnimateOnScroll delay={120} className="hidden lg:block lg:w-80 shrink-0">
-            <div className="bg-white p-6 rounded-2xl border shadow-sm sticky top-24">
+            <aside className="bg-white p-6 rounded-2xl border shadow-sm sticky top-24">
               <div className="mb-6">
-                <h3 className="font-bold text-slate-900 mb-2">Interessiert an dieser Stelle?</h3>
+                <h2 className="font-bold text-slate-900 mb-2">Interessiert an dieser Stelle?</h2>
                 <p className="text-sm text-slate-500">
                   Jetzt in weniger als 2 Minuten bewerben. Kein Konto nötig.
                 </p>
@@ -505,7 +505,7 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
                   <span className="font-medium text-slate-900 break-all text-right">{getDisplayJobId(job)}</span>
                 </div>
               </div>
-            </div>
+            </aside>
           </AnimateOnScroll>
         </div>
       </main>
