@@ -15,11 +15,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
+import { JsonLd } from "@/components/json-ld";
 import { getJobListingById, getSimilarJobListings } from "@/lib/job-catalog";
 import type { JobListing } from "@/lib/job-types";
 import { JobPrimaryAction, JobShareActions, RecentlyViewedJobs } from "@/components/job-detail-client-tools";
 import { TOP_LANDING_PAGES, getLandingPath } from "@/lib/landing-pages";
-import { estimateSalary, formatSalaryRange } from "@/lib/salary-estimates";
+import { estimateSalary, formatSalaryRange, type SalaryRange } from "@/lib/salary-estimates";
 
 interface JobDetailsPageProps {
   params: Promise<{ id: string }>;
@@ -42,6 +43,170 @@ function getDisplayJobId(job: JobListing): string {
     return `LIVE-${job.id}`;
   }
   return `ELK-${job.id.padStart(4, "0")}`;
+}
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://elektrojob.ch";
+
+// SEO-DECISION: Map Swiss-German job type labels to schema.org employmentType values
+function mapEmploymentType(type: string): string | string[] {
+  const lower = type.toLowerCase();
+  if (lower.includes("vollzeit") || lower === "full-time") return "FULL_TIME";
+  if (lower.includes("teilzeit") || lower === "part-time") return "PART_TIME";
+  if (lower.includes("temporär") || lower.includes("temp")) return "TEMPORARY";
+  if (lower.includes("praktikum") || lower.includes("intern")) return "INTERN";
+  if (lower.includes("freelance") || lower.includes("freiberuf")) return "CONTRACTOR";
+  // "Festanstellung", "Unbefristet" → FULL_TIME as default
+  return "FULL_TIME";
+}
+
+// SEO-DECISION: Parse location string "City, Canton" into structured address parts
+function parseSwissLocation(location: string): { locality: string; region: string } {
+  const parts = location.split(",").map((p) => p.trim());
+  return {
+    locality: parts[0] || location,
+    region: parts[1] || "",
+  };
+}
+
+// SEO-DECISION: Parse salary string or use estimated range for baseSalary schema
+function buildSalarySchema(
+  salaryStr: string | undefined,
+  estimatedRange: SalaryRange | null
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Record<string, any> | undefined {
+  const range = estimatedRange;
+
+  // Try to extract numeric values from salary string
+  if (salaryStr) {
+    const numbers = salaryStr.match(/[\d']+/g);
+    if (numbers && numbers.length >= 2) {
+      const min = parseInt(numbers[0].replace(/'/g, ""), 10);
+      const max = parseInt(numbers[1].replace(/'/g, ""), 10);
+      if (min > 0 && max > 0) {
+        return {
+          "@type": "MonetaryAmount",
+          currency: "CHF",
+          value: {
+            "@type": "QuantitativeValue",
+            minValue: min,
+            maxValue: max,
+            unitText: "YEAR",
+          },
+        };
+      }
+    }
+  }
+
+  // Fall back to estimated salary range
+  if (range) {
+    return {
+      "@type": "MonetaryAmount",
+      currency: "CHF",
+      value: {
+        "@type": "QuantitativeValue",
+        minValue: range.min,
+        maxValue: range.max,
+        unitText: "YEAR",
+      },
+    };
+  }
+
+  return undefined;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function buildJobPostingSchema(job: JobListing): Record<string, any> {
+  const { locality, region } = parseSwissLocation(job.location);
+  const salaryEstimate = estimateSalary(job.title);
+  const baseSalary = buildSalarySchema(job.salary, salaryEstimate);
+
+  // SEO-DECISION: validThrough defaults to datePosted + 60 days if not explicitly set
+  const postedDate = new Date(job.datePosted);
+  const validThrough = new Date(postedDate);
+  validThrough.setDate(validThrough.getDate() + 60);
+
+  const fullDescription = job.fullDescription || job.description;
+  // Build a richer description from structured sections
+  const descriptionParts = [fullDescription];
+  if (job.responsibilities.length > 0) {
+    descriptionParts.push("\n\nAufgaben:\n" + job.responsibilities.map((r) => `- ${r}`).join("\n"));
+  }
+  if (job.requirements.length > 0) {
+    descriptionParts.push("\n\nAnforderungen:\n" + job.requirements.map((r) => `- ${r}`).join("\n"));
+  }
+  if (job.benefits.length > 0) {
+    descriptionParts.push("\n\nWir bieten:\n" + job.benefits.map((b) => `- ${b}`).join("\n"));
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const schema: Record<string, any> = {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: job.title,
+    description: descriptionParts.join(""),
+    datePosted: job.datePosted,
+    validThrough: validThrough.toISOString().split("T")[0],
+    employmentType: mapEmploymentType(job.type),
+    hiringOrganization: {
+      "@type": "Organization",
+      name: job.company,
+      ...(job.companyUrl ? { sameAs: job.companyUrl } : {}),
+    },
+    jobLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: locality,
+        ...(region ? { addressRegion: region } : {}),
+        addressCountry: "CH",
+      },
+    },
+    directApply: true,
+    industry: "Elektroinstallation & Gebäudetechnik",
+    url: `${SITE_URL}/jobs/${job.id}`,
+  };
+
+  if (baseSalary) {
+    schema.baseSalary = baseSalary;
+  }
+
+  if (job.isRemote === true) {
+    schema.jobLocationType = "TELECOMMUTE";
+  }
+
+  if (job.workload) {
+    // SEO-DECISION: Extract workload percentage as workHours annotation
+    schema.workHours = job.workload;
+  }
+
+  return schema;
+}
+
+function buildJobBreadcrumbSchema(job: JobListing) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Startseite",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Elektrojobs",
+        item: `${SITE_URL}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: job.title,
+        item: `${SITE_URL}/jobs/${job.id}`,
+      },
+    ],
+  };
 }
 
 function buildJobHref(job: JobListing, fallbackQuery: string, fallbackLocation: string): string {
@@ -122,6 +287,8 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
+      <JsonLd data={buildJobPostingSchema(job)} />
+      <JsonLd data={buildJobBreadcrumbSchema(job)} />
       <header className="border-b sticky top-0 z-30 header-blur animate-header">
         <div className="container mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2">
           <Link href="/" className="flex items-center shrink-0">
