@@ -150,7 +150,7 @@ export function RecentlyViewedJobs({ currentJob, currentHref }: RecentlyViewedJo
 
   return (
     <div className="bg-white border rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
-      <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-3">Zuletzt angesehen</h3>
+      <h2 className="text-base sm:text-lg font-bold text-slate-900 mb-3">Zuletzt angesehen</h2>
       <ul className="space-y-2">
         {recentJobs.map((entry) => (
           <li key={`${entry.source}-${entry.id}`}>

@@ -1,0 +1,33 @@
+# elektrojob.ch
+
+> Die spezialisierte Jobbörse für Elektro-Fachkräfte in der Schweiz.
+
+elektrojob.ch ist eine Nischen-Jobbörse für die Schweizer Elektrobranche. Die Plattform richtet sich an Elektroinstallateure, Montage-Elektriker, Servicetechniker, Projektleiter Elektro, Automatiker, Elektroplaner, Elektromonteure, Gebäudetechniker, Photovoltaik-Spezialisten, Schaltanlagenbauer, Bauleiter Elektro und Betriebselektriker.
+
+## Wichtige Seiten
+
+- [Startseite](https://elektrojob.ch/): Jobsuche mit Filtern nach Beruf, Ort, Umkreis, Pensum
+- [Elektroinstallateur EFZ Jobs Zürich](https://elektrojob.ch/elektrojobs/elektroinstallateur-efz/zh): Beispiel-Landingpage
+- [Sitemap](https://elektrojob.ch/sitemap.xml): Alle verfügbaren Seiten
+
+## Kerninformationen
+
+- **Sprache**: Deutsch (Schweizer Markt)
+- **Regionen**: Alle Schweizer Kantone — Zürich, Bern, Basel, Aargau, St. Gallen, Luzern, Solothurn, Zug und weitere
+- **Berufe**: Elektroinstallateur EFZ, Montage-Elektriker EFZ, Servicetechniker Elektro, Projektleiter Elektro, Automatiker EFZ, Elektroplaner, Elektromonteur, Gebäudetechniker, Photovoltaik-Spezialist, Schaltanlagenbauer, Bauleiter Elektro, Betriebselektriker
+- **Lohndaten (Richtwerte, CHF/Jahr)**:
+  - Bauleiter Elektro: 90'000 – 120'000
+  - Projektleiter Elektro: 85'000 – 110'000
+  - Elektroplaner: 80'000 – 100'000
+  - Elektroinstallateur EFZ: 75'000 – 95'000
+  - Automatiker EFZ: 75'000 – 95'000
+  - Gebäudetechniker: 75'000 – 95'000
+  - Servicetechniker Elektro: 75'000 – 90'000
+  - Montage-Elektriker EFZ: 75'000 – 80'000
+  - Photovoltaik-Spezialist: 70'000 – 90'000
+  - Elektromonteur: 70'000 – 85'000
+
+## Kontakt
+
+- **Website**: https://elektrojob.ch
+- **Branche**: Personalvermittlung / Jobbörse — Elektrobranche Schweiz

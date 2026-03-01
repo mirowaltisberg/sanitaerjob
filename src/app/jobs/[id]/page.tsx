@@ -15,11 +15,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
+import { JsonLd } from "@/components/json-ld";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { getJobListingById, getSimilarJobListings } from "@/lib/job-catalog";
 import type { JobListing } from "@/lib/job-types";
 import { JobPrimaryAction, JobShareActions, RecentlyViewedJobs } from "@/components/job-detail-client-tools";
 import { TOP_LANDING_PAGES, getLandingPath } from "@/lib/landing-pages";
-import { estimateSalary, formatSalaryRange } from "@/lib/salary-estimates";
+import { estimateSalary, formatSalaryRange, type SalaryRange } from "@/lib/salary-estimates";
 
 interface JobDetailsPageProps {
   params: Promise<{ id: string }>;
@@ -42,6 +44,170 @@ function getDisplayJobId(job: JobListing): string {
     return `LIVE-${job.id}`;
   }
   return `ELK-${job.id.padStart(4, "0")}`;
+}
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://elektrojob.ch";
+
+// SEO-DECISION: Map Swiss-German job type labels to schema.org employmentType values
+function mapEmploymentType(type: string): string | string[] {
+  const lower = type.toLowerCase();
+  if (lower.includes("vollzeit") || lower === "full-time") return "FULL_TIME";
+  if (lower.includes("teilzeit") || lower === "part-time") return "PART_TIME";
+  if (lower.includes("temporär") || lower.includes("temp")) return "TEMPORARY";
+  if (lower.includes("praktikum") || lower.includes("intern")) return "INTERN";
+  if (lower.includes("freelance") || lower.includes("freiberuf")) return "CONTRACTOR";
+  // "Festanstellung", "Unbefristet" → FULL_TIME as default
+  return "FULL_TIME";
+}
+
+// SEO-DECISION: Parse location string "City, Canton" into structured address parts
+function parseSwissLocation(location: string): { locality: string; region: string } {
+  const parts = location.split(",").map((p) => p.trim());
+  return {
+    locality: parts[0] || location,
+    region: parts[1] || "",
+  };
+}
+
+// SEO-DECISION: Parse salary string or use estimated range for baseSalary schema
+function buildSalarySchema(
+  salaryStr: string | undefined,
+  estimatedRange: SalaryRange | null
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Record<string, any> | undefined {
+  const range = estimatedRange;
+
+  // Try to extract numeric values from salary string
+  if (salaryStr) {
+    const numbers = salaryStr.match(/[\d']+/g);
+    if (numbers && numbers.length >= 2) {
+      const min = parseInt(numbers[0].replace(/'/g, ""), 10);
+      const max = parseInt(numbers[1].replace(/'/g, ""), 10);
+      if (min > 0 && max > 0) {
+        return {
+          "@type": "MonetaryAmount",
+          currency: "CHF",
+          value: {
+            "@type": "QuantitativeValue",
+            minValue: min,
+            maxValue: max,
+            unitText: "YEAR",
+          },
+        };
+      }
+    }
+  }
+
+  // Fall back to estimated salary range
+  if (range) {
+    return {
+      "@type": "MonetaryAmount",
+      currency: "CHF",
+      value: {
+        "@type": "QuantitativeValue",
+        minValue: range.min,
+        maxValue: range.max,
+        unitText: "YEAR",
+      },
+    };
+  }
+
+  return undefined;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function buildJobPostingSchema(job: JobListing): Record<string, any> {
+  const { locality, region } = parseSwissLocation(job.location);
+  const salaryEstimate = estimateSalary(job.title);
+  const baseSalary = buildSalarySchema(job.salary, salaryEstimate);
+
+  // SEO-DECISION: validThrough defaults to datePosted + 60 days if not explicitly set
+  const postedDate = new Date(job.datePosted);
+  const validThrough = new Date(postedDate);
+  validThrough.setDate(validThrough.getDate() + 60);
+
+  const fullDescription = job.fullDescription || job.description;
+  // Build a richer description from structured sections
+  const descriptionParts = [fullDescription];
+  if (job.responsibilities.length > 0) {
+    descriptionParts.push("\n\nAufgaben:\n" + job.responsibilities.map((r) => `- ${r}`).join("\n"));
+  }
+  if (job.requirements.length > 0) {
+    descriptionParts.push("\n\nAnforderungen:\n" + job.requirements.map((r) => `- ${r}`).join("\n"));
+  }
+  if (job.benefits.length > 0) {
+    descriptionParts.push("\n\nWir bieten:\n" + job.benefits.map((b) => `- ${b}`).join("\n"));
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const schema: Record<string, any> = {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: job.title,
+    description: descriptionParts.join(""),
+    datePosted: job.datePosted,
+    validThrough: validThrough.toISOString().split("T")[0],
+    employmentType: mapEmploymentType(job.type),
+    hiringOrganization: {
+      "@type": "Organization",
+      name: job.company,
+      ...(job.companyUrl ? { sameAs: job.companyUrl } : {}),
+    },
+    jobLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: locality,
+        ...(region ? { addressRegion: region } : {}),
+        addressCountry: "CH",
+      },
+    },
+    directApply: true,
+    industry: "Elektroinstallation & Gebäudetechnik",
+    url: `${SITE_URL}/jobs/${job.id}`,
+  };
+
+  if (baseSalary) {
+    schema.baseSalary = baseSalary;
+  }
+
+  if (job.isRemote === true) {
+    schema.jobLocationType = "TELECOMMUTE";
+  }
+
+  if (job.workload) {
+    // SEO-DECISION: Extract workload percentage as workHours annotation
+    schema.workHours = job.workload;
+  }
+
+  return schema;
+}
+
+function buildJobBreadcrumbSchema(job: JobListing) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Startseite",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Elektrojobs",
+        item: `${SITE_URL}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: job.title,
+        item: `${SITE_URL}/jobs/${job.id}`,
+      },
+    ],
+  };
 }
 
 function buildJobHref(job: JobListing, fallbackQuery: string, fallbackLocation: string): string {
@@ -122,10 +288,12 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
+      <JsonLd data={buildJobPostingSchema(job)} />
+      <JsonLd data={buildJobBreadcrumbSchema(job)} />
       <header className="border-b sticky top-0 z-30 header-blur animate-header">
         <div className="container mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2">
           <Link href="/" className="flex items-center shrink-0">
-            <Image src="/logo.svg" alt="Elektrojob.ch" width={200} height={32} className="h-7 sm:h-8 w-auto" />
+            <Image src="/logo.svg" alt="elektrojob.ch — Elektrojobs in der Schweiz" width={200} height={32} className="h-7 sm:h-8 w-auto" />
           </Link>
           <nav className="shrink-0">
             <Button variant="ghost" size="sm" asChild className="text-sm px-2 sm:px-4 h-9 sm:h-10 btn-interactive">
@@ -136,18 +304,19 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
       </header>
 
       <main className="flex-1 container mx-auto px-4 sm:px-6 py-5 sm:py-8 max-w-5xl pb-32 lg:pb-8">
-        <Link
-          href="/"
-          className="hidden sm:inline-flex items-center text-sm text-slate-500 hover:text-primary mb-4 sm:mb-6 transition-colors"
-        >
-          <ArrowLeft className="h-4 w-4 mr-1 shrink-0" />
-          <span className="truncate">Zurück zu den Suchergebnissen</span>
-        </Link>
+        <Breadcrumbs
+          items={[
+            { label: "Startseite", href: "/" },
+            { label: "Elektrojobs", href: "/" },
+            { label: job.title },
+          ]}
+          className="mb-4 sm:mb-6"
+        />
 
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           <div className="flex-1 min-w-0 space-y-6 sm:space-y-8">
             <AnimateOnScroll>
-              <div className="bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border shadow-sm">
+              <article className="bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border shadow-sm">
                 <div className="flex flex-col gap-4 mb-6">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-2">
@@ -218,7 +387,7 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
 
                   {job.responsibilities.length > 0 && (
                     <>
-                      <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-4">Deine Aufgaben</h3>
+                      <h2 className="text-lg sm:text-xl font-bold text-slate-900 mb-4">Deine Aufgaben</h2>
                       <ul className="space-y-2.5 sm:space-y-3 mb-8">
                         {job.responsibilities.map((item, i) => (
                           <li key={i} className="flex items-start gap-2.5 sm:gap-3">
@@ -232,7 +401,7 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
 
                   {job.requirements.length > 0 && (
                     <>
-                      <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-4">Dein Profil</h3>
+                      <h2 className="text-lg sm:text-xl font-bold text-slate-900 mb-4">Dein Profil</h2>
                       <ul className="space-y-2.5 sm:space-y-3 mb-8">
                         {job.requirements.map((item, i) => (
                           <li key={i} className="flex items-start gap-2.5 sm:gap-3">
@@ -246,7 +415,7 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
 
                   {job.benefits.length > 0 && (
                     <>
-                      <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-4">Was wir bieten</h3>
+                      <h2 className="text-lg sm:text-xl font-bold text-slate-900 mb-4">Was wir bieten</h2>
                       <ul className="space-y-2.5 sm:space-y-3">
                         {job.benefits.map((item, i) => (
                           <li key={i} className="flex items-start gap-2.5 sm:gap-3">
@@ -258,12 +427,12 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
                     </>
                   )}
                 </div>
-              </div>
+              </article>
             </AnimateOnScroll>
 
             <AnimateOnScroll delay={80}>
-              <div className="bg-white border rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-3">Ähnliche Jobs</h3>
+              <nav aria-label="Ähnliche Stellenangebote" className="bg-white border rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
+                <h2 className="text-base sm:text-lg font-bold text-slate-900 mb-3">Ähnliche Jobs</h2>
                 <div className="space-y-2">
                   {similarJobs.map((item) => (
                     <Link
@@ -276,7 +445,7 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
                     </Link>
                   ))}
                 </div>
-              </div>
+              </nav>
             </AnimateOnScroll>
 
             <AnimateOnScroll delay={100}>
@@ -284,10 +453,10 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
             </AnimateOnScroll>
 
             <AnimateOnScroll delay={120}>
-              <div className="bg-white border rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-3">Beliebte Suchseiten</h3>
+              <nav aria-label="Beliebte Stellenangebote" className="bg-white border rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">
+                <h2 className="text-base sm:text-lg font-bold text-slate-900 mb-3">Beliebte Suchseiten</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {TOP_LANDING_PAGES.map((item) => (
+                  {TOP_LANDING_PAGES.slice(0, 8).map((item) => (
                     <Link
                       key={`${item.role}-${item.canton}`}
                       href={getLandingPath(item)}
@@ -297,14 +466,14 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
                     </Link>
                   ))}
                 </div>
-              </div>
+              </nav>
             </AnimateOnScroll>
           </div>
 
           <AnimateOnScroll delay={120} className="hidden lg:block lg:w-80 shrink-0">
-            <div className="bg-white p-6 rounded-2xl border shadow-sm sticky top-24">
+            <aside className="bg-white p-6 rounded-2xl border shadow-sm sticky top-24">
               <div className="mb-6">
-                <h3 className="font-bold text-slate-900 mb-2">Interessiert an dieser Stelle?</h3>
+                <h2 className="font-bold text-slate-900 mb-2">Interessiert an dieser Stelle?</h2>
                 <p className="text-sm text-slate-500">
                   Jetzt in weniger als 2 Minuten bewerben. Kein Konto nötig.
                 </p>
@@ -336,7 +505,7 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
                   <span className="font-medium text-slate-900 break-all text-right">{getDisplayJobId(job)}</span>
                 </div>
               </div>
-            </div>
+            </aside>
           </AnimateOnScroll>
         </div>
       </main>
