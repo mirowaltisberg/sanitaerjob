@@ -88,7 +88,8 @@ export function HomepageSeoContent() {
           <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-4">
             Auf elektrojob.ch finden Elektro-Fachkräfte aktuelle offene Stellen in der ganzen Schweiz
             — von Elektroinstallateur EFZ über Montage-Elektriker und Projektleiter Elektro bis hin zu
-            Automatiker, Elektroplaner und Photovoltaik-Spezialisten. Unsere spezialisierte Jobbörse
+            Automatiker, Elektroplaner und Photovoltaik-Spezialisten. Ob du deinen nächsten Elektrojob
+            in Zürich, Bern oder Basel suchst — unsere spezialisierte Jobbörse
             richtet sich an alle Berufsleute der Elektrobranche.
           </p>
           <p className="text-slate-600 text-base leading-relaxed">
@@ -105,6 +106,10 @@ export function HomepageSeoContent() {
           </h2>
           <p className="text-slate-500 text-sm mb-4">
             Durchschnittliche Jahresgehälter für Elektro-Fachkräfte in der Schweiz (2025/2026, Richtwerte).
+            Quellen:{" "}
+            <a href="https://www.eit.swiss" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-700">EIT.swiss</a>,{" "}
+            <a href="https://www.electrosuisse.ch" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-700">Electrosuisse</a>,{" "}
+            <a href="https://www.bfs.admin.ch" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-700">BFS</a>.
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">

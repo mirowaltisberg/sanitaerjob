@@ -14,7 +14,9 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://elektrojob.ch";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Elektrojobs Schweiz | Offene Stellen für Elektro-Fachkräfte | elektrojob.ch",
+    // SEO-DECISION: Domain removed from default title per Seobility audit —
+    // domain in title is penalized. Template keeps "elektrojob.ch" for inner pages.
+    default: "Elektrojobs Schweiz — Offene Stellen für Elektro-Fachkräfte",
     template: "%s | elektrojob.ch",
   },
   description:
@@ -37,7 +39,7 @@ export const metadata: Metadata = {
     "Stellen Elektrobranche Schweiz",
   ],
   openGraph: {
-    title: "Elektrojobs Schweiz | Offene Stellen für Elektro-Fachkräfte | elektrojob.ch",
+    title: "Elektrojobs Schweiz — Offene Stellen für Elektro-Fachkräfte",
     description:
       "Finde aktuelle Elektrojobs in der ganzen Schweiz — Elektroinstallateur, Montage-Elektriker, Projektleiter Elektro und mehr. Jetzt Stellen vergleichen und direkt bewerben.",
     type: "website",

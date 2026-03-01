@@ -136,10 +136,15 @@ export function SiteFooter() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-slate-800 pt-6 text-center">
-          <p className="text-sm">
-            © {new Date().getFullYear()} elektrojob.ch — Alle Rechte vorbehalten.
-          </p>
+        <div className="border-t border-slate-800 pt-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
+            <p>© {new Date().getFullYear()} elektrojob.ch — Alle Rechte vorbehalten.</p>
+            <nav aria-label="Branchenverbände" className="flex items-center gap-4">
+              <a href="https://www.eit.swiss" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">EIT.swiss</a>
+              <a href="https://www.electrosuisse.ch" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Electrosuisse</a>
+              <a href="https://www.esti.admin.ch" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">ESTI</a>
+            </nav>
+          </div>
         </div>
       </div>
     </footer>
