@@ -79,7 +79,7 @@ const organizationSchema = {
   "@type": "Organization",
   name: "elektrojob.ch",
   url: SITE_URL,
-  logo: `${SITE_URL}/logo.svg`,
+  logo: `${SITE_URL}/logo.png`,
   description:
     "elektrojob.ch ist die spezialisierte Jobbörse für Elektro-Fachkräfte in der Schweiz. Finde offene Stellen als Elektroinstallateur, Montage-Elektriker, Projektleiter Elektro und mehr.",
   foundingDate: "2025",
@@ -120,7 +120,7 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "elektrojob.ch",
-  image: `${SITE_URL}/logo.svg`,
+  image: `${SITE_URL}/logo.png`,
   url: SITE_URL,
   telephone: "",
   address: {
