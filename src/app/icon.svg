@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!--
+    Water droplet favicon
+    ViewBox: 0 0 48 48
+    Centered at x=24
+    Tip at top-center (24, 3), rounded base centered at (24, 32), radius≈13
+    Shape scaled to fill the 48x48 canvas with comfortable padding on all sides
+  -->
+  <path
+    d="M24 3 C17.5 13 9 23 9 32 C9 40.8 15.7 45 24 45 C32.3 45 39 40.8 39 32 C39 23 30.5 13 24 3 Z"
+    fill="#2563eb"/>
+</svg>

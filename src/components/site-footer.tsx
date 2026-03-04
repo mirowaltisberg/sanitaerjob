@@ -2,22 +2,22 @@ import Link from "next/link";
 import { TOP_LANDING_PAGES, getLandingPath, toRoleSlug, toCantonSlug } from "@/lib/landing-pages";
 
 const FOOTER_ROLES = [
-  "Elektroinstallateur EFZ",
-  "Montage-Elektriker EFZ",
-  "Servicetechniker Elektro",
-  "Projektleiter Elektro",
-  "Automatiker EFZ",
-  "Elektroplaner",
-  "Elektromonteur",
-  "Gebäudetechniker",
-  "Photovoltaik-Spezialist",
-  "Schaltanlagenbauer",
-  "Bauleiter Elektro",
-  "Betriebselektriker",
+  "Sanitärinstallateur EFZ",
+  "Heizungsinstallateur EFZ",
+  "Spengler EFZ",
+  "Projektleiter Sanitär",
+  "Sanitärplaner",
+  "Sanitärmonteur",
+  "Servicetechniker Sanitär",
+  "Lüftungsanlagenbauer EFZ",
+  "Rohrleitungsmonteur",
+  "Bauleiter HLKS",
+  "Gebäudetechnikplaner",
+  "Haustechnik-Monteur",
 ];
 
 const DEFAULT_CANTON = "ZH";
-const DEFAULT_ROLE = "Elektroinstallateur EFZ";
+const DEFAULT_ROLE = "Sanitärinstallateur EFZ";
 
 const FOOTER_CANTONS = [
   "Zürich", "Bern", "Basel", "Aargau", "St. Gallen", "Luzern",
@@ -37,13 +37,13 @@ export function SiteFooter() {
           <div>
             <img
               src="/logo.png"
-              alt="elektrojob.ch — Jobbörse für Elektro-Fachkräfte in der Schweiz"
+              alt="sanitaerjob.ch — Jobbörse für Sanitär-Fachkräfte in der Schweiz"
               width={142}
               height={29}
               className="h-8 w-auto brightness-0 invert mb-4"
             />
             <p className="text-sm leading-relaxed">
-              Die spezialisierte Jobbörse für Elektro-Fachkräfte in der Schweiz.
+              Die spezialisierte Jobbörse für Sanitär-Fachkräfte in der Schweiz.
               Finde offene Stellen, vergleiche Arbeitgeber und bewirb dich direkt.
             </p>
           </div>
@@ -57,7 +57,7 @@ export function SiteFooter() {
               {FOOTER_ROLES.map((role) => (
                 <li key={role}>
                   <Link
-                    href={`/elektrojobs/${toRoleSlug(role)}/${toCantonSlug(DEFAULT_CANTON)}`}
+                    href={`/sanitaerjobs/${toRoleSlug(role)}/${toCantonSlug(DEFAULT_CANTON)}`}
                     className="text-sm hover:text-white transition-colors duration-150"
                   >
                     {role}
@@ -67,7 +67,7 @@ export function SiteFooter() {
             </ul>
           </nav>
 
-          {/* Canton navigation — each links to the Elektroinstallateur page for that canton */}
+          {/* Canton navigation — each links to the Sanitärinstallateur page for that canton */}
           <nav aria-label="Kantone">
             <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-3">
               Jobs nach Kanton
@@ -76,10 +76,10 @@ export function SiteFooter() {
               {FOOTER_CANTONS.map((canton) => (
                 <li key={canton}>
                   <Link
-                    href={`/elektrojobs/${toRoleSlug(DEFAULT_ROLE)}/${toCantonSlug(canton)}`}
+                    href={`/sanitaerjobs/${toRoleSlug(DEFAULT_ROLE)}/${toCantonSlug(canton)}`}
                     className="text-sm hover:text-white transition-colors duration-150"
                   >
-                    Elektrojobs {canton}
+                    Sanitärjobs {canton}
                   </Link>
                 </li>
               ))}
@@ -111,13 +111,18 @@ export function SiteFooter() {
               </h3>
               <ul className="space-y-1.5">
                 <li>
-                  <Link href="/#" className="text-sm hover:text-white transition-colors duration-150">
+                  <Link href="/arbeitgeber/preise" className="text-sm hover:text-white transition-colors duration-150">
                     Stelle ausschreiben
                   </Link>
                 </li>
                 <li>
-                  <Link href="/#" className="text-sm hover:text-white transition-colors duration-150">
+                  <Link href="/arbeitgeber/preise" className="text-sm hover:text-white transition-colors duration-150">
                     Preise & Pakete
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/kontakt" className="text-sm hover:text-white transition-colors duration-150">
+                    Kontakt
                   </Link>
                 </li>
               </ul>
@@ -128,27 +133,27 @@ export function SiteFooter() {
         {/* Bottom bar */}
         <div className="border-t border-slate-800 pt-6 mt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
           <div className="flex flex-col sm:flex-row items-center gap-3">
-            <p>© {new Date().getFullYear()} elektrojob.ch — Alle Rechte vorbehalten.</p>
+            <p>© {new Date().getFullYear()} sanitaerjob.ch — Alle Rechte vorbehalten.</p>
             <nav aria-label="Branchenverbände" className="flex items-center gap-4">
-              <a href="https://www.eit.swiss" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">EIT.swiss</a>
-              <a href="https://www.electrosuisse.ch" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Electrosuisse</a>
-              <a href="https://www.esti.admin.ch" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">ESTI</a>
+              <a href="https://www.suissetec.ch" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">suissetec</a>
+              <a href="https://www.gebaeudeklima-schweiz.ch" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GebäudeKlima Schweiz</a>
+              <a href="https://www.svgw.ch" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">SVGW</a>
             </nav>
           </div>
           <div className="flex items-center gap-4">
-            <a href="https://facebook.com/elektrojob" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-slate-400 hover:text-white transition-colors">
+            <a href="https://facebook.com/sanitaerjob" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-slate-400 hover:text-white transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
             </a>
-            <a href="https://instagram.com/elektrojob" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-slate-400 hover:text-white transition-colors">
+            <a href="https://instagram.com/sanitaerjob" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-slate-400 hover:text-white transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
             </a>
-            <a href="https://twitter.com/elektrojob" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="text-slate-400 hover:text-white transition-colors">
+            <a href="https://twitter.com/sanitaerjob" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="text-slate-400 hover:text-white transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
             </a>
-            <a href="https://linkedin.com/company/elektrojob" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-slate-400 hover:text-white transition-colors">
+            <a href="https://linkedin.com/company/sanitaerjob" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-slate-400 hover:text-white transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
             </a>
-            <a href="https://youtube.com/@elektrojob" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-slate-400 hover:text-white transition-colors">
+            <a href="https://youtube.com/@sanitaerjob" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-slate-400 hover:text-white transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2.5 7.1C2.5 5 4.5 3 7 3h10c2.5 0 4.5 2 4.5 4.1v9.8c0 2.1-2 4.1-4.5 4.1H7c-2.5 0-4.5-2-4.5-4.1V7.1z"></path><path d="m10 8 5 4-5 4V8z"></path></svg>
             </a>
           </div>

@@ -1,13 +1,13 @@
 import type { MetadataRoute } from "next";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://elektrojob.ch";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://sanitaerjob.ch";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
         userAgent: "*",
-        allow: ["/", "/jobs/", "/elektrojobs/"],
+        allow: ["/", "/jobs/", "/sanitaerjobs/"],
         disallow: [
           "/api/",           // API routes — not for indexing
           "/*?*sort=",       // Filter/sort parameter URLs — duplicate content

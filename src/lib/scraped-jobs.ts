@@ -28,7 +28,7 @@ export interface ScrapedJob {
 export type ScrapedJobListing = Omit<ScrapedJob, "fullDescription">;
 
 // --- TTL cache ---
-const CACHE_TTL_MS = 60_000;
+const CACHE_TTL_MS = 300_000;
 let cachedJobs: ScrapedJob[] | null = null;
 let cachedAt = 0;
 
@@ -138,7 +138,13 @@ export async function getScrapedJobById(id: string): Promise<ScrapedJob | null> 
   return jobs.find((j) => j.id === id) ?? null;
 }
 
+let cachedMeta: { scrapedAt: string; totalJobs: number } | null = null;
+let cachedMetaAt = 0;
+const META_CACHE_TTL_MS = 300_000;
+
 export async function getScrapedMeta(): Promise<{ scrapedAt: string; totalJobs: number } | null> {
+  if (cachedMeta && Date.now() - cachedMetaAt < META_CACHE_TTL_MS) return cachedMeta;
+
   try {
     const { data, error } = await supabase
       .from("scrape_metadata")
@@ -147,10 +153,12 @@ export async function getScrapedMeta(): Promise<{ scrapedAt: string; totalJobs: 
       .single();
 
     if (!error && data) {
-      return {
+      cachedMeta = {
         scrapedAt: data.scraped_at as string,
         totalJobs: data.total_jobs as number,
       };
+      cachedMetaAt = Date.now();
+      return cachedMeta;
     }
   } catch {
     // fall through

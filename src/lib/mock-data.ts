@@ -17,20 +17,20 @@ export interface Job {
 export const mockJobs: Job[] = [
   {
     id: "1",
-    title: "Elektroinstallateur EFZ (m/w/d)",
-    company: "VoltTech AG",
+    title: "Sanitärinstallateur EFZ (m/w/d)",
+    company: "AquaTech AG",
     location: "Zürich, ZH",
     type: "Full-time",
     workload: "100%",
-    description: "Wir suchen einen engagierten Elektroinstallateur für spannende Neubau- und Umbauprojekte im Raum Zürich.",
+    description: "Wir suchen einen engagierten Sanitärinstallateur für spannende Neubau- und Umbauprojekte im Raum Zürich.",
     responsibilities: [
-      "Ausführung von Stark- und Schwachstrominstallationen",
-      "Inbetriebnahme und Prüfung von elektrischen Anlagen",
+      "Installation von Wasser- und Abwasserleitungen",
+      "Montage und Anschluss von Sanitärapparaten",
       "Planlesen und selbständige Umsetzung auf der Baustelle",
       "Dokumentation der ausgeführten Arbeiten"
     ],
     requirements: [
-      "Abgeschlossene Lehre als Elektroinstallateur EFZ",
+      "Abgeschlossene Lehre als Sanitärinstallateur EFZ",
       "Einige Jahre Berufserfahrung von Vorteil",
       "Gute Deutschkenntnisse",
       "Führerausweis Kategorie B"
@@ -46,20 +46,20 @@ export const mockJobs: Job[] = [
   },
   {
     id: "2",
-    title: "Montage-Elektriker EFZ",
-    company: "Licht & Kraft GmbH",
+    title: "Heizungsinstallateur EFZ",
+    company: "Thermo Haustechnik AG",
     location: "Bern, BE",
     type: "Full-time",
     workload: "80-100%",
-    description: "Unterstützen Sie unser Team bei der Umsetzung von modernen Elektroinstallationen in Wohn- und Gewerbebauten.",
+    description: "Unterstützen Sie unser Team bei der Installation und Wartung von modernen Heizungssystemen in Wohn- und Gewerbebauten.",
     responsibilities: [
-      "Rohbaueinlagen und Kabelzug",
-      "Montage von Schaltern und Steckdosen",
-      "Mithilfe bei der Gebäudeautomation",
-      "Allgemeine elektrische Montagearbeiten"
+      "Installation von Heizungsanlagen (Wärmepumpen, Gas, Öl)",
+      "Inbetriebnahme und Einregulierung von Heizsystemen",
+      "Wartungs- und Servicearbeiten an Heizungsanlagen",
+      "Rohrleitungsmontage und Anschlussarbeiten"
     ],
     requirements: [
-      "Abgeschlossene Ausbildung als Montage-Elektriker EFZ",
+      "Abgeschlossene Ausbildung als Heizungsinstallateur EFZ",
       "Handwerkliches Geschick und Zuverlässigkeit",
       "Teamfähigkeit und genaue Arbeitsweise"
     ],
@@ -72,12 +72,12 @@ export const mockJobs: Job[] = [
   },
   {
     id: "3",
-    title: "Projektleiter Elektro (w/m)",
-    company: "SmartHome Systems SA",
+    title: "Projektleiter Sanitär (w/m)",
+    company: "Hydro Systems AG",
     location: "Basel, BS",
     type: "Full-time",
     workload: "100%",
-    description: "Leiten Sie innovative Smart-Home- und Gewerbeprojekte von der Planung bis zur Übergabe.",
+    description: "Leiten Sie anspruchsvolle Sanitärprojekte im Wohn- und Gewerbebau von der Planung bis zur Übergabe.",
     responsibilities: [
       "Projektleitung von A bis Z inklusive Kostenkontrolle",
       "Kundenberatung und Offertenerstellung",
@@ -85,9 +85,9 @@ export const mockJobs: Job[] = [
       "Qualitätssicherung und Abnahme"
     ],
     requirements: [
-      "Weiterbildung zum Elektro-Sicherheitsberater oder Elektro-Projektleiter",
+      "Weiterbildung zum Projektleiter Sanitär oder Sanitärmeister",
       "Führungserfahrung in einer ähnlichen Position",
-      "Kenntnisse in Gebäudeautomation (KNX/DALI)",
+      "Kenntnisse der SIA-Normen und Sanitärplanung",
       "Verhandlungsgeschick und souveränes Auftreten"
     ],
     benefits: [
@@ -100,25 +100,25 @@ export const mockJobs: Job[] = [
   },
   {
     id: "4",
-    title: "Automatiker EFZ / Schaltanlagenbauer",
-    company: "ControlSys Group",
-    location: "Luzern, BL",
+    title: "Spengler EFZ / Sanitärmonteur",
+    company: "Alpin Installationen AG",
+    location: "Luzern, LU",
     type: "Full-time",
     workload: "100%",
-    description: "Sie bauen und verdrahten Schaltgerätekombinationen und Steuerungen für die Industrie.",
+    description: "Sie arbeiten mit Blech und führen Sanitärmontagen auf Baustellen und in bestehenden Gebäuden aus.",
     responsibilities: [
-      "Aufbau und Verdrahtung von Steuer- und Schaltanlagen",
-      "Prüfung der fertigen Anlagen nach Schema",
-      "Fehlersuche und Behebung",
-      "Mithilfe bei Inbetriebnahmen"
+      "Montage von Blechverkleidungen und Entwässerungssystemen",
+      "Verlegen und Verbinden von Rohrleitungen",
+      "Montage von Sanitärapparaten und Armaturen",
+      "Mithilfe bei Dach- und Fassadenarbeiten"
     ],
     requirements: [
-      "Berufsabschluss als Automatiker EFZ oder Schaltanlagenmonteur",
-      "Exaktes Lesen von Elektroschemata",
-      "Selbständige und präzise Arbeitsweise"
+      "Berufsabschluss als Spengler EFZ oder Sanitärmonteur",
+      "Schwindelfreiheit und präzises Arbeiten",
+      "Selbständige und zuverlässige Arbeitsweise"
     ],
     benefits: [
-      "Moderne Werkstatt",
+      "Moderne Werkzeuge und Ausrüstung",
       "Geregelte Arbeitszeiten ohne Schichtbetrieb",
       "Gute Anbindung an den ÖV"
     ],
@@ -126,20 +126,20 @@ export const mockJobs: Job[] = [
   },
   {
     id: "5",
-    title: "Servicetechniker Elektro",
-    company: "ElectroService 24",
-    location: "St. Gallen, LU",
+    title: "Servicetechniker Sanitär",
+    company: "Aqua Service AG",
+    location: "St. Gallen, SG",
     type: "Part-time",
     workload: "60-80%",
-    description: "Als Servicetechniker lösen Sie elektrische Störungen direkt bei unseren Kunden vor Ort.",
+    description: "Als Servicetechniker beheben Sie Sanitär- und Heizungsstörungen direkt bei unseren Kunden vor Ort.",
     responsibilities: [
-      "Behebung von elektrischen Störungen bei Privat- und Geschäftskunden",
-      "Kleinere Installationsanpassungen und Erweiterungen",
+      "Behebung von Sanitär- und Heizungsstörungen bei Privat- und Geschäftskunden",
+      "Kleinere Installationsanpassungen und Reparaturen",
       "Ausführung von Piketteinsätzen (ca. 1x im Monat)",
       "Kundenberatung vor Ort"
     ],
     requirements: [
-      "Ausbildung als Elektroinstallateur EFZ",
+      "Ausbildung als Sanitärinstallateur EFZ",
       "Freude am Kundenkontakt und gepflegtes Auftreten",
       "Lösungsorientierte Denkweise",
       "Gültiger Fahrausweis"

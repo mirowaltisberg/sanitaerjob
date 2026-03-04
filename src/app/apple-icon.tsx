@@ -1,8 +1,5 @@
 import { ImageResponse } from "next/og";
 
-// SEO-DECISION: Apple Touch Icon generated from code to match the brand lightning bolt.
-// This satisfies the Seobility "missing apple-touch-icon" warning.
-
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
@@ -16,7 +13,7 @@ export default function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#fba918",
+          background: "#2563eb",
           borderRadius: "36px",
         }}
       >
@@ -27,7 +24,7 @@ export default function AppleIcon() {
           height="120"
         >
           <path
-            d="M23.75 3L13.75 23h8L17.75 45 34.25 21h-8.5l5-18z"
+            d="M24 3C17.5 13 9 23 9 32C9 40.8 15.7 45 24 45C32.3 45 39 40.8 39 32C39 23 30.5 13 24 3Z"
             fill="white"
           />
         </svg>

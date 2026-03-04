@@ -17,7 +17,7 @@ import {
   SlidersHorizontal,
   Wallet,
   WifiOff,
-  Zap,
+  Droplets,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SearchDropdown } from "@/components/search-dropdown";
@@ -36,18 +36,16 @@ import { calculateDistanceKm, getRegionRadius, resolveLocationCoordinate, type C
 import { estimateSalary, formatSalaryRange } from "@/lib/salary-estimates";
 
 const JOB_SUGGESTIONS = [
-  "Elektroinstallateur",
-  "Montage-Elektriker",
-  "Servicetechniker",
-  "Projektleiter Elektro",
-  "Automatiker",
-  "Elektroplaner",
-  "Elektromonteur",
-  "Gebäudetechnik",
-  "Photovoltaik",
-  "Schaltanlagenbauer",
-  "Bauleiter Elektro",
-  "Betriebselektriker",
+  "Sanitärinstallateur",
+  "Heizungsinstallateur",
+  "Spengler",
+  "Projektleiter Sanitär",
+  "Sanitärplaner",
+  "Sanitärmonteur",
+  "Lüftungsanlagenbauer",
+  "Haustechnik",
+  "Servicetechniker Sanitär",
+  "Rohrleitungsmonteur",
 ];
 
 const LOCATION_SUGGESTIONS = [
@@ -79,10 +77,10 @@ const LOCATION_SUGGESTIONS = [
 ];
 
 const EMPLOYER_MENU_ITEMS = [
-  { label: "Arbeitgeber-Login", href: "#" },
-  { label: "Preise & Pakete", href: "#" },
-  { label: "Kandidatenzugang", href: "#" },
-  { label: "Support kontaktieren", href: "#" },
+  { label: "Arbeitgeber-Login", href: "/arbeitgeber/login" },
+  { label: "Preise & Pakete", href: "/arbeitgeber/preise" },
+  { label: "Kandidatenzugang", href: "/arbeitgeber/kandidaten" },
+  { label: "Support kontaktieren", href: "/kontakt" },
 ];
 
 const PAGE_SIZE = 12;
@@ -320,7 +318,21 @@ function isScrapedJob(job: JobListing): boolean {
   return job.source === "scraped";
 }
 
-export function HomepageSearch() {
+interface InitialJobData {
+  jobs: JobListing[];
+  total: number;
+  offset: number;
+  limit: number;
+  facets: JobFacets;
+  scrapedAt: string | null;
+  fallbackUsed: boolean;
+}
+
+interface HomepageSearchProps {
+  initialData?: InitialJobData;
+}
+
+export function HomepageSearch({ initialData }: HomepageSearchProps) {
   const { trigger } = useHaptic();
   const [query, setQuery] = useState("");
   const [location, setLocation] = useState("");
@@ -328,11 +340,11 @@ export function HomepageSearch() {
   const [activeLocation, setActiveLocation] = useState("");
   const [hasSearched, setHasSearched] = useState(false);
 
-  const [jobs, setJobs] = useState<JobListing[]>([]);
-  const [totalJobs, setTotalJobs] = useState(0);
-  const [facets, setFacets] = useState<JobFacets>(DEFAULT_FACETS);
-  const [scrapedAt, setScrapedAt] = useState<string | null>(null);
-  const [fallbackUsed, setFallbackUsed] = useState(false);
+  const [jobs, setJobs] = useState<JobListing[]>(initialData?.jobs ?? []);
+  const [totalJobs, setTotalJobs] = useState(initialData?.total ?? 0);
+  const [facets, setFacets] = useState<JobFacets>(initialData?.facets ?? DEFAULT_FACETS);
+  const [scrapedAt, setScrapedAt] = useState<string | null>(initialData?.scrapedAt ?? null);
+  const [fallbackUsed, setFallbackUsed] = useState(initialData?.fallbackUsed ?? false);
   const [searchKey, setSearchKey] = useState(0);
 
   const [typeFilter, setTypeFilter] = useState("all");
@@ -342,7 +354,7 @@ export function HomepageSearch() {
   const [radiusKm, setRadiusKm] = useState(DEFAULT_RADIUS_KM);
   const [sortBy, setSortBy] = useState<JobSort>("newest");
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!initialData);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
@@ -359,18 +371,20 @@ export function HomepageSearch() {
 
   useEffect(() => {
     const normalizedInput = location.trim();
-    if (!normalizedInput) {
+    if (normalizedInput.length < 2) {
       setPlzSuggestions([]);
       return;
     }
     const controller = new AbortController();
-    fetch(`/api/postal-codes?q=${encodeURIComponent(normalizedInput)}&limit=14`, {
-      signal: controller.signal,
-    })
-      .then((r) => r.json())
-      .then((data: string[]) => setPlzSuggestions(data))
-      .catch(() => { });
-    return () => controller.abort();
+    const timer = setTimeout(() => {
+      fetch(`/api/postal-codes?q=${encodeURIComponent(normalizedInput)}&limit=14`, {
+        signal: controller.signal,
+      })
+        .then((r) => r.json())
+        .then((data: string[]) => setPlzSuggestions(data))
+        .catch(() => { });
+    }, 250);
+    return () => { clearTimeout(timer); controller.abort(); };
   }, [location]);
 
   // Auto-set radius when a region is selected
@@ -530,29 +544,30 @@ export function HomepageSearch() {
     ]
   );
 
+  const urlParamsApplied = useRef(false);
+
   useEffect(() => {
+    if (!urlParamsApplied.current) {
+      urlParamsApplied.current = true;
+      const params = new URLSearchParams(window.location.search);
+      const urlQuery = params.get("q") ?? "";
+      const urlLocation = params.get("loc") ?? "";
+      const urlRadiusKm = params.get("radiusKm") ?? "";
+
+      if (urlQuery || urlLocation || urlRadiusKm) {
+        setQuery(urlQuery);
+        setLocation(urlLocation);
+        setActiveQuery(urlQuery);
+        setActiveLocation(normalizeLocationFilter(urlLocation));
+        if (urlRadiusKm === "all" || RADIUS_OPTIONS.some((option) => option.value === urlRadiusKm)) {
+          setRadiusKm(urlRadiusKm);
+        }
+        setHasSearched(true);
+        return;
+      }
+    }
     void runSearch(false);
   }, [runSearch]);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const urlQuery = params.get("q") ?? "";
-    const urlLocation = params.get("loc") ?? "";
-    const urlRadiusKm = params.get("radiusKm") ?? "";
-
-    if (!urlQuery && !urlLocation && !urlRadiusKm) {
-      return;
-    }
-
-    setQuery(urlQuery);
-    setLocation(urlLocation);
-    setActiveQuery(urlQuery);
-    setActiveLocation(normalizeLocationFilter(urlLocation));
-    if (urlRadiusKm === "all" || RADIUS_OPTIONS.some((option) => option.value === urlRadiusKm)) {
-      setRadiusKm(urlRadiusKm);
-    }
-    setHasSearched(true);
-  }, []);
 
   useEffect(() => {
     if (!hasTrackedFilterChange.current) {
@@ -592,6 +607,19 @@ export function HomepageSearch() {
 
   const visibleJobs = jobs.length;
   const canLoadMore = visibleJobs < totalJobs;
+
+  const salaryMap = useMemo(() => {
+    const map = new Map<string, string | null>();
+    for (const job of jobs) {
+      const display = job.salary || (() => {
+        const est = estimateSalary(job.title);
+        return est ? `~${formatSalaryRange(est)}` : null;
+      })();
+      map.set(`${job.source}-${job.id}`, display || null);
+    }
+    return map;
+  }, [jobs]);
+
   const staleData = !fallbackUsed && isScrapedStale(scrapedAt);
   const normalizedLocationDraft = normalizeLocationFilter(location);
   const normalizedActiveLocation = normalizeLocationFilter(activeLocation);
@@ -649,7 +677,7 @@ export function HomepageSearch() {
       <header className="border-b header-blur sticky top-0 z-30 animate-header">
         <div className="container mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2">
           <Link href="/" className="flex items-center shrink-0" onClick={resetToHome}>
-            <img src="/logo.png" alt="elektrojob.ch — Elektrojobs in der Schweiz" width={142} height={29} className="h-7 sm:h-8 w-auto" />
+            <img src="/logo.png" alt="sanitaerjob.ch — Sanitärjobs in der Schweiz" width={142} height={29} className="h-7 sm:h-8 w-auto" />
           </Link>
           <nav className="flex items-center gap-1 sm:gap-2 shrink-0">
             <HeaderDropdownMenu
@@ -659,10 +687,13 @@ export function HomepageSearch() {
             />
             <Button
               size="sm"
+              asChild
               className="text-xs sm:text-sm px-2.5 sm:px-4 h-8 sm:h-10 btn-interactive shadow-md shadow-primary/20"
             >
-              <span className="sm:hidden">Inserieren</span>
-              <span className="hidden sm:inline">Stelle ausschreiben</span>
+              <Link href="/arbeitgeber/preise">
+                <span className="sm:hidden">Inserieren</span>
+                <span className="hidden sm:inline">Stelle ausschreiben</span>
+              </Link>
             </Button>
           </nav>
         </div>
@@ -677,13 +708,11 @@ export function HomepageSearch() {
         >
           <div className="container mx-auto px-4 sm:px-6 text-center">
             <h1 className="animate-hero-title text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-4 sm:mb-6 tracking-tight leading-tight">
-              Finde deinen nächsten <span className="text-primary">Elektrojob</span>
-              <br className="hidden sm:block" />
-              <span className="sm:hidden"> </span>in der Schweiz
-              <span className="block text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-700 mt-2 sm:mt-4">als Elektroinstallateur & Co.</span>
+              <span className="text-primary">Sanitär Jobs</span> Schweiz
+              <span className="block text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-700 mt-2 sm:mt-4">Alle offenen Stellen</span>
             </h1>
             <p className="animate-hero-subtitle text-base sm:text-lg text-slate-600 mb-8 sm:mb-10 max-w-2xl mx-auto px-1">
-              Live-Stellen mit smarter Filterung für Elektro-Fachkräfte in der ganzen Schweiz. Finde den perfekten Job (Vollzeit / Teilzeit Pensum).
+              Live-Stellen mit smarter Filterung für Sanitär-Fachkräfte in der ganzen Schweiz. Finde den perfekten Job (Vollzeit / Teilzeit Pensum).
             </p>
 
             <form
@@ -765,7 +794,7 @@ export function HomepageSearch() {
             <AnimateOnScroll className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
               <div>
                 <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-                  {hasSearched ? "Suchergebnisse" : "Aktuelle Elektrojobs (Vollzeit/Teilzeit Pensum)"}
+                  {hasSearched ? "Suchergebnisse" : "Aktuelle Sanitärjobs (Vollzeit/Teilzeit Pensum)"}
                 </h2>
                 {hasActiveLocation && (
                   <p className="text-xs text-slate-500 mt-1">
@@ -778,12 +807,14 @@ export function HomepageSearch() {
                   </p>
                 )}
               </div>
-              <span className="text-sm text-slate-500">
-                <span key={searchKey} className="count-animate">
-                  {visibleJobs} von {totalJobs}
-                </span>{" "}
-                Stellen
-              </span>
+              {!isLoading && (
+                <span className="text-sm text-slate-500">
+                  <span key={searchKey} className="count-animate">
+                    {visibleJobs} von {totalJobs}
+                  </span>{" "}
+                  Stellen
+                </span>
+              )}
             </AnimateOnScroll>
 
             <AnimateOnScroll className="hidden md:grid grid-cols-2 lg:grid-cols-5 gap-3 mb-4">
@@ -855,7 +886,7 @@ export function HomepageSearch() {
               </div>
             )}
 
-            {!fallbackUsed && staleData && (
+            {!isLoading && !fallbackUsed && staleData && (
               <div className="mb-4 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700">
                 <p className="font-semibold">Datenstand: {scrapedAt ? new Date(scrapedAt).toLocaleString("de-CH") : "unbekannt"}</p>
                 <p className="mt-1">Die Live-Stellen wurden länger nicht aktualisiert. Wir empfehlen eine neue Suche in einigen Stunden.</p>
@@ -958,13 +989,7 @@ export function HomepageSearch() {
                             </div>
 
                             {/* Structured info grid */}
-                            {(() => {
-                              const salaryDisplay = job.salary || (() => {
-                                const est = estimateSalary(job.title);
-                                return est ? `~${formatSalaryRange(est)}` : null;
-                              })();
-                              return (
-                                <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-slate-100 rounded-lg border border-slate-200 overflow-hidden mb-3">
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-slate-100 rounded-lg border border-slate-200 overflow-hidden mb-3">
                                   <div className="bg-white px-3 py-2.5 flex flex-col gap-0.5">
                                     <span className="flex items-center gap-1.5 text-sm font-semibold text-slate-900 truncate">
                                       <MapPin className="h-3.5 w-3.5 text-primary shrink-0" />
@@ -975,7 +1000,7 @@ export function HomepageSearch() {
                                   <div className="bg-white px-3 py-2.5 flex flex-col gap-0.5">
                                     <span className="flex items-center gap-1.5 text-sm font-semibold text-slate-900 truncate">
                                       <Wallet className="h-3.5 w-3.5 text-primary shrink-0" />
-                                      {salaryDisplay ?? "–"}
+                                      {salaryMap.get(`${job.source}-${job.id}`) ?? "–"}
                                     </span>
                                     <span className="text-[11px] text-slate-400 uppercase tracking-wide">Lohn, CHF/Jahr</span>
                                   </div>
@@ -994,8 +1019,6 @@ export function HomepageSearch() {
                                     <span className="text-[11px] text-slate-400 uppercase tracking-wide">Anstellungsart</span>
                                   </div>
                                 </div>
-                              );
-                            })()}
 
                             {/* Description + actions */}
                             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
@@ -1005,7 +1028,7 @@ export function HomepageSearch() {
                                   variant="secondary"
                                   className="bg-primary/10 text-primary hover:bg-primary/20 font-bold transition-colors duration-200"
                                 >
-                                  <Zap className="h-3 w-3 mr-1 fill-current" />
+                                  <Droplets className="h-3 w-3 mr-1 fill-current" />
                                   Bewerben
                                 </Badge>
                                 <span className="text-xs text-slate-400 flex items-center gap-1 whitespace-nowrap">

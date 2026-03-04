@@ -5,7 +5,7 @@ import { TOP_LANDING_PAGES, getLandingPath } from "@/lib/landing-pages";
 
 export const metadata: Metadata = {
   title: "Seite nicht gefunden",
-  description: "Die gewünschte Seite konnte nicht gefunden werden. Finde aktuelle Elektrojobs auf elektrojob.ch.",
+  description: "Die gewünschte Seite konnte nicht gefunden werden. Finde aktuelle Sanitärjobs auf sanitaerjob.ch.",
   robots: {
     index: false,
     follow: true,
@@ -20,7 +20,7 @@ export default function NotFound() {
           <Link href="/" className="flex items-center shrink-0">
             <img
               src="/logo.png"
-              alt="elektrojob.ch — Elektrojobs in der Schweiz"
+              alt="sanitaerjob.ch — Sanitärjobs in der Schweiz"
               width={142}
               height={29}
               className="h-7 sm:h-8 w-auto"
@@ -37,7 +37,7 @@ export default function NotFound() {
           </h1>
           <p className="text-slate-600 mb-8">
             Die gewünschte Seite existiert nicht oder wurde verschoben.
-            Nutze die Suche, um aktuelle Elektrojobs zu finden.
+            Nutze die Suche, um aktuelle Sanitärjobs zu finden.
           </p>
           <Button asChild size="lg" className="rounded-xl btn-interactive shadow-md shadow-primary/20">
             <Link href="/">Zur Startseite</Link>

@@ -1,14 +1,12 @@
 {
-  "name": "elektrojob",
-  "version": "0.3.3",
+  "name": "sanitaerjob",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "scrape": "scripts/.venv/bin/python scripts/scrape-jobs.py",
-    "scrape:quick": "scripts/.venv/bin/python scripts/scrape-jobs.py --quick"
+    "lint": "eslint"
   },
   "dependencies": {
     "@genwave/svgmaker-mcp": "^0.4.0",

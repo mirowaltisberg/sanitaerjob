@@ -18,7 +18,11 @@ import {
 import { searchJobListings } from "@/lib/job-catalog";
 import type { JobListing } from "@/lib/job-types";
 import { estimateSalary, formatSalaryRange } from "@/lib/salary-estimates";
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://elektrojob.ch";
+import { buildJobPostingSchema } from "@/lib/job-schema";
+
+export const revalidate = 3600;
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://sanitaerjob.ch";
 
 interface LandingPageProps {
   params: Promise<{ role: string; canton: string }>;
@@ -49,7 +53,7 @@ function buildBreadcrumbSchema(config: LandingPageConfig) {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Elektrojobs",
+        name: "Sanitärjobs",
         item: `${SITE_URL}/`,
       },
       {
@@ -115,8 +119,8 @@ export async function generateMetadata({ params }: LandingPageProps): Promise<Me
 
   if (!config) {
     return {
-      title: "Elektrojobs",
-      description: "Aktuelle Elektrojobs in der Schweiz.",
+      title: "Sanitärjobs",
+      description: "Aktuelle Sanitärjobs in der Schweiz.",
     };
   }
 
@@ -127,7 +131,7 @@ export async function generateMetadata({ params }: LandingPageProps): Promise<Me
       canonical: getLandingPath(config),
     },
     openGraph: {
-      title: `${config.title} | elektrojob.ch`,
+      title: `${config.title} | sanitaerjob.ch`,
       description: config.description,
       url: getLandingPath(config),
       type: "website",
@@ -158,6 +162,9 @@ export default async function LandingRolePage({ params }: LandingPageProps) {
       <JsonLd data={buildBreadcrumbSchema(config)} />
       <JsonLd data={buildItemListSchema(result.jobs, config)} />
       {faqSchema && <JsonLd data={faqSchema} />}
+      {result.jobs.slice(0, 20).map((job) => (
+        <JsonLd key={`jp-${job.source}-${job.id}`} data={buildJobPostingSchema(job)} />
+      ))}
 
       {/* Header */}
       <header className="border-b header-blur sticky top-0 z-30">
@@ -165,7 +172,7 @@ export default async function LandingRolePage({ params }: LandingPageProps) {
           <Link href="/" className="flex items-center shrink-0">
             <img
               src="/logo.png"
-              alt="elektrojob.ch — Elektrojobs in der Schweiz"
+              alt="sanitaerjob.ch — Sanitärjobs in der Schweiz"
               width={142}
               height={29}
               className="h-7 sm:h-8 w-auto"
@@ -183,7 +190,7 @@ export default async function LandingRolePage({ params }: LandingPageProps) {
         <Breadcrumbs
           items={[
             { label: "Startseite", href: "/" },
-            { label: "Elektrojobs", href: "/" },
+            { label: "Sanitärjobs", href: "/" },
             { label: config.title },
           ]}
           className="mb-4"

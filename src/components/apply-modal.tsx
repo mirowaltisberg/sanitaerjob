@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { UploadCloud, CheckCircle2, Loader2, Zap, X, FileText, AlertCircle } from "lucide-react";
+import { UploadCloud, CheckCircle2, Loader2, Droplets, X, FileText, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -25,11 +25,10 @@ const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
 interface ApplyModalProps {
   jobId: string;
   jobTitle: string;
-  company: string;
   onOpen?: () => void;
 }
 
-export function ApplyModal({ jobId, jobTitle, company, onOpen }: ApplyModalProps) {
+export function ApplyModal({ jobId, jobTitle, onOpen }: ApplyModalProps) {
   const { trigger } = useHaptic();
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -177,7 +176,7 @@ export function ApplyModal({ jobId, jobTitle, company, onOpen }: ApplyModalProps
                 Bewerben für {jobTitle}
               </DialogTitle>
               <DialogDescription className="text-slate-500">
-                bei {company}
+                Schnell und unkompliziert bewerben
               </DialogDescription>
             </DialogHeader>
 
@@ -297,7 +296,7 @@ export function ApplyModal({ jobId, jobTitle, company, onOpen }: ApplyModalProps
                   </>
                 ) : (
                   <>
-                    <Zap className="mr-2 h-5 w-5 fill-current" />
+                    <Droplets className="mr-2 h-5 w-5 fill-current" />
                     Bewerbung absenden
                   </>
                 )}
@@ -311,7 +310,7 @@ export function ApplyModal({ jobId, jobTitle, company, onOpen }: ApplyModalProps
             </div>
             <h2 className="text-2xl font-bold text-slate-900">Bewerbung gesendet!</h2>
             <p className="text-slate-500">
-              Deine Bewerbung wurde erfolgreich an {company} übermittelt. Viel Erfolg!
+              Deine Bewerbung wurde erfolgreich übermittelt. Viel Erfolg!
             </p>
           </div>
         )}

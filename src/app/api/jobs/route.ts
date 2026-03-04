@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { searchJobListings } from "@/lib/job-catalog";
-import type { JobSearchParams, JobSort, RemoteFilter } from "@/lib/job-types";
+import type { JobListing, JobSearchParams, JobSort, RemoteFilter } from "@/lib/job-types";
+
+function stripCompany(job: JobListing): Omit<JobListing, "company" | "companyUrl"> {
+  const { company: _c, companyUrl: _cu, ...rest } = job;
+  return rest;
+}
 
 function parseRemote(value: string | null): RemoteFilter {
   if (value === "true" || value === "false" || value === "any") {
@@ -33,5 +38,8 @@ export async function GET(request: Request) {
   };
 
   const result = await searchJobListings(params);
-  return NextResponse.json(result);
+  return NextResponse.json(
+    { ...result, jobs: result.jobs.map(stripCompany) },
+    { headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=3600" } },
+  );
 }

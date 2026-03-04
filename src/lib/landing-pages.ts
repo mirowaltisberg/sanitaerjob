@@ -35,137 +35,137 @@ interface RoleContent {
 }
 
 const ROLE_CONTENT: Record<string, RoleContent> = {
-  "Elektroinstallateur EFZ": {
-    label: "Elektroinstallateur EFZ",
+  "Sanitärinstallateur EFZ": {
+    label: "Sanitärinstallateur EFZ",
     roleDescription:
-      "Elektroinstallateure EFZ planen, installieren und warten elektrische Anlagen in Wohn-, Gewerbe- und Industriebauten. Sie führen Stark- und Schwachstrominstallationen aus, nehmen Anlagen in Betrieb und führen Sicherheitskontrollen durch.",
-    salaryRange: "CHF 75'000 – 95'000",
-    requirements:
-      "Abgeschlossene 4-jährige Lehre als Elektroinstallateur EFZ, gute Kenntnisse der NIV und Schweizer Normen, Fahrausweis Kategorie B.",
-    career:
-      "Weiterbildung zum Elektro-Sicherheitsberater, Elektro-Projektleiter oder eidg. dipl. Elektroinstallationsmeister.",
-    related: ["Montage-Elektriker EFZ", "Servicetechniker Elektro", "Betriebselektriker"],
-  },
-  "Montage-Elektriker EFZ": {
-    label: "Montage-Elektriker EFZ",
-    roleDescription:
-      "Montage-Elektriker EFZ führen elektrische Montagearbeiten in Gebäuden aus — von Rohbaueinlagen über Kabelzug bis zur Montage von Schaltern und Steckdosen. Sie arbeiten meist im Team auf Baustellen.",
-    salaryRange: "CHF 75'000 – 80'000",
-    requirements:
-      "Abgeschlossene 3-jährige Lehre als Montage-Elektriker EFZ, handwerkliches Geschick, Teamfähigkeit.",
-    career:
-      "Verkürzte Zusatzlehre als Elektroinstallateur EFZ, Weiterbildung zum Vorarbeiter oder Teamleiter.",
-    related: ["Elektroinstallateur EFZ", "Elektromonteur", "Servicetechniker Elektro"],
-  },
-  "Servicetechniker Elektro": {
-    label: "Servicetechniker Elektro",
-    roleDescription:
-      "Servicetechniker Elektro beheben elektrische Störungen direkt beim Kunden, führen Wartungsarbeiten durch und beraten Kunden zu elektrischen Anlagen. Sie arbeiten selbstständig mit einem ausgerüsteten Servicefahrzeug.",
-    salaryRange: "CHF 75'000 – 90'000",
-    requirements:
-      "Ausbildung als Elektroinstallateur EFZ, Freude am Kundenkontakt, lösungsorientierte Arbeitsweise, Fahrausweis.",
-    career:
-      "Spezialisierung auf Smart Home, Gebäudeautomation oder Photovoltaik. Weiterbildung zum Kundendienstleiter.",
-    related: ["Elektroinstallateur EFZ", "Betriebselektriker", "Gebäudetechniker"],
-  },
-  "Projektleiter Elektro": {
-    label: "Projektleiter Elektro",
-    roleDescription:
-      "Projektleiter Elektro leiten Elektroprojekte von der Offerte über die Planung bis zur Übergabe. Sie führen Montageequipen, kontrollieren Kosten und Termine und beraten Bauherren und Architekten.",
-    salaryRange: "CHF 85'000 – 110'000",
-    requirements:
-      "Weiterbildung zum Elektro-Projektleiter, Führungserfahrung, Kenntnisse in KNX/DALI, Verhandlungsgeschick.",
-    career:
-      "Aufstieg zum Bereichsleiter, Geschäftsführer oder Gründung eines eigenen Elektrobetriebs.",
-    related: ["Bauleiter Elektro", "Elektroplaner", "Elektroinstallateur EFZ"],
-  },
-  "Automatiker EFZ": {
-    label: "Automatiker EFZ",
-    roleDescription:
-      "Automatiker EFZ bauen und verdrahten Steuerungs- und Schaltanlagen für Industrie und Gebäudeautomation. Sie programmieren SPS-Steuerungen, nehmen Anlagen in Betrieb und führen Fehlersuchen durch.",
-    salaryRange: "CHF 75'000 – 95'000",
-    requirements:
-      "Abgeschlossene 4-jährige Lehre als Automatiker EFZ, SPS-Programmierkenntnisse, exaktes Lesen von Elektroschemata.",
-    career:
-      "Spezialisierung auf Robotik, Industrie 4.0 oder Gebäudeautomation. Weiterbildung zum Automationsingenieur.",
-    related: ["Schaltanlagenbauer", "Betriebselektriker", "Elektroinstallateur EFZ"],
-  },
-  "Elektroplaner": {
-    label: "Elektroplaner",
-    roleDescription:
-      "Elektroplaner erstellen Elektropläne und Installationsschemen für Neubauten und Umbauten. Sie berechnen Kabelquerschnitte, dimensionieren Verteilungen und arbeiten eng mit Architekten und Bauherren zusammen.",
-    salaryRange: "CHF 80'000 – 100'000",
-    requirements:
-      "Ausbildung als Elektroinstallateur EFZ mit Weiterbildung zum Elektroplaner oder Gebäudetechnikplaner, CAD-Kenntnisse.",
-    career:
-      "Aufstieg zum Planungsleiter, Spezialisierung auf Energieberatung oder nachhaltiges Bauen.",
-    related: ["Projektleiter Elektro", "Bauleiter Elektro", "Gebäudetechniker"],
-  },
-  "Elektromonteur": {
-    label: "Elektromonteur",
-    roleDescription:
-      "Elektromonteure führen elektrische Installationsarbeiten auf Baustellen und in bestehenden Gebäuden aus. Sie verlegen Kabel, montieren Verteilungen und installieren Beleuchtungs- und Steckdosensysteme.",
-    salaryRange: "CHF 70'000 – 85'000",
-    requirements:
-      "Ausbildung im Elektrobereich (EFZ oder gleichwertig), handwerkliches Geschick, Teamfähigkeit.",
-    career:
-      "Weiterbildung zum Elektroinstallateur EFZ, Vorarbeiter oder Spezialisierung auf einen Fachbereich.",
-    related: ["Montage-Elektriker EFZ", "Elektroinstallateur EFZ", "Servicetechniker Elektro"],
-  },
-  "Gebäudetechniker": {
-    label: "Gebäudetechniker",
-    roleDescription:
-      "Gebäudetechniker sind Spezialisten für die technische Infrastruktur von Gebäuden — von Heizung, Lüftung und Klima (HLK) über Sanitäranlagen bis zur Gebäudeautomation. Sie planen, installieren und optimieren gebäudetechnische Systeme.",
-    salaryRange: "CHF 75'000 – 95'000",
-    requirements:
-      "Ausbildung im Bereich Gebäudetechnik oder Elektro, Kenntnisse in HLK-Systemen und Gebäudeautomation.",
-    career:
-      "Spezialisierung auf Smart Building, Energiemanagement oder nachhaltige Gebäudetechnik.",
-    related: ["Elektroplaner", "Servicetechniker Elektro", "Projektleiter Elektro"],
-  },
-  "Photovoltaik-Spezialist": {
-    label: "Photovoltaik-Spezialist",
-    roleDescription:
-      "Photovoltaik-Spezialisten planen und installieren Solaranlagen auf Dächern und Fassaden. Sie dimensionieren PV-Systeme, nehmen Wechselrichter in Betrieb und beraten Kunden zu Eigenverbrauchsoptimierung und Förderprogrammen.",
+      "Sanitärinstallateure EFZ planen, installieren und warten Sanitäranlagen in Wohn-, Gewerbe- und Industriebauten. Sie führen Wasser-, Abwasser- und Gasinstallationen aus und sorgen für die fachgerechte Inbetriebnahme.",
     salaryRange: "CHF 70'000 – 90'000",
     requirements:
-      "Ausbildung als Elektroinstallateur EFZ oder Solarteur, Kenntnisse in PV-Planung und Wechselrichtertechnik.",
+      "Abgeschlossene 4-jährige Lehre als Sanitärinstallateur EFZ, gute Kenntnisse der SIA-Normen, Fahrausweis Kategorie B.",
     career:
-      "Wachstumsbranche durch die Energiewende — Spezialisierung auf Grossanlagen, Speicherlösungen oder Energieberatung.",
-    related: ["Elektroinstallateur EFZ", "Elektroplaner", "Gebäudetechniker"],
+      "Weiterbildung zum Sanitärmeister, Projektleiter Sanitär oder Gründung eines eigenen Sanitärbetriebs.",
+    related: ["Heizungsinstallateur EFZ", "Servicetechniker Sanitär", "Sanitärmonteur"],
   },
-  "Schaltanlagenbauer": {
-    label: "Schaltanlagenbauer",
+  "Heizungsinstallateur EFZ": {
+    label: "Heizungsinstallateur EFZ",
     roleDescription:
-      "Schaltanlagenbauer konstruieren, verdrahten und prüfen Schaltgerätekombinationen und Steuerungsanlagen für Industrie, Infrastruktur und Energieversorgung. Sie arbeiten nach Elektroschemata und führen Funktionsprüfungen durch.",
+      "Heizungsinstallateure EFZ installieren und warten Heizungssysteme wie Öl-, Gas-, Wärmepumpen- und Pelletsanlagen. Sie nehmen Heizsysteme in Betrieb und führen Servicearbeiten durch.",
+    salaryRange: "CHF 70'000 – 90'000",
+    requirements:
+      "Abgeschlossene 4-jährige Lehre als Heizungsinstallateur EFZ, Kenntnisse in Heizungstechnik, Fahrausweis Kategorie B.",
+    career:
+      "Spezialisierung auf Wärmepumpen, Weiterbildung zum Projektleiter Heizung.",
+    related: ["Sanitärinstallateur EFZ", "Servicetechniker Sanitär", "Lüftungsanlagenbauer EFZ"],
+  },
+  "Spengler EFZ": {
+    label: "Spengler EFZ",
+    roleDescription:
+      "Spengler EFZ arbeiten mit Blech für Bedachungen, Fassaden und Entwässerungssysteme. Sie fertigen und montieren Blechteile und sorgen für den fachgerechten Wasserablauf an Gebäuden.",
+    salaryRange: "CHF 65'000 – 82'000",
+    requirements:
+      "Abgeschlossene 4-jährige Lehre als Spengler EFZ, Schwindelfreiheit, präzises Arbeiten.",
+    career:
+      "Weiterbildung zum Spenglermeister oder Bauleiter.",
+    related: ["Sanitärinstallateur EFZ", "Sanitärmonteur", "Haustechnik-Monteur"],
+  },
+  "Projektleiter Sanitär": {
+    label: "Projektleiter Sanitär",
+    roleDescription:
+      "Projektleiter Sanitär leiten Sanitärprojekte von der Offerte über die Planung bis zur Übergabe. Sie führen Montageequipen, kontrollieren Kosten und Termine und beraten Bauherren und Architekten.",
+    salaryRange: "CHF 85'000 – 110'000",
+    requirements:
+      "Weiterbildung zum Projektleiter, Führungserfahrung, Verhandlungsgeschick.",
+    career:
+      "Aufstieg zum Bereichsleiter, Geschäftsführer oder Gründung eines eigenen Sanitärbetriebs.",
+    related: ["Bauleiter HLKS", "Sanitärplaner", "Sanitärinstallateur EFZ"],
+  },
+  "Sanitärplaner": {
+    label: "Sanitärplaner",
+    roleDescription:
+      "Sanitärplaner erstellen Installationspläne für Sanitäranlagen in Neubauten und Umbauten. Sie dimensionieren Leitungssysteme und arbeiten eng mit Architekten und Bauherren zusammen.",
+    salaryRange: "CHF 80'000 – 100'000",
+    requirements:
+      "Ausbildung als Sanitärinstallateur EFZ mit Weiterbildung zum Planer, CAD-Kenntnisse.",
+    career:
+      "Aufstieg zum Planungsleiter, Spezialisierung auf Energieberatung.",
+    related: ["Projektleiter Sanitär", "Bauleiter HLKS", "Gebäudetechnikplaner"],
+  },
+  "Sanitärmonteur": {
+    label: "Sanitärmonteur",
+    roleDescription:
+      "Sanitärmonteure führen Rohr- und Armaturenarbeiten auf Baustellen aus. Sie verlegen Leitungen, montieren Sanitärapparate und sorgen für dichte und normgerechte Installationen.",
+    salaryRange: "CHF 68'000 – 82'000",
+    requirements:
+      "Ausbildung im Sanitärbereich, Teamfähigkeit, handwerkliches Geschick.",
+    career:
+      "Weiterbildung zum Vorarbeiter oder Sanitärinstallateur EFZ.",
+    related: ["Sanitärinstallateur EFZ", "Rohrleitungsmonteur", "Heizungsinstallateur EFZ"],
+  },
+  "Servicetechniker Sanitär": {
+    label: "Servicetechniker Sanitär",
+    roleDescription:
+      "Servicetechniker Sanitär beheben Sanitär- und Heizungsstörungen direkt beim Kunden, führen Wartungsarbeiten durch und beraten Kunden zu Sanitär- und Heizungsanlagen.",
     salaryRange: "CHF 72'000 – 88'000",
     requirements:
-      "Ausbildung als Automatiker EFZ oder Elektroinstallateur EFZ, exaktes Arbeiten nach Schema, Prüferfahrung.",
+      "Ausbildung als Sanitärinstallateur EFZ, Freude am Kundenkontakt, Fahrausweis.",
     career:
-      "Spezialisierung auf Mittelspannungsanlagen, Automatisierung oder Qualitätsmanagement.",
-    related: ["Automatiker EFZ", "Betriebselektriker", "Elektroinstallateur EFZ"],
+      "Weiterbildung zum Kundendienstleiter oder Spezialist Wärmepumpen.",
+    related: ["Sanitärinstallateur EFZ", "Heizungsinstallateur EFZ", "Haustechnik-Monteur"],
   },
-  "Bauleiter Elektro": {
-    label: "Bauleiter Elektro",
+  "Lüftungsanlagenbauer EFZ": {
+    label: "Lüftungsanlagenbauer EFZ",
     roleDescription:
-      "Bauleiter Elektro koordinieren und überwachen Elektroinstallationen auf Grossbaustellen. Sie sind verantwortlich für Terminplanung, Kostenkontrolle, Qualitätssicherung und die Führung von Subunternehmern.",
+      "Lüftungsanlagenbauer EFZ bauen und installieren Lüftungs- und Klimaanlagen. Sie fertigen Luftkanäle, montieren Ventilatoren und sorgen für ein optimales Raumklima in Gebäuden.",
+    salaryRange: "CHF 68'000 – 85'000",
+    requirements:
+      "Abgeschlossene Lehre als Lüftungsanlagenbauer EFZ, Kenntnisse in Lüftungstechnik.",
+    career:
+      "Weiterbildung zum Projektleiter Lüftung oder Gebäudetechnikplaner.",
+    related: ["Heizungsinstallateur EFZ", "Sanitärinstallateur EFZ", "Gebäudetechnikplaner"],
+  },
+  "Rohrleitungsmonteur": {
+    label: "Rohrleitungsmonteur",
+    roleDescription:
+      "Rohrleitungsmonteure installieren Rohrleitungssysteme für Wasser, Gas und industrielle Anwendungen. Sie arbeiten mit verschiedenen Materialien und Verbindungstechniken.",
+    salaryRange: "CHF 68'000 – 85'000",
+    requirements:
+      "Ausbildung im Rohrleitungsbau, Schweisserkenntnisse, präzises Arbeiten.",
+    career:
+      "Weiterbildung zum Vorarbeiter oder Bauleiter.",
+    related: ["Sanitärmonteur", "Sanitärinstallateur EFZ", "Heizungsinstallateur EFZ"],
+  },
+  "Bauleiter HLKS": {
+    label: "Bauleiter HLKS",
+    roleDescription:
+      "Bauleiter HLKS koordinieren und überwachen Heizungs-, Lüftungs-, Klima- und Sanitärinstallationen auf Grossbaustellen. Sie sind verantwortlich für Terminplanung, Kostenkontrolle und Qualitätssicherung.",
     salaryRange: "CHF 90'000 – 120'000",
     requirements:
-      "Weiterbildung zum Elektro-Projektleiter oder Bauleiter, mehrjährige Berufserfahrung, Führungskompetenz.",
+      "Weiterbildung zum Bauleiter oder Projektleiter, mehrjährige Führungserfahrung.",
     career:
-      "Aufstieg zum Gesamtprojektleiter, Niederlassungsleiter oder Geschäftsführer eines Elektrobetriebs.",
-    related: ["Projektleiter Elektro", "Elektroplaner", "Elektroinstallateur EFZ"],
+      "Aufstieg zum Gesamtprojektleiter oder Geschäftsführer.",
+    related: ["Projektleiter Sanitär", "Sanitärplaner", "Sanitärinstallateur EFZ"],
   },
-  "Betriebselektriker": {
-    label: "Betriebselektriker",
+  "Gebäudetechnikplaner": {
+    label: "Gebäudetechnikplaner",
     roleDescription:
-      "Betriebselektriker sind für die Wartung, Instandhaltung und Reparatur elektrischer Anlagen in Industrie- und Gewerbebetrieben zuständig. Sie führen regelmässige Prüfungen durch und sorgen für einen störungsfreien Betrieb.",
-    salaryRange: "CHF 75'000 – 90'000",
+      "Gebäudetechnikplaner planen gebäudetechnische Anlagen (Heizung, Lüftung, Sanitär, Brandschutz). Sie erstellen Installationspläne und arbeiten mit modernen CAD- und BIM-Systemen.",
+    salaryRange: "CHF 78'000 – 98'000",
     requirements:
-      "Ausbildung als Elektroinstallateur EFZ oder Automatiker EFZ, Erfahrung in industrieller Instandhaltung.",
+      "Ausbildung im Bereich Gebäudetechnik, CAD- und BIM-Kenntnisse.",
     career:
-      "Aufstieg zum Instandhaltungsleiter, Spezialisierung auf Prozessautomation oder Energiemanagement.",
-    related: ["Automatiker EFZ", "Servicetechniker Elektro", "Elektroinstallateur EFZ"],
+      "Aufstieg zum Planungsleiter oder Spezialisierung auf Energieberatung.",
+    related: ["Sanitärplaner", "Projektleiter Sanitär", "Bauleiter HLKS"],
+  },
+  "Haustechnik-Monteur": {
+    label: "Haustechnik-Monteur",
+    roleDescription:
+      "Haustechnik-Monteure sind vielseitige Fachkräfte für Heizungs-, Lüftungs- und Sanitäranlagen. Sie führen Installations-, Wartungs- und Reparaturarbeiten in Gebäuden aus.",
+    salaryRange: "CHF 68'000 – 85'000",
+    requirements:
+      "Ausbildung im Bereich Haustechnik, handwerkliches Geschick, Teamfähigkeit.",
+    career:
+      "Weiterbildung zum Servicetechniker oder Projektleiter.",
+    related: ["Sanitärinstallateur EFZ", "Heizungsinstallateur EFZ", "Servicetechniker Sanitär"],
   },
 };
 
@@ -176,7 +176,7 @@ interface CantonContent {
   name: string;
   /** Short canton abbreviation */
   abbr: string;
-  /** Brief economic context for the electrical industry */
+  /** Brief economic context for the sanitary industry */
   context: string;
 }
 
@@ -185,13 +185,13 @@ const CANTON_CONTENT: Record<string, CantonContent> = {
     name: "Zürich",
     abbr: "ZH",
     context:
-      "Der Kanton Zürich ist der grösste Arbeitsmarkt der Schweiz mit zahlreichen Neubauprojekten, Smart-Building-Initiativen und einer hohen Dichte an Elektroinstallationsfirmen.",
+      "Der Kanton Zürich ist der grösste Arbeitsmarkt der Schweiz mit zahlreichen Neubauprojekten, Sanierungsinitiativen und einer hohen Dichte an Sanitärinstallationsfirmen.",
   },
   BE: {
     name: "Bern",
     abbr: "BE",
     context:
-      "Im Kanton Bern gibt es eine starke Nachfrage nach Elektro-Fachkräften, besonders in der Bundesstadt und im Berner Oberland — von Wohnbau bis Infrastrukturprojekte.",
+      "Im Kanton Bern gibt es eine starke Nachfrage nach Sanitär-Fachkräften, besonders in der Bundesstadt und im Berner Oberland — von Wohnbau bis Infrastrukturprojekte.",
   },
   BS: {
     name: "Basel",
@@ -203,25 +203,25 @@ const CANTON_CONTENT: Record<string, CantonContent> = {
     name: "Aargau",
     abbr: "AG",
     context:
-      "Der Kanton Aargau ist ein wichtiger Industriestandort mit vielen Energieversorgern und einer hohen Nachfrage nach Elektro-Fachkräften in Industrie und Bau.",
+      "Der Kanton Aargau ist ein wichtiger Industriestandort mit vielen Sanitärinstallationsfirmen und einer hohen Nachfrage nach Sanitär-Fachkräften in Industrie und Bau.",
   },
   SG: {
     name: "St. Gallen",
     abbr: "SG",
     context:
-      "Die Ostschweiz mit dem Kanton St. Gallen bietet vielfältige Möglichkeiten für Elektro-Fachkräfte — von KMU-Betrieben bis zu grossen Gebäudetechnik-Unternehmen.",
+      "Die Ostschweiz mit dem Kanton St. Gallen bietet vielfältige Möglichkeiten für Sanitär-Fachkräfte — von KMU-Betrieben bis zu grossen Gebäudetechnik-Unternehmen.",
   },
   LU: {
     name: "Luzern",
     abbr: "LU",
     context:
-      "Im Kanton Luzern wächst die Nachfrage nach Elektro-Fachkräften stetig — getrieben durch Neubauprojekte, Tourismus-Infrastruktur und Smart-Building-Trends.",
+      "Im Kanton Luzern wächst die Nachfrage nach Sanitär-Fachkräften stetig — getrieben durch Neubauprojekte, Tourismus-Infrastruktur und Sanierungsprojekte.",
   },
   SO: {
     name: "Solothurn",
     abbr: "SO",
     context:
-      "Der Kanton Solothurn bietet als Industriestandort zwischen Bern und Basel gute Karrierechancen für Elektro-Fachkräfte in Produktion, Bau und Instandhaltung.",
+      "Der Kanton Solothurn bietet als Industriestandort zwischen Bern und Basel gute Karrierechancen für Sanitär-Fachkräfte in Produktion, Bau und Instandhaltung.",
   },
   ZG: {
     name: "Zug",
@@ -233,25 +233,25 @@ const CANTON_CONTENT: Record<string, CantonContent> = {
     name: "Thurgau",
     abbr: "TG",
     context:
-      "Der Kanton Thurgau bietet als wachsender Wirtschaftsstandort in der Ostschweiz zunehmend Chancen für Elektro-Fachkräfte — besonders in Industrie, Wohnungsbau und Landwirtschaftstechnik.",
+      "Der Kanton Thurgau bietet als wachsender Wirtschaftsstandort in der Ostschweiz zunehmend Chancen für Sanitär-Fachkräfte — besonders in Industrie, Wohnungsbau und Gebäudetechnik.",
   },
   GR: {
     name: "Graubünden",
     abbr: "GR",
     context:
-      "Im Kanton Graubünden sind Elektro-Fachkräfte gefragt — von Tourismusinfrastruktur und Bergbahnen über Energieprojekte bis zu Neubauten in den Ferienorten.",
+      "Im Kanton Graubünden sind Sanitär-Fachkräfte gefragt — von Tourismusinfrastruktur und Bergbahnen über Sanierungsprojekte bis zu Neubauten in den Ferienorten.",
   },
   SH: {
     name: "Schaffhausen",
     abbr: "SH",
     context:
-      "Der Kanton Schaffhausen bietet als kompakter Industriestandort attraktive Stellen für Elektro-Fachkräfte, insbesondere in der Maschinenindustrie und im Anlagenbau.",
+      "Der Kanton Schaffhausen bietet als kompakter Industriestandort attraktive Stellen für Sanitär-Fachkräfte, insbesondere in der Haustechnik und im Anlagenbau.",
   },
   FR: {
     name: "Fribourg",
     abbr: "FR",
     context:
-      "Der zweisprachige Kanton Fribourg wächst dynamisch und bietet Elektro-Fachkräften vielfältige Möglichkeiten in Wohnungsbau, Industrie und öffentlicher Infrastruktur.",
+      "Der zweisprachige Kanton Fribourg wächst dynamisch und bietet Sanitär-Fachkräften vielfältige Möglichkeiten in Wohnungsbau, Industrie und öffentlicher Infrastruktur.",
   },
 };
 
@@ -269,12 +269,14 @@ function buildLandingConfig(roleKey: string, cantonKey: string): LandingPageConf
     throw new Error(`Invalid role "${roleKey}" or canton "${cantonKey}"`);
   }
 
+  const relatedRolesList = role.related.join(", ");
+
   return {
     role: roleKey,
     canton: cantonKey,
     title: `${role.label} Jobs in ${canton.name}`,
-    description: `Aktuelle ${role.label} Stellen im Kanton ${canton.name}. ${role.roleDescription.split(".")[0]}. Jetzt bewerben auf elektrojob.ch.`,
-    intro: `${role.roleDescription} ${canton.context} Finde aktuelle ${role.label} Jobs in ${canton.name} auf elektrojob.ch und bewirb dich direkt.`,
+    description: `Aktuelle ${role.label} Stellen im Kanton ${canton.name}. ${role.roleDescription.split(".")[0]}. Jetzt bewerben auf sanitaerjob.ch.`,
+    intro: `Als ${role.label} in ${canton.name} findest du auf sanitaerjob.ch alle aktuellen Stellenangebote in deiner Region. ${role.roleDescription} ${canton.context} Die Nachfrage nach qualifizierten ${role.label}-Fachkräften im Kanton ${canton.name} ist hoch — Arbeitgeber suchen gezielt nach Kandidaten mit ${role.requirements.split(",")[0].toLowerCase()}. Das durchschnittliche Jahresgehalt für ${role.label} in der Schweiz liegt bei ${role.salaryRange}. Verwandte Berufe wie ${relatedRolesList} bieten zusätzliche Karrieremöglichkeiten in der Sanitärbranche. ${role.career} Nutze unsere smarte Filterung nach Pensum, Umkreis und Anstellungsart, um die passende Stelle zu finden. Bewirb dich direkt online und lade deinen Lebenslauf hoch.`,
     faqs: [
       {
         question: `Was verdient ein ${role.label} im Kanton ${canton.name}?`,
@@ -290,7 +292,7 @@ function buildLandingConfig(roleKey: string, cantonKey: string): LandingPageConf
       },
       {
         question: `Wie viele ${role.label} Jobs gibt es in ${canton.name}?`,
-        answer: `Auf elektrojob.ch findest du aktuelle ${role.label} Stellen im Kanton ${canton.name}. Die Anzahl verfügbarer Jobs variiert — nutze unsere Suche für die aktuellsten Ergebnisse.`,
+        answer: `Auf sanitaerjob.ch findest du aktuelle ${role.label} Stellen im Kanton ${canton.name}. Die Anzahl verfügbarer Jobs variiert — nutze unsere Suche für die aktuellsten Ergebnisse.`,
       },
     ],
   };
@@ -323,7 +325,7 @@ export function toCantonSlug(canton: string): string {
 }
 
 export function getLandingPath(config: LandingPageConfig): string {
-  return `/elektrojobs/${toRoleSlug(config.role)}/${toCantonSlug(config.canton)}`;
+  return `/sanitaerjobs/${toRoleSlug(config.role)}/${toCantonSlug(config.canton)}`;
 }
 
 export function findLandingPageBySlug(roleSlug: string, cantonSlug: string): LandingPageConfig | null {

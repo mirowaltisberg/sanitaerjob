@@ -1,20 +1,31 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Copy, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ApplyModal } from "@/components/apply-modal";
 import type { JobListing } from "@/lib/job-types";
 import { trackEvent } from "@/lib/analytics";
 import { useHaptic } from "@/hooks/use-haptic";
 
-const RECENT_KEY = "elektrojob:recent-jobs";
+const ApplyModal = dynamic(
+  () => import("@/components/apply-modal").then((m) => m.ApplyModal),
+  {
+    ssr: false,
+    loading: () => (
+      <Button className="w-full h-12 text-base sm:text-lg font-bold shadow-lg shadow-primary/20 rounded-xl btn-interactive" disabled>
+        Jetzt bewerben
+      </Button>
+    ),
+  }
+);
+
+const RECENT_KEY = "sanitaerjob:recent-jobs";
 
 interface RecentJobEntry {
   id: string;
   title: string;
-  company: string;
   location: string;
   href: string;
   source: string;
@@ -50,7 +61,6 @@ export function JobPrimaryAction({ job }: JobPrimaryActionProps) {
     <ApplyModal
       jobId={job.id}
       jobTitle={job.title}
-      company={job.company}
       onOpen={() =>
         trackEvent("apply_click", {
           job_id: job.id,
@@ -76,9 +86,9 @@ export function JobShareActions({ job }: JobShareActionsProps) {
       return "#";
     }
 
-    const text = `Interessanter Job: ${job.title} bei ${job.company} - ${pageUrl}`;
+    const text = `Interessanter Job: ${job.title} - ${pageUrl}`;
     return `https://wa.me/?text=${encodeURIComponent(text)}`;
-  }, [job.company, job.title, pageUrl]);
+  }, [job.title, pageUrl]);
 
   const handleCopy = async () => {
     if (!pageUrl) {
@@ -133,7 +143,6 @@ export function RecentlyViewedJobs({ currentJob, currentHref }: RecentlyViewedJo
     const currentEntry: RecentJobEntry = {
       id: currentJob.id,
       title: currentJob.title,
-      company: currentJob.company,
       location: currentJob.location,
       href: currentHref,
       source: currentJob.source,
@@ -145,7 +154,7 @@ export function RecentlyViewedJobs({ currentJob, currentHref }: RecentlyViewedJo
 
     window.localStorage.setItem(RECENT_KEY, JSON.stringify(nextEntries));
     trackEvent("job_view", { job_id: currentJob.id, source: currentJob.source });
-  }, [currentHref, currentJob.company, currentJob.id, currentJob.location, currentJob.source, currentJob.title]);
+  }, [currentHref, currentJob.id, currentJob.location, currentJob.source, currentJob.title]);
 
   if (recentJobs.length === 0) {
     return null;
@@ -168,7 +177,7 @@ export function RecentlyViewedJobs({ currentJob, currentHref }: RecentlyViewedJo
               }
             >
               <p className="text-sm font-semibold text-slate-900 line-clamp-1">{entry.title}</p>
-              <p className="text-xs text-slate-500 line-clamp-1">{entry.company} · {entry.location}</p>
+              <p className="text-xs text-slate-500 line-clamp-1">{entry.location}</p>
             </Link>
           </li>
         ))}

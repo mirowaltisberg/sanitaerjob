@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "elektrojob.ch — Elektrojobs Schweiz";
+export const alt = "sanitaerjob.ch — Sanitärjobs Schweiz";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -19,7 +19,7 @@ export default function OgImage() {
           fontFamily: "sans-serif",
         }}
       >
-        {/* Lightning bolt */}
+        {/* Water droplet */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 48 48"
@@ -28,8 +28,8 @@ export default function OgImage() {
           style={{ marginBottom: 32 }}
         >
           <path
-            d="M23.75 3L13.75 23h8L17.75 45 34.25 21h-8.5l5-18z"
-            fill="#fba918"
+            d="M24 3C17.5 13 9 23 9 32C9 40.8 15.7 45 24 45C32.3 45 39 40.8 39 32C39 23 30.5 13 24 3Z"
+            fill="#2563eb"
           />
         </svg>
 
@@ -42,9 +42,9 @@ export default function OgImage() {
           }}
         >
           <span style={{ fontSize: 72, fontWeight: 900, color: "#f8fafc", letterSpacing: -1 }}>
-            Elektro
+            Sanitär
           </span>
-          <span style={{ fontSize: 72, fontWeight: 900, color: "#fba918", letterSpacing: -1 }}>
+          <span style={{ fontSize: 72, fontWeight: 900, color: "#2563eb", letterSpacing: -1 }}>
             job
           </span>
           <span style={{ fontSize: 52, fontWeight: 400, color: "#94a3b8", letterSpacing: -1 }}>
@@ -61,7 +61,7 @@ export default function OgImage() {
             letterSpacing: 0.5,
           }}
         >
-          Die Jobbörse für Elektro-Fachkräfte in der Schweiz
+          Die Jobbörse für Sanitär-Fachkräfte in der Schweiz
         </div>
       </div>
     ),

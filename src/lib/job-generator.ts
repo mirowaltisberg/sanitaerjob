@@ -1,6 +1,6 @@
 import type { GeneratedJob, SearchContext } from "@/lib/job-types";
 
-const DEFAULT_QUERY = "Elektroinstallateur";
+const DEFAULT_QUERY = "Sanitärinstallateur";
 const DEFAULT_LOCATION = "Schweiz";
 const DEFAULT_COUNT = 150;
 const MAX_COUNT = 500;
@@ -10,16 +10,16 @@ const GENERATED_ID_PATTERN = /^gen-([0-9a-f]+)-(\d+)$/i;
 const SWISS_PLZ_PATTERN = /\b(\d{4})\b/;
 
 const ROLE_TEMPLATES = [
-  "Elektroinstallateur EFZ",
-  "Montage-Elektriker EFZ",
-  "Servicetechniker Elektro",
-  "Projektleiter Elektro",
-  "Automatiker EFZ",
-  "Elektroplaner",
-  "Bauleitender Elektroinstallateur",
-  "Fachmann Gebäudeautomation",
-  "Elektro-Sicherheitsberater",
-  "Inbetriebnahme-Techniker",
+  "Sanitärinstallateur EFZ",
+  "Heizungsinstallateur EFZ",
+  "Spengler EFZ",
+  "Projektleiter Sanitär",
+  "Sanitärplaner",
+  "Sanitärmonteur",
+  "Servicetechniker Sanitär",
+  "Lüftungsanlagenbauer EFZ",
+  "Rohrleitungsmonteur",
+  "Haustechnik-Monteur",
 ];
 
 const SPECIALIZATIONS = [
@@ -27,36 +27,36 @@ const SPECIALIZATIONS = [
   "Umbau",
   "Service",
   "Industrie",
-  "Smart Building",
-  "Gebäudeautomation",
-  "Photovoltaik",
-  "Ladelösungen",
-  "Netzwerktechnik",
-  "Sicherheitsanlagen",
+  "Wärmepumpen",
+  "Fernwärme",
+  "Solarthermie",
+  "Regenwassernutzung",
+  "Abwassertechnik",
+  "Brandschutz",
 ];
 
 const COMPANY_PREFIXES = [
-  "Volt",
-  "Lumen",
+  "Aqua",
+  "Hydro",
   "Alpin",
-  "Strom",
-  "Helio",
+  "Wasser",
+  "Thermo",
   "Kraft",
   "Nova",
   "Swiss",
   "Aare",
   "Rhein",
   "Zenit",
-  "Puls",
+  "Flux",
 ];
 
 const COMPANY_SUFFIXES = [
   "Tech AG",
-  "Elektro GmbH",
+  "Sanitär GmbH",
   "Systems AG",
   "Service AG",
   "Solutions GmbH",
-  "Engineering AG",
+  "Haustechnik AG",
   "Installationen AG",
   "Infra GmbH",
   "Partner AG",
@@ -69,36 +69,36 @@ const PROJECT_TYPES = [
   "Wohnbauprojekten",
   "Gewerbeobjekten",
   "Industrieanlagen",
-  "Smart-Home-Lösungen",
+  "Wärmepumpen-Installationen",
   "Infrastrukturprojekten",
   "Serviceeinsätzen",
 ];
 
 const RESPONSIBILITY_TEMPLATES = [
-  "Ausführung von Stark- und Schwachstrominstallationen.",
-  "Inbetriebnahme und Prüfung elektrischer Anlagen.",
-  "Montage von Schaltern, Verteilungen und Leuchten.",
-  "Fehlersuche und Störungsbehebung beim Kunden.",
+  "Installation von Wasser- und Abwasserleitungen.",
+  "Montage und Anschluss von Sanitärapparaten.",
+  "Inbetriebnahme und Prüfung von Heizungsanlagen.",
+  "Fehlersuche und Störungsbehebung bei Sanitär- und Heizungsanlagen.",
   "Dokumentation der ausgeführten Arbeiten.",
   "Zusammenarbeit mit Bauleitung und Projektleitung.",
   "Einhaltung von Sicherheits- und Qualitätsstandards.",
   "Mithilfe bei Materialdisposition und AVOR.",
-  "Durchführung von Wartungs- und Servicearbeiten.",
+  "Durchführung von Wartungs- und Servicearbeiten an Sanitäranlagen.",
   "Begleitung von Abnahmen und Übergaben.",
-  "Verdrahtung von Steuerungen und Schaltanlagen.",
-  "Mitarbeit bei Optimierung von Montageabläufen.",
+  "Verlegen und Verbinden von Rohrleitungen (Löten, Pressen, Schweissen).",
+  "Mitarbeit bei der Installation von Wärmepumpen und Heizsystemen.",
 ];
 
 const REQUIREMENT_TEMPLATES = [
-  "Abgeschlossene Ausbildung im Elektrobereich (EFZ oder gleichwertig).",
+  "Abgeschlossene Ausbildung als Sanitärinstallateur EFZ oder gleichwertig.",
   "Sorgfältige und selbstständige Arbeitsweise.",
   "Teamfähigkeit und klare Kommunikation auf Deutsch.",
   "Erfahrung in Neu- und Umbauprojekten von Vorteil.",
-  "Sicherer Umgang mit Schema- und Planunterlagen.",
+  "Kenntnisse in Rohrleitungstechnik (Löten, Pressen, Schweissen).",
   "Fahrausweis Kategorie B oder Bereitschaft dazu.",
   "Zuverlässigkeit und hohes Verantwortungsbewusstsein.",
+  "Kenntnisse der SIA-Normen und Schweizer Vorschriften.",
   "Freude an direktem Kundenkontakt.",
-  "Gute Kenntnisse der Schweizer Normen und Vorschriften.",
   "Bereitschaft zur fachlichen Weiterbildung.",
   "Lösungsorientiertes Denken auch unter Zeitdruck.",
   "Sauberes und professionelles Auftreten.",
@@ -251,7 +251,7 @@ function buildGeneratedJob(
   const projectType = pick(rng, PROJECT_TYPES);
   const focusText = primaryFocus
     ? `mit Fokus auf ${primaryFocus}${secondaryFocus ? ` und ${secondaryFocus}` : ""}`
-    : "mit Fokus auf moderne Elektroprojekte";
+    : "mit Fokus auf moderne Sanitärprojekte";
   const regionText = hasLocationHint
     ? `im Raum ${context.location}`
     : `in ${swissLocation.city}`;
@@ -277,7 +277,7 @@ function buildGeneratedJob(
     location,
     type,
     workload,
-    description: `Für ${company} suchen wir eine motivierte Fachperson ${focusText}. Sie arbeiten in ${projectType} ${regionText} und begleiten Projekte von der Montage bis zur Übergabe.`,
+    description: `Wir suchen eine motivierte Fachperson ${focusText}. Sie arbeiten in ${projectType} ${regionText} und begleiten Projekte von der Montage bis zur Übergabe.`,
     responsibilities,
     requirements,
     benefits,

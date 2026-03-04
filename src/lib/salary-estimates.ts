@@ -1,5 +1,5 @@
 /**
- * Approximate annual CHF salary ranges for Swiss electrical trade roles.
+ * Approximate annual CHF salary ranges for Swiss sanitary/HVAC trade roles.
  * Used when no salary data is available from the job source.
  */
 
@@ -15,6 +15,14 @@ export interface SalaryRange {
 const ROLE_SALARY_MAP: { patterns: string[]; range: SalaryRange }[] = [
   // Leadership / senior roles
   {
+    patterns: ["bauleiter hlks", "bauleiter hlk"],
+    range: { min: 90_000, max: 120_000 },
+  },
+  {
+    patterns: ["projektleiter sanitär", "projektleiter sanitaer"],
+    range: { min: 85_000, max: 110_000 },
+  },
+  {
     patterns: ["bauleiter"],
     range: { min: 90_000, max: 120_000 },
   },
@@ -24,62 +32,66 @@ const ROLE_SALARY_MAP: { patterns: string[]; range: SalaryRange }[] = [
   },
   // Planning / design
   {
-    patterns: ["elektroplaner", "planer elektro"],
+    patterns: ["sanitärplaner", "sanitaerplaner", "planer sanitär", "planer sanitaer"],
     range: { min: 80_000, max: 100_000 },
+  },
+  {
+    patterns: ["gebäudetechnikplaner", "gebaeudetechnikplaner"],
+    range: { min: 78_000, max: 98_000 },
   },
   // Core trades
   {
-    patterns: ["elektroinstallateur"],
-    range: { min: 75_000, max: 95_000 },
+    patterns: ["sanitärinstallateur", "sanitaerinstallateur"],
+    range: { min: 70_000, max: 90_000 },
   },
   {
-    patterns: ["automatiker", "automatikmonteur"],
-    range: { min: 75_000, max: 95_000 },
+    patterns: ["heizungsinstallateur"],
+    range: { min: 70_000, max: 90_000 },
   },
   {
-    patterns: ["servicetechniker", "kundendiensttechniker"],
-    range: { min: 75_000, max: 90_000 },
-  },
-  {
-    patterns: ["betriebselektriker"],
-    range: { min: 75_000, max: 90_000 },
-  },
-  {
-    patterns: ["montage-elektriker", "montageelektriker"],
-    range: { min: 75_000, max: 80_000 },
-  },
-  {
-    patterns: ["netzelektriker"],
-    range: { min: 70_000, max: 85_000 },
-  },
-  {
-    patterns: ["elektromonteur"],
-    range: { min: 70_000, max: 85_000 },
-  },
-  {
-    patterns: ["schaltanlagen", "schaltschrank"],
+    patterns: ["servicetechniker sanitär", "servicetechniker sanitaer"],
     range: { min: 72_000, max: 88_000 },
   },
   {
-    patterns: ["photovoltaik", "solartechnik", "solar"],
-    range: { min: 70_000, max: 90_000 },
-  },
-  {
-    patterns: ["gebäudetechnik", "gebaeudetechnik", "haustechnik", "gebäudeautomation"],
-    range: { min: 75_000, max: 95_000 },
-  },
-  {
-    patterns: ["inbetriebnahme"],
-    range: { min: 78_000, max: 98_000 },
+    patterns: ["servicetechniker", "kundendiensttechniker"],
+    range: { min: 72_000, max: 88_000 },
   },
   {
     patterns: ["spengler"],
-    range: { min: 65_000, max: 80_000 },
+    range: { min: 65_000, max: 82_000 },
+  },
+  {
+    patterns: ["sanitärmonteur", "sanitaermonteur"],
+    range: { min: 68_000, max: 82_000 },
+  },
+  {
+    patterns: ["lüftungsanlagenbauer", "lueftungsanlagenbauer"],
+    range: { min: 68_000, max: 85_000 },
+  },
+  {
+    patterns: ["rohrleitungsmonteur"],
+    range: { min: 68_000, max: 85_000 },
+  },
+  {
+    patterns: ["haustechnik"],
+    range: { min: 68_000, max: 85_000 },
+  },
+  {
+    patterns: ["gebäudetechnik", "gebaeudetechnik"],
+    range: { min: 78_000, max: 98_000 },
   },
   // Broad fallbacks (keep last)
   {
-    patterns: ["elektriker", "elektro"],
+    patterns: ["sanitär", "sanitaer"],
     range: { min: 70_000, max: 90_000 },
+  },
+  {
+    patterns: ["heizung"],
+    range: { min: 70_000, max: 90_000 },
+  },
+  {
+    patterns: ["lüftung", "lueftung", "klima"],
+    range: { min: 68_000, max: 85_000 },
   },
   {
     patterns: ["techniker"],
@@ -90,7 +102,11 @@ const ROLE_SALARY_MAP: { patterns: string[]; range: SalaryRange }[] = [
     range: { min: 68_000, max: 85_000 },
   },
   {
-    patterns: ["heizung", "lüftung", "klima", "sanitär", "hlk"],
+    patterns: ["installat"],
+    range: { min: 70_000, max: 90_000 },
+  },
+  {
+    patterns: ["hlk", "hkls", "hlks", "hvac"],
     range: { min: 70_000, max: 90_000 },
   },
 ];

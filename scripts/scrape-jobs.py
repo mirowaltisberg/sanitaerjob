@@ -725,6 +725,8 @@ def main():
     parser.add_argument("--location", type=str, help="Single location")
     parser.add_argument("--results", type=int, default=100, help="Results per query/location combo")
     parser.add_argument("--quick", action="store_true", help="Quick mode: single query only")
+    parser.add_argument("--chunk", type=int, default=0, help="Chunk index (0-based) for splitting search terms")
+    parser.add_argument("--total-chunks", type=int, default=1, help="Total number of chunks to split search terms into")
     args = parser.parse_args()
 
     all_raw, seen_urls = load_existing_jobs()
@@ -743,6 +745,14 @@ def main():
     if args.quick:
         queries = queries[:1]
         locations = locations[:1]
+
+    # Split search terms into chunks for parallel CI runs
+    if args.total_chunks > 1 and not args.query:
+        chunk_size = math.ceil(len(queries) / args.total_chunks)
+        start = args.chunk * chunk_size
+        end = min(start + chunk_size, len(queries))
+        queries = queries[start:end]
+        print(f"Chunk {args.chunk + 1}/{args.total_chunks}: processing search terms {start+1}-{end} ({len(queries)} terms)\n")
 
     total_combos = len(queries) * len(locations)
     print(f"Starting scrape: {len(queries)} queries × {len(locations)} locations = {total_combos} combos\n")

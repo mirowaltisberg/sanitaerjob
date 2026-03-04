@@ -1,3 +1,4 @@
+import { cache } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -40,12 +41,14 @@ function getDisplayJobId(job: JobListing): string {
   }
   if (job.source === "scraped") {
     const hash = job.id.replace(/^scraped-/, "");
-    return `ELK-${hash.slice(0, 8).toUpperCase()}`;
+    return `SAN-${hash.slice(0, 8).toUpperCase()}`;
   }
-  return `ELK-${job.id.padStart(4, "0")}`;
+  return `SAN-${job.id.padStart(4, "0")}`;
 }
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://elektrojob.ch";
+export const revalidate = 3600;
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://sanitaerjob.ch";
 
 // SEO-DECISION: Map Swiss-German job type labels to schema.org employmentType values
 function mapEmploymentType(type: string): string | string[] {
@@ -149,8 +152,8 @@ function buildJobPostingSchema(job: JobListing): Record<string, any> {
     employmentType: mapEmploymentType(job.type),
     hiringOrganization: {
       "@type": "Organization",
-      name: job.company,
-      ...(job.companyUrl ? { sameAs: job.companyUrl } : {}),
+      name: "sanitaerjob.ch",
+      url: SITE_URL,
     },
     jobLocation: {
       "@type": "Place",
@@ -162,7 +165,7 @@ function buildJobPostingSchema(job: JobListing): Record<string, any> {
       },
     },
     directApply: true,
-    industry: "Elektroinstallation & Gebäudetechnik",
+    industry: "Sanitär, Heizung & Gebäudetechnik",
     url: `${SITE_URL}/jobs/${job.id}`,
   };
 
@@ -196,7 +199,7 @@ function buildJobBreadcrumbSchema(job: JobListing) {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Elektrojobs",
+        name: "Sanitärjobs",
         item: `${SITE_URL}/`,
       },
       {
@@ -229,11 +232,11 @@ function buildJobHref(job: JobListing, fallbackQuery: string, fallbackLocation: 
   return queryString ? `/jobs/${job.id}?${queryString}` : `/jobs/${job.id}`;
 }
 
-async function getJobPageData({ params, searchParams }: JobDetailsPageProps): Promise<{
+const getJobPageData = cache(async ({ params, searchParams }: JobDetailsPageProps): Promise<{
   job: JobListing | null;
   query: string;
   location: string;
-}> {
+}> => {
   const { id } = await params;
   const resolvedSearchParams = searchParams ? await searchParams : {};
   const query = readParam(resolvedSearchParams.q);
@@ -246,14 +249,14 @@ async function getJobPageData({ params, searchParams }: JobDetailsPageProps): Pr
   });
 
   return { job, query, location };
-}
+});
 
 export async function generateMetadata(props: JobDetailsPageProps): Promise<Metadata> {
   const { job } = await getJobPageData(props);
 
   if (!job) {
     return {
-      title: "Stelle nicht gefunden | elektrojob.ch",
+      title: "Stelle nicht gefunden | sanitaerjob.ch",
       description: "Die gewünschte Stelle konnte nicht gefunden werden.",
     };
   }
@@ -261,7 +264,7 @@ export async function generateMetadata(props: JobDetailsPageProps): Promise<Meta
   const description = job.description.slice(0, 160);
 
   return {
-    title: `${job.title} | elektrojob.ch`,
+    title: `${job.title} | sanitaerjob.ch`,
     description,
     alternates: {
       canonical: `/jobs/${job.id}`,
@@ -292,7 +295,7 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
       <header className="border-b sticky top-0 z-30 header-blur animate-header">
         <div className="container mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2">
           <Link href="/" className="flex items-center shrink-0">
-            <img src="/logo.png" alt="elektrojob.ch — Elektrojobs in der Schweiz" width={142} height={29} className="h-7 sm:h-8 w-auto" />
+            <img src="/logo.png" alt="sanitaerjob.ch — Sanitärjobs in der Schweiz" width={142} height={29} className="h-7 sm:h-8 w-auto" />
           </Link>
           <nav className="shrink-0">
             <Button variant="ghost" size="sm" asChild className="text-sm px-2 sm:px-4 h-9 sm:h-10 btn-interactive">
@@ -306,7 +309,7 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
         <Breadcrumbs
           items={[
             { label: "Startseite", href: "/" },
-            { label: "Elektrojobs", href: "/" },
+            { label: "Sanitärjobs", href: "/" },
             { label: job.title },
           ]}
           className="mb-4 sm:mb-6"
@@ -314,7 +317,6 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
 
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           <div className="flex-1 min-w-0 space-y-6 sm:space-y-8">
-            <AnimateOnScroll>
               <article className="bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border shadow-sm">
                 <div className="flex flex-col gap-4 mb-6">
                   <div className="min-w-0">
@@ -422,7 +424,6 @@ export default async function JobDetailsPage(props: JobDetailsPageProps) {
                   )}
                 </div>
               </article>
-            </AnimateOnScroll>
 
             <AnimateOnScroll delay={80}>
               <nav aria-label="Ähnliche Stellenangebote" className="bg-white border rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm">

@@ -14,49 +14,46 @@ const plusJakarta = Plus_Jakarta_Sans({
   preload: true,
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://elektrojob.ch";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://sanitaerjob.ch";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    // SEO-DECISION: Domain removed from default title per Seobility audit —
-    // domain in title is penalized. Template keeps "elektrojob.ch" for inner pages.
-    default: "Elektrojobs Schweiz — Offene Stellen für Elektroinstallateur & Co.",
-    template: "%s | elektrojob.ch",
+    default: "Sanitär Jobs Schweiz 2026 | Sanitärinstallateur, Heizungsmonteur & mehr",
+    template: "%s | sanitaerjob.ch",
   },
   description:
-    "Aktuelle Elektrojobs in der Schweiz! Finde offene Stellen als Elektroinstallateur (Vollzeit/Teilzeit Pensum), Montage-Elektriker u.v.m. Jetzt bewerben!",
+    "Finde aktuelle Sanitär Jobs in der Schweiz. Stellen für Sanitärinstallateur EFZ, Heizungsinstallateur, Spengler & mehr. Jetzt Lebenslauf einreichen.",
   keywords: [
-    "Elektrojobs",
-    "Elektrojobs Schweiz",
-    "Elektroinstallateur Jobs",
-    "Montage-Elektriker Jobs",
-    "Projektleiter Elektro",
-    "Automatiker Jobs",
-    "Elektroplaner Jobs",
-    "Elektromonteur",
-    "Gebäudetechnik Jobs",
-    "Photovoltaik Jobs Schweiz",
-    "Servicetechniker Elektro",
-    "Schaltanlagenbauer",
-    "Bauleiter Elektro",
-    "Betriebselektriker",
-    "Stellen Elektrobranche Schweiz",
+    "Sanitärjobs",
+    "Sanitärjobs Schweiz",
+    "Sanitärinstallateur Jobs",
+    "Heizungsinstallateur Jobs",
+    "Spengler Jobs",
+    "Projektleiter Sanitär",
+    "Sanitärmonteur",
+    "Sanitärplaner Jobs",
+    "Haustechnik Jobs Schweiz",
+    "Servicetechniker Sanitär",
+    "Lüftungsanlagenbauer",
+    "Bauleiter HLKS",
+    "Rohrleitungsmonteur",
+    "Stellen Sanitärbranche Schweiz",
   ],
   openGraph: {
-    title: "Elektrojobs Schweiz — Offene Stellen für Elektroinstallateur & Co.",
+    title: "Sanitär Jobs Schweiz 2026 | Sanitärinstallateur, Heizungsmonteur & mehr",
     description:
-      "Aktuelle Elektrojobs in der Schweiz! Finde offene Stellen als Elektroinstallateur (Vollzeit/Teilzeit Pensum), Montage-Elektriker u.v.m. Jetzt bewerben!",
+      "Finde aktuelle Sanitär Jobs in der Schweiz. Stellen für Sanitärinstallateur EFZ, Heizungsinstallateur, Spengler & mehr. Jetzt Lebenslauf einreichen.",
     type: "website",
     url: "/",
-    siteName: "elektrojob.ch",
+    siteName: "sanitaerjob.ch",
     locale: "de_CH",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Elektrojobs Schweiz | Offene Stellen für Elektroinstallateur & Co.",
+    title: "Sanitär Jobs Schweiz 2026 | Sanitärinstallateur, Heizungsmonteur & mehr",
     description:
-      "Aktuelle Elektrojobs in der Schweiz! Finde offene Stellen als Elektroinstallateur (Vollzeit/Teilzeit Pensum), Montage-Elektriker u.v.m. Jetzt bewerben!",
+      "Finde aktuelle Sanitär Jobs in der Schweiz. Stellen für Sanitärinstallateur EFZ, Heizungsinstallateur, Spengler & mehr. Jetzt Lebenslauf einreichen.",
   },
   alternates: {
     canonical: "/",
@@ -74,16 +71,15 @@ export const metadata: Metadata = {
   },
 };
 
-// SEO-DECISION: Organization schema placed in root layout so it appears on every page
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "elektrojob.ch",
+  name: "sanitaerjob.ch",
   url: SITE_URL,
   logo: `${SITE_URL}/logo.png`,
   description:
-    "elektrojob.ch ist die spezialisierte Jobbörse für Elektro-Fachkräfte in der Schweiz. Finde offene Stellen als Elektroinstallateur, Montage-Elektriker, Projektleiter Elektro und mehr.",
-  foundingDate: "2025",
+    "sanitaerjob.ch ist die spezialisierte Jobbörse für Sanitär-Fachkräfte in der Schweiz. Finde offene Stellen als Sanitärinstallateur, Heizungsinstallateur, Spengler, Projektleiter Sanitär und mehr.",
+  foundingDate: "2026",
   areaServed: {
     "@type": "Country",
     name: "Switzerland",
@@ -97,14 +93,13 @@ const organizationSchema = {
   },
 };
 
-// SEO-DECISION: WebSite schema with SearchAction enables the Google sitelinks search box
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "elektrojob.ch",
+  name: "sanitaerjob.ch",
   url: SITE_URL,
   description:
-    "Die spezialisierte Jobbörse für Elektro-Fachkräfte in der Schweiz.",
+    "Die spezialisierte Jobbörse für Sanitär-Fachkräfte in der Schweiz.",
   inLanguage: "de",
   potentialAction: {
     "@type": "SearchAction",
@@ -116,11 +111,10 @@ const websiteSchema = {
   },
 };
 
-// SEO-DECISION: LocalBusiness schema to improve visibility for local search intent
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  name: "elektrojob.ch",
+  name: "sanitaerjob.ch",
   image: `${SITE_URL}/logo.png`,
   url: SITE_URL,
   telephone: "",
@@ -144,7 +138,6 @@ export default function RootLayout({
   return (
     <html lang="de">
       <head>
-        {/* Facebook Pixel */}
         <Script id="fb-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)

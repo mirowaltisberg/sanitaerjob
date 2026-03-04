@@ -37,33 +37,36 @@ const COUNTRY_WIDE_LOCATIONS = new Set([
 const coordinateCache = new Map<string, Coordinate | null>();
 
 const POSITIVE_KEYWORDS = [
-  "elektro",
-  "elektriker",
-  "montage-elektriker",
-  "elektroinstallateur",
-  "automatiker",
-  "elektroplaner",
-  "netzelektriker",
-  "elektromonteur",
-  "elektrotechnik",
-  "starkstrom",
-  "schwachstrom",
-  "schaltanlagen",
-  "gebäudeautomation",
-  "photovoltaik",
-  "solartechnik",
-  "inbetriebnahme",
-  "servicetechniker",
+  "sanitär",
+  "sanitaer",
   "heizung",
   "lüftung",
+  "lueftung",
   "klima",
-  "sanitär",
-  "gebäudetechnik",
+  "spengler",
+  "rohrleitung",
+  "wärmepumpe",
+  "waermepumpe",
+  "solarthermie",
+  "abwasser",
+  "trinkwasser",
   "haustechnik",
+  "gebäudetechnik",
+  "gebaeudetechnik",
+  "hlks",
+  "hkls",
+  "hvac",
   "brandschutz",
   "monteur",
   "installat",
   "wartung",
+  "servicetechniker",
+  "fernwärme",
+  "fernwaerme",
+  "regenwasser",
+  "rohrleitungsmonteur",
+  "sanitärmonteur",
+  "sanitaermonteur",
 ];
 
 const NEGATIVE_KEYWORDS = [
@@ -84,61 +87,56 @@ const NEGATIVE_KEYWORDS = [
 ];
 
 const CORE_TITLE_KEYWORDS = [
-  "elektro",
-  "elektriker",
-  "elektroinstallateur",
-  "montage-elektriker",
-  "elektromonteur",
-  "elektroniker",
-  "automatiker",
-  "automatikmonteur",
-  "automation",
-  "instandhalt",
-  "inbetriebnahme",
-  "betriebselektriker",
-  "schaltanlagen",
-  "schaltschrank",
-  "gebäudeautomation",
-  "gebaeudeautomation",
-  "photovoltaik",
-  "solartechnik",
-  "netzelektriker",
-  "bahntechnik",
-  "sps",
-  "msr",
-  "mess regel",
-  "mechatron",
+  "sanitär",
+  "sanitaer",
+  "sanitärinstallateur",
+  "sanitaerinstallateur",
+  "sanitärmonteur",
+  "sanitaermonteur",
+  "heizung",
+  "heizungsinstallateur",
+  "lüftung",
+  "lueftung",
+  "lüftungsanlagenbauer",
+  "lueftungsanlagenbauer",
+  "klima",
+  "kälte",
+  "kaelte",
+  "spengler",
+  "rohrleitung",
+  "rohrleitungsmonteur",
+  "wärmepumpe",
+  "waermepumpe",
+  "solarthermie",
+  "abwasser",
+  "trinkwasser",
+  "fernwärme",
+  "fernwaerme",
   "servicetechni",
   "kundendiensttechni",
-  "field service",
   "monteur",
   "techniker",
   "projektleiter",
   "bauleiter",
-  "heizung",
-  "lüftung",
-  "klima",
-  "kälte",
-  "sanitär",
   "hlk",
+  "hlks",
   "hkls",
   "hvac",
   "haustechnik",
   "gebäudetechnik",
+  "gebaeudetechnik",
+  "gebäudetechnikplaner",
+  "gebaeudetechnikplaner",
   "brandschutz",
   "brandmelde",
-  "freileitungs",
-  "starkstrom",
-  "schwachstrom",
   "planer",
-  "zeichner",
-  "emr",
-  "energie",
-  "netz",
-  "trafo",
-  "spengler",
   "installat",
   "wartung",
+  "instandhalt",
+  "spenglerei",
+  "sanitärplaner",
+  "sanitaerplaner",
+  "regenwasser",
 ];
 
 const HARD_NEGATIVE_TITLE_KEYWORDS = [
@@ -317,7 +315,13 @@ function toMockListing(job: Job): JobListing {
   };
 }
 
+let cachedCurated: JobListing[] | null = null;
+let cachedCuratedAt = 0;
+const CURATED_TTL_MS = 120_000;
+
 async function buildCuratedScrapedListings(): Promise<JobListing[]> {
+  if (cachedCurated && Date.now() - cachedCuratedAt < CURATED_TTL_MS) return cachedCurated;
+
   const deduped = new Map<string, JobListing>();
 
   for (const job of await loadScrapedJobs()) {
@@ -344,7 +348,10 @@ async function buildCuratedScrapedListings(): Promise<JobListing[]> {
     }
   }
 
-  return [...deduped.values()];
+  const result = [...deduped.values()];
+  cachedCurated = result;
+  cachedCuratedAt = Date.now();
+  return result;
 }
 
 function isValueInFilter(fieldValue: string, selectedValue: string): boolean {
@@ -565,13 +572,15 @@ function normalizeSearchParams(params: JobSearchParams): NormalizedParams {
 }
 
 async function getSourceJobs(query: string, location: string): Promise<SourceBundle> {
-  const meta = await getScrapedMeta();
+  const [meta, curatedScraped] = await Promise.all([
+    getScrapedMeta(),
+    buildCuratedScrapedListings(),
+  ]);
   const scrapedAt = meta?.scrapedAt ?? null;
-  const curatedScraped = await buildCuratedScrapedListings();
 
   // Always generate supplemental jobs so every search returns results
   const context = normalizeSearchInput(
-    query || "Elektroinstallateur",
+    query || "Sanitärinstallateur",
     location || "Schweiz"
   );
   const generated = generateFakeJobs({
