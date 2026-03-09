@@ -219,6 +219,7 @@ RELEVANT_TITLE_KEYWORDS = [
     "haustechnik",
     "hlk",
     "hkls",
+    "hvac",
     "trinkwasser",
     "abwasser",
     "entwässerung",
@@ -232,6 +233,7 @@ RELEVANT_TITLE_KEYWORDS = [
     "warmwasser",
     "armaturen",
     "ventil",
+    "mischer",
     "kanalisation",
     "kanalsanierung",
     "installat",
@@ -244,6 +246,7 @@ RELEVANT_TITLE_KEYWORDS = [
     "field service",
     "bauleiter",
     "polier",
+    "vorarbeiter",
     "projektleiter",
     "planer",
     "techniker",
@@ -254,8 +257,13 @@ RELEVANT_TITLE_KEYWORDS = [
     "heizung",
     "lüftung",
     "klima",
+    "kälte",
     "anlagenmech",
     "anlagenbau",
+    "wärmepumpe",
+    "fernwärme",
+    "gas",
+    "brenner",
 ]
 
 # Titles containing any of these are always rejected
@@ -421,16 +429,32 @@ DEFAULT_SEARCH_TERMS = [
     "Sanitär",
     "Sanitärplaner",
     "Sanitärtechniker",
-    "Servicemonteur Sanitär",
     "Sanitär EFZ",
     "Rohrinstallateur",
+    "Rohrleitungsbauer",
+    "Servicemonteur Sanitär",
+    "Servicetechniker Sanitär",
     "Projektleiter Sanitär",
     "Haustechnik Sanitär",
     "Gebäudetechnik Sanitär",
-    "Servicetechniker Sanitär",
-    "Rohrleitungsbauer",
     "Spengler Sanitär",
-    "HLKS Sanitär",
+    "HLKS",
+    "Heizung Sanitär",
+    "Installateur",
+    "Gebäudetechnik",
+    "Haustechnik",
+    "Heizungsmonteur",
+    "Heizungsinstallateur",
+    "Servicetechniker Gebäudetechnik",
+    "HLKS Monteur",
+    "Lüftungsmonteur",
+    "Anlagenmechaniker",
+    "Badezimmer Monteur",
+    "Rohrschlosser",
+    "Wasser Installateur",
+    "Kanalarbeiter",
+    "Projektleiter Gebäudetechnik",
+    "Bauleiter Haustechnik",
 ]
 
 DEFAULT_LOCATIONS = [
@@ -446,6 +470,14 @@ DEFAULT_LOCATIONS = [
     "Lugano, Schweiz",
     "Chur, Schweiz",
     "Sion, Schweiz",
+    "Olten, Schweiz",
+    "Thun, Schweiz",
+    "Frauenfeld, Schweiz",
+    "Zug, Schweiz",
+    "Schaffhausen, Schweiz",
+    "Solothurn, Schweiz",
+    "Rapperswil, Schweiz",
+    "Baden, Schweiz",
 ]
 
 
@@ -745,7 +777,7 @@ def main():
     parser = argparse.ArgumentParser(description="Scrape Swiss electrical jobs")
     parser.add_argument("--query", type=str, help="Single search query")
     parser.add_argument("--location", type=str, help="Single location")
-    parser.add_argument("--results", type=int, default=100, help="Results per query/location combo")
+    parser.add_argument("--results", type=int, default=50, help="Results per query/location combo")
     parser.add_argument("--quick", action="store_true", help="Quick mode: single query only")
     parser.add_argument("--chunk", type=int, default=0, help="Chunk index (0-based) for splitting search terms")
     parser.add_argument("--total-chunks", type=int, default=1, help="Total number of chunks to split search terms into")
