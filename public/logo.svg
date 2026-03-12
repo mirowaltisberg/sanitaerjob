@@ -1,30 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 244 48" fill="none">
-  <!--
-    Water droplet mark
-    Bounding box: x=5 to x=26 (width=21), y=3 to y=45 (height=42)
-    Tip at top-center x=15.5, y=3
-    Circular base: center y≈31, radius≈14
-  -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 48" fill="none">
+  <!-- Water droplet mark -->
   <g transform="translate(0, 9) scale(0.667)">
-    <path
-      d="M15.5 3 C10 12 5 21 5 30.5 C5 38.5 9.7 45 15.5 45 C21.3 45 26 38.5 26 30.5 C26 21 21 12 15.5 3 Z"
-      fill="#2563eb"/>
+    <path d="M15.5 3 C10 12 5 21 5 30.5 C5 38.5 9.7 45 15.5 45 C21.3 45 26 38.5 26 30.5 C26 21 21 12 15.5 3 Z" fill="#2563eb"/>
   </g>
 
-  <!--
-    Wordmark: "Sanitärjob.ch"
-    Single <text> with <tspan> children for reliable multi-color rendering.
-    The tspan elements share the same baseline (y=36) set on the parent.
-    Font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif
-    "Sanitär"  weight 800, dark   #1e293b
-    "job"      weight 800, blue   #2563eb
-    ".ch"      weight 400, gray   #94a3b8
-  -->
-  <text
-    font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-    font-size="22"
-    x="36"
-    y="36">
-    <tspan font-weight="800" fill="#1e293b">Sanit&#xe4;r</tspan><tspan font-weight="800" fill="#2563eb">job</tspan><tspan font-weight="400" fill="#94a3b8">.ch</tspan>
+  <text font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" x="28" y="36">
+    <tspan font-weight="900" fill="#1e293b">Sanit&#xe4;r</tspan><tspan font-weight="900" fill="#2563eb">job</tspan><tspan font-weight="400" font-size="22" fill="#94a3b8">.ch</tspan>
   </text>
 </svg>
