@@ -6,7 +6,13 @@ const nextConfig: NextConfig = {
 
   experimental: {
     // Tree-shake icon/analytics packages — eliminates unused JS (24 KiB savings)
-    optimizePackageImports: ["lucide-react", "@vercel/analytics", "radix-ui"],
+    optimizePackageImports: [
+      "lucide-react",
+      "@vercel/analytics",
+      "@vercel/speed-insights",
+      "radix-ui",
+      "class-variance-authority",
+    ],
   },
 
   async headers() {
@@ -27,6 +33,18 @@ const nextConfig: NextConfig = {
         headers: [
           ...securityHeaders,
           { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        ],
+      },
+      {
+        source: "/_next/static/(.*)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        source: "/(.*\\.(?:svg|png|jpg|webp|ico|woff2))",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" },
         ],
       },
     ];
