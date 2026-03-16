@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   title: "Arbeitgeber-Login",
   description:
     "Loggen Sie sich ein, um Ihre Stelleninserate auf sanitaerjob.ch zu verwalten.",
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function ArbeitgeberLoginPage() {

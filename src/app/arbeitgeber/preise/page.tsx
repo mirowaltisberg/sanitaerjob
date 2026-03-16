@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Preise & Pakete",
   description:
     "Erfahren Sie mehr über die Inseratepreise und Pakete auf sanitaerjob.ch — der spezialisierten Jobbörse für Sanitär-Fachkräfte.",
+  alternates: {
+    canonical: "/arbeitgeber/preise",
+  },
 };
 
 export default function PreisePage() {

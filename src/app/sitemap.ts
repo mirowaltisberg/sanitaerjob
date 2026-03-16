@@ -14,10 +14,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
-      url: toAbsolute("/"),
+      url: SITE_URL,
       lastModified: now,
-      changeFrequency: "hourly",
+      changeFrequency: "daily",
       priority: 1,
+    },
+    {
+      url: toAbsolute("/kontakt"),
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.4,
+    },
+    {
+      url: toAbsolute("/arbeitgeber/preise"),
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.5,
     },
     ...TOP_LANDING_PAGES.map((page) => ({
       url: toAbsolute(getLandingPath(page)),
