@@ -14,7 +14,7 @@ const plusJakarta = Plus_Jakarta_Sans({
   preload: true,
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://sanitaerjob.ch";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sanitaerjob.ch";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

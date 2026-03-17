@@ -48,7 +48,7 @@ function getDisplayJobId(job: JobListing): string {
 
 export const revalidate = 3600;
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://sanitaerjob.ch";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sanitaerjob.ch";
 
 // SEO-DECISION: Map Swiss-German job type labels to schema.org employmentType values
 function mapEmploymentType(type: string): string | string[] {
