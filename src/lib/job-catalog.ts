@@ -39,11 +39,6 @@ const coordinateCache = new Map<string, Coordinate | null>();
 const POSITIVE_KEYWORDS = [
   "sanitär",
   "sanitaer",
-  "heizung",
-  "lüftung",
-  "lueftung",
-  "klima",
-  "spengler",
   "rohrleitung",
   "wärmepumpe",
   "waermepumpe",
@@ -53,9 +48,6 @@ const POSITIVE_KEYWORDS = [
   "haustechnik",
   "gebäudetechnik",
   "gebaeudetechnik",
-  "hlks",
-  "hkls",
-  "hvac",
   "brandschutz",
   "monteur",
   "installat",
@@ -63,10 +55,10 @@ const POSITIVE_KEYWORDS = [
   "servicetechniker",
   "fernwärme",
   "fernwaerme",
-  "regenwasser",
   "rohrleitungsmonteur",
   "sanitärmonteur",
   "sanitaermonteur",
+  "regenwasser",
 ];
 
 const NEGATIVE_KEYWORDS = [
@@ -93,16 +85,6 @@ const CORE_TITLE_KEYWORDS = [
   "sanitaerinstallateur",
   "sanitärmonteur",
   "sanitaermonteur",
-  "heizung",
-  "heizungsinstallateur",
-  "lüftung",
-  "lueftung",
-  "lüftungsanlagenbauer",
-  "lueftungsanlagenbauer",
-  "klima",
-  "kälte",
-  "kaelte",
-  "spengler",
   "rohrleitung",
   "rohrleitungsmonteur",
   "wärmepumpe",
@@ -118,10 +100,6 @@ const CORE_TITLE_KEYWORDS = [
   "techniker",
   "projektleiter",
   "bauleiter",
-  "hlk",
-  "hlks",
-  "hkls",
-  "hvac",
   "haustechnik",
   "gebäudetechnik",
   "gebaeudetechnik",
@@ -133,7 +111,6 @@ const CORE_TITLE_KEYWORDS = [
   "installat",
   "wartung",
   "instandhalt",
-  "spenglerei",
   "sanitärplaner",
   "sanitaerplaner",
   "regenwasser",
@@ -164,6 +141,69 @@ const HARD_NEGATIVE_TITLE_KEYWORDS = [
   "data",
   "hr",
   "human resources",
+];
+
+/** Keywords that uniquely identify THIS trade (sanitär) */
+const TRADE_IDENTITY_KEYWORDS = [
+  "sanitär",
+  "sanitaer",
+  "sanitärinstallateur",
+  "sanitaerinstallateur",
+  "sanitärmonteur",
+  "sanitaermonteur",
+  "rohrleitung",
+  "rohrleitungsmonteur",
+  "trinkwasser",
+  "abwasser",
+  "sanitärplaner",
+  "sanitaerplaner",
+  "regenwasser",
+];
+
+/** Primary keywords from OTHER trades — reject if title matches these without any TRADE_IDENTITY match */
+const OTHER_TRADE_KEYWORDS = [
+  "elektro",
+  "elektriker",
+  "elektroinstallateur",
+  "elektromonteur",
+  "elektroniker",
+  "automatiker",
+  "schaltanlagen",
+  "photovoltaik",
+  "starkstrom",
+  "schwachstrom",
+  "heizung",
+  "heizungsinstallateur",
+  "heizungsmonteur",
+  "klima",
+  "klimatechniker",
+  "kälte",
+  "kältetechniker",
+  "kälteanlagenbauer",
+  "lüftung",
+  "lüftungsmonteur",
+  "lüftungsanlagenbauer",
+  "spengler",
+  "bauspengler",
+  "dachdecker",
+  "dachdeckerin",
+  "zimmermann",
+  "holzbau",
+  "holzkonstruktion",
+  "schreiner",
+  "schreinerei",
+  "tischler",
+  "möbel",
+  "bodenleger",
+  "parkettleger",
+  "plattenleger",
+  "fliesen",
+  "gärtner",
+  "gaertner",
+  "garten",
+  "landschaftsgärtner",
+  "baumpflege",
+  "gartenbau",
 ];
 
 interface NormalizedParams {
@@ -227,10 +267,17 @@ function scoreScrapedJob(job: ScrapedJob): number {
     `${job.description} ${job.fullDescription} ${requirements.join(" ")} ${responsibilities.join(" ")}`
   );
 
+  const titleTradeIdentityHits = countKeywordHits(title, TRADE_IDENTITY_KEYWORDS);
+  const titleOtherTradeHits = countKeywordHits(title, OTHER_TRADE_KEYWORDS);
   const titleSignalHits = countKeywordHits(title, CORE_TITLE_KEYWORDS);
   const hardNegativeTitleHits = countKeywordHits(title, HARD_NEGATIVE_TITLE_KEYWORDS);
   const bodySignalHits = countKeywordHits(body, POSITIVE_KEYWORDS);
   const bodyNegativeHits = countKeywordHits(body, NEGATIVE_KEYWORDS);
+
+  // Title mentions another trade but NOT this trade → reject
+  if (titleOtherTradeHits > 0 && titleTradeIdentityHits === 0) {
+    return -100;
+  }
 
   if (hardNegativeTitleHits > 0 && titleSignalHits === 0) {
     return -100;
