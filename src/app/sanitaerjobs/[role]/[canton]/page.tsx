@@ -22,7 +22,7 @@ import { buildJobPostingSchema } from "@/lib/job-schema";
 
 export const revalidate = 3600;
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://sanitaerjob.ch";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://sanitaerjobs.ch";
 
 interface LandingPageProps {
   params: Promise<{ role: string; canton: string }>;
@@ -128,11 +128,11 @@ export async function generateMetadata({ params }: LandingPageProps): Promise<Me
       },
     },
     openGraph: {
-      title: `${config.title} | sanitaerjob.ch`,
+      title: `${config.title} | sanitaerjobs.ch`,
       description: config.description,
       url: getLandingPath(config),
       type: "website",
-      siteName: "sanitaerjob.ch",
+      siteName: "sanitaerjobs.ch",
       locale: "de_CH",
     },
   };
@@ -171,7 +171,7 @@ export default async function LandingRolePage({ params }: LandingPageProps) {
           <Link href="/" className="flex items-center shrink-0">
             <img
               src="/logo.png"
-              alt="sanitaerjob.ch — Sanitärjobs in der Schweiz"
+              alt="sanitaerjobs.ch — Sanitärjobs in der Schweiz"
               width={142}
               height={29}
               className="h-7 sm:h-8 w-auto"

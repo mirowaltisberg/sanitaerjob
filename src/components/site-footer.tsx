@@ -37,7 +37,7 @@ export function SiteFooter() {
           <div>
             <img
               src="/logo.png"
-              alt="sanitaerjob.ch — Jobbörse für Sanitär-Fachkräfte in der Schweiz"
+              alt="sanitaerjobs.ch — Jobbörse für Sanitär-Fachkräfte in der Schweiz"
               width={142}
               height={29}
               className="h-8 w-auto brightness-0 invert mb-4"
@@ -150,7 +150,7 @@ export function SiteFooter() {
         {/* Bottom bar */}
         <div className="border-t border-slate-800 pt-6 mt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
           <div className="flex flex-col sm:flex-row items-center gap-3">
-            <p>© {new Date().getFullYear()} sanitaerjob.ch — Alle Rechte vorbehalten.</p>
+            <p>© {new Date().getFullYear()} sanitaerjobs.ch — Alle Rechte vorbehalten.</p>
             <nav aria-label="Rechtliches" className="flex items-center gap-4">
               <Link href="/impressum" className="hover:text-white transition-colors">Impressum</Link>
               <Link href="/datenschutz" className="hover:text-white transition-colors">Datenschutz</Link>

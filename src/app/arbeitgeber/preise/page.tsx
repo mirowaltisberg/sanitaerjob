@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 export const metadata: Metadata = {
   title: "Preise & Pakete",
   description:
-    "Erfahren Sie mehr über die Inseratepreise und Pakete auf sanitaerjob.ch — der spezialisierten Jobbörse für Sanitär-Fachkräfte.",
+    "Erfahren Sie mehr über die Inseratepreise und Pakete auf sanitaerjobs.ch — der spezialisierten Jobbörse für Sanitär-Fachkräfte.",
   alternates: {
     canonical: "/arbeitgeber/preise",
   },
@@ -21,7 +21,7 @@ export default function PreisePage() {
           <Link href="/" className="flex items-center shrink-0">
             <img
               src="/logo.png"
-              alt="sanitaerjob.ch"
+              alt="sanitaerjobs.ch"
               width={142}
               height={29}
               className="h-7 sm:h-8 w-auto"
@@ -35,7 +35,7 @@ export default function PreisePage() {
           Preise & Pakete
         </h1>
         <p className="text-slate-600 mb-8 leading-relaxed">
-          Publizieren Sie Ihre offenen Stellen auf sanitaerjob.ch — der
+          Publizieren Sie Ihre offenen Stellen auf sanitaerjobs.ch — der
           spezialisierten Jobbörse für Sanitär-Fachkräfte in der Schweiz. Wir
           bieten attraktive Konditionen für Einzelinserate und Firmenpakete.
         </p>
@@ -66,7 +66,7 @@ export default function PreisePage() {
         <div className="text-center">
           <p className="text-slate-600 mb-4">Kontaktieren Sie uns für ein individuelles Angebot:</p>
           <Button asChild size="lg">
-            <a href="mailto:info@sanitaerjob.ch">info@sanitaerjob.ch kontaktieren</a>
+            <a href="mailto:info@sanitaerjobs.ch">info@sanitaerjobs.ch kontaktieren</a>
           </Button>
         </div>
         <div className="mt-6 text-center">

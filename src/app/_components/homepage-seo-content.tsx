@@ -6,13 +6,13 @@ import { JsonLd } from "@/components/json-ld";
 // This content is always visible to search engines even though the
 // main job search is client-rendered.
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://sanitaerjob.ch";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://sanitaerjobs.ch";
 
 const HOMEPAGE_FAQS = [
   {
-    question: "Welche Sanitärjobs gibt es auf sanitaerjob.ch?",
+    question: "Welche Sanitärjobs gibt es auf sanitaerjobs.ch?",
     answer:
-      "Auf sanitaerjob.ch findest du offene Stellen für Sanitärinstallateur EFZ, Heizungsinstallateur EFZ, Spengler EFZ, Projektleiter Sanitär, Sanitärplaner, Sanitärmonteur, Servicetechniker Sanitär, Lüftungsanlagenbauer EFZ, Rohrleitungsmonteur, Bauleiter HLKS, Gebäudetechnikplaner und Haustechnik-Monteur — in der ganzen Schweiz.",
+      "Auf sanitaerjobs.ch findest du offene Stellen für Sanitärinstallateur EFZ, Heizungsinstallateur EFZ, Spengler EFZ, Projektleiter Sanitär, Sanitärplaner, Sanitärmonteur, Servicetechniker Sanitär, Lüftungsanlagenbauer EFZ, Rohrleitungsmonteur, Bauleiter HLKS, Gebäudetechnikplaner und Haustechnik-Monteur — in der ganzen Schweiz.",
   },
   {
     question: "Was verdient ein Sanitärinstallateur in der Schweiz?",
@@ -22,7 +22,7 @@ const HOMEPAGE_FAQS = [
   {
     question: "Wie finde ich einen Job als Sanitärinstallateur in der Schweiz?",
     answer:
-      "Auf sanitaerjob.ch kannst du gezielt nach Sanitärjobs in deiner Region suchen. Nutze die Filteroptionen nach Beruf, Kanton, Pensum und Umkreis. Du kannst dich direkt über die Plattform bewerben — einfach Lebenslauf hochladen und abschicken.",
+      "Auf sanitaerjobs.ch kannst du gezielt nach Sanitärjobs in deiner Region suchen. Nutze die Filteroptionen nach Beruf, Kanton, Pensum und Umkreis. Du kannst dich direkt über die Plattform bewerben — einfach Lebenslauf hochladen und abschicken.",
   },
   {
     question: "Welche Kantone haben die meisten Sanitärjobs?",
@@ -35,9 +35,9 @@ const HOMEPAGE_FAQS = [
       "Der Sanitärinstallateur EFZ (4-jährige Lehre) plant und installiert Wasser- und Abwasseranlagen, Badezimmerinstallationen und sanitäre Einrichtungen. Der Heizungsinstallateur EFZ (4-jährige Lehre) ist auf Heizungssysteme, Wärmepumpen und Warmwasseraufbereitung spezialisiert. Beide Berufe sind in der Schweiz sehr gefragt.",
   },
   {
-    question: "Gibt es auf sanitaerjob.ch auch Teilzeitstellen?",
+    question: "Gibt es auf sanitaerjobs.ch auch Teilzeitstellen?",
     answer:
-      "Ja, auf sanitaerjob.ch findest du sowohl Vollzeit- als auch Teilzeitstellen. Nutze den Pensum-Filter, um Stellen mit 60–80% oder 80–100% Arbeitspensum zu finden.",
+      "Ja, auf sanitaerjobs.ch findest du sowohl Vollzeit- als auch Teilzeitstellen. Nutze den Pensum-Filter, um Stellen mit 60–80% oder 80–100% Arbeitspensum zu finden.",
   },
 ];
 
@@ -86,7 +86,7 @@ export function HomepageSeoContent() {
             Sanitärjobs in der Schweiz finden
           </h2>
           <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-4">
-            Auf sanitaerjob.ch finden Sanitär-Fachkräfte aktuelle offene Stellen in der ganzen Schweiz
+            Auf sanitaerjobs.ch finden Sanitär-Fachkräfte aktuelle offene Stellen in der ganzen Schweiz
             — von Sanitärinstallateur EFZ über Heizungsinstallateur und Projektleiter Sanitär bis hin zu
             Spengler, Sanitärplaner und Lüftungsanlagenbauer. Ob du deinen nächsten Sanitärjob
             in Zürich, Bern oder Basel suchst — unsere spezialisierte Jobbörse

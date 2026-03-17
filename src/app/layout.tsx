@@ -14,13 +14,13 @@ const plusJakarta = Plus_Jakarta_Sans({
   preload: true,
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sanitaerjob.ch";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sanitaerjobs.ch";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: "Sanitär Jobs Schweiz 2026 | Sanitärinstallateur, Heizungsmonteur & mehr",
-    template: "%s | sanitaerjob.ch",
+    template: "%s | sanitaerjobs.ch",
   },
   description:
     "Finde aktuelle Sanitär Jobs in der Schweiz. Stellen für Sanitärinstallateur EFZ, Heizungsinstallateur, Spengler & mehr. Jetzt Lebenslauf einreichen.",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
       "Finde aktuelle Sanitär Jobs in der Schweiz. Stellen für Sanitärinstallateur EFZ, Heizungsinstallateur, Spengler & mehr. Jetzt Lebenslauf einreichen.",
     type: "website",
     url: "/",
-    siteName: "sanitaerjob.ch",
+    siteName: "sanitaerjobs.ch",
     locale: "de_CH",
   },
   twitter: {
@@ -84,11 +84,11 @@ export const viewport: Viewport = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "sanitaerjob.ch",
+  name: "sanitaerjobs.ch",
   url: SITE_URL,
   logo: `${SITE_URL}/logo.png`,
   description:
-    "sanitaerjob.ch ist die spezialisierte Jobbörse für Sanitär-Fachkräfte in der Schweiz. Finde offene Stellen als Sanitärinstallateur, Heizungsinstallateur, Spengler, Projektleiter Sanitär und mehr.",
+    "sanitaerjobs.ch ist die spezialisierte Jobbörse für Sanitär-Fachkräfte in der Schweiz. Finde offene Stellen als Sanitärinstallateur, Heizungsinstallateur, Spengler, Projektleiter Sanitär und mehr.",
   foundingDate: "2026",
   areaServed: {
     "@type": "Country",
@@ -106,7 +106,7 @@ const organizationSchema = {
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "sanitaerjob.ch",
+  name: "sanitaerjobs.ch",
   url: SITE_URL,
   description:
     "Die spezialisierte Jobbörse für Sanitär-Fachkräfte in der Schweiz.",
@@ -124,7 +124,7 @@ const websiteSchema = {
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  name: "sanitaerjob.ch",
+  name: "sanitaerjobs.ch",
   image: `${SITE_URL}/logo.png`,
   url: SITE_URL,
   telephone: "",

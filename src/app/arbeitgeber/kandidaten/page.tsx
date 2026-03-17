@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 export const metadata: Metadata = {
   title: "Kandidatenzugang",
   description:
-    "Erhalten Sie Zugang zum Kandidatenpool von sanitaerjob.ch — qualifizierte Sanitär-Fachkräfte in der Schweiz.",
+    "Erhalten Sie Zugang zum Kandidatenpool von sanitaerjobs.ch — qualifizierte Sanitär-Fachkräfte in der Schweiz.",
   robots: {
     index: false,
     follow: true,
@@ -21,7 +21,7 @@ export default function KandidatenPage() {
           <Link href="/" className="flex items-center shrink-0">
             <img
               src="/logo.png"
-              alt="sanitaerjob.ch"
+              alt="sanitaerjobs.ch"
               width={142}
               height={29}
               className="h-7 sm:h-8 w-auto"
@@ -35,7 +35,7 @@ export default function KandidatenPage() {
           Kandidatenzugang
         </h1>
         <p className="text-slate-600 mb-6 leading-relaxed">
-          Mit dem Kandidatenzugang von sanitaerjob.ch finden Sie qualifizierte
+          Mit dem Kandidatenzugang von sanitaerjobs.ch finden Sie qualifizierte
           Sanitär-Fachkräfte in der ganzen Schweiz. Dieser Service befindet sich
           derzeit im Aufbau.
         </p>
@@ -44,7 +44,7 @@ export default function KandidatenPage() {
             Kontaktieren Sie uns für weitere Informationen:
           </p>
           <Button asChild className="w-full">
-            <a href="mailto:info@sanitaerjob.ch">info@sanitaerjob.ch kontaktieren</a>
+            <a href="mailto:info@sanitaerjobs.ch">info@sanitaerjobs.ch kontaktieren</a>
           </Button>
         </div>
         <div className="mt-6 text-center">

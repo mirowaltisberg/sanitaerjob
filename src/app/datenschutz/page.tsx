@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 export const metadata: Metadata = {
   title: "Datenschutzerklärung",
   description:
-    "Datenschutzerklärung von sanitaerjob.ch — Informationen zur Erhebung und Verarbeitung personenbezogener Daten gemäss Schweizer DSG.",
+    "Datenschutzerklärung von sanitaerjobs.ch — Informationen zur Erhebung und Verarbeitung personenbezogener Daten gemäss Schweizer DSG.",
   alternates: {
     canonical: "/datenschutz",
   },
@@ -20,7 +20,7 @@ export default function DatenschutzPage() {
           <Link href="/" className="flex items-center shrink-0">
             <Image
               src="/logo.svg"
-              alt="sanitaerjob.ch"
+              alt="sanitaerjobs.ch"
               width={142}
               height={29}
               className="h-7 sm:h-8 w-auto"
@@ -68,7 +68,7 @@ export default function DatenschutzPage() {
           <section>
             <h2 className="text-lg font-bold text-slate-900 mb-2">3. Bewerbungen</h2>
             <p className="text-slate-600 leading-relaxed">
-              Wenn Sie sich über sanitaerjob.ch auf eine Stelle bewerben, werden die von Ihnen
+              Wenn Sie sich über sanitaerjobs.ch auf eine Stelle bewerben, werden die von Ihnen
               eingegebenen Daten (Name, E-Mail, Lebenslauf, Anschreiben) direkt an den
               ausschreibenden Arbeitgeber weitergeleitet. Wir speichern diese Daten nicht dauerhaft
               auf unseren Servern. Die Verarbeitung Ihrer Bewerbungsdaten durch den Arbeitgeber

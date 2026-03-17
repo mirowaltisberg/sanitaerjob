@@ -1,7 +1,7 @@
 import type { JobListing } from "@/lib/job-types";
 import { estimateSalary } from "@/lib/salary-estimates";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sanitaerjob.ch";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sanitaerjobs.ch";
 
 function mapEmploymentType(type: string): string {
   const lower = type.toLowerCase();
@@ -42,7 +42,7 @@ export function buildJobPostingSchema(job: JobListing) {
     industry: "Sanitär, Heizung & Gebäudetechnik",
     hiringOrganization: {
       "@type": "Organization",
-      name: job.company?.trim() || "Arbeitgeber auf sanitaerjob.ch",
+      name: job.company?.trim() || "Arbeitgeber auf sanitaerjobs.ch",
       ...(job.companyUrl ? { sameAs: job.companyUrl } : {}),
     },
     jobLocation: {

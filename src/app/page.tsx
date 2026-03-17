@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600;
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sanitaerjob.ch";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sanitaerjobs.ch";
 
 const homepageBreadcrumbSchema = {
   "@context": "https://schema.org",

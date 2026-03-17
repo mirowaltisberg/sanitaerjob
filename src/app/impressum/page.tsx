@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 export const metadata: Metadata = {
   title: "Impressum",
   description:
-    "Impressum von sanitaerjob.ch — Angaben gemäss Schweizer Recht. Betreiberin: QERO AG, Ifangstrasse 91, 8153 Rümlang.",
+    "Impressum von sanitaerjobs.ch — Angaben gemäss Schweizer Recht. Betreiberin: QERO AG, Ifangstrasse 91, 8153 Rümlang.",
   alternates: {
     canonical: "/impressum",
   },
@@ -20,7 +20,7 @@ export default function ImpressumPage() {
           <Link href="/" className="flex items-center shrink-0">
             <Image
               src="/logo.svg"
-              alt="sanitaerjob.ch"
+              alt="sanitaerjobs.ch"
               width={142}
               height={29}
               className="h-7 sm:h-8 w-auto"
