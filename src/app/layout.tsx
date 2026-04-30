@@ -114,33 +114,6 @@ const websiteSchema = {
   description:
     "Die spezialisierte Jobbörse für Sanitär-Fachkräfte in der Schweiz.",
   inLanguage: "de",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: `${SITE_URL}/?q={search_term_string}`,
-    },
-    "query-input": "required name=search_term_string",
-  },
-};
-
-const localBusinessSchema = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: "sanitaerjobs.ch",
-  image: `${SITE_URL}/logo.png`,
-  url: SITE_URL,
-  telephone: "",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Zürich",
-    addressCountry: "CH",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 47.3769,
-    longitude: 8.5417,
-  },
 };
 
 export default function RootLayout({
@@ -169,7 +142,6 @@ export default function RootLayout({
       <body lang="de" className={`${plusJakarta.variable} antialiased font-sans bg-slate-50`}>
         <JsonLd data={organizationSchema} />
         <JsonLd data={websiteSchema} />
-        <JsonLd data={localBusinessSchema} />
         <HapticProvider>{children}</HapticProvider>
         <Analytics />
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-0000000000"} />
