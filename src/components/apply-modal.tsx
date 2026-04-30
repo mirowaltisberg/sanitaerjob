@@ -117,6 +117,7 @@ export function ApplyModal({ jobId, jobTitle, onOpen }: ApplyModalProps) {
     try {
       const formData = new FormData();
       formData.append("jobId", jobId);
+      formData.append("jobTitle", jobTitle);
       formData.append("name", name);
       formData.append("email", email);
       formData.append("phone", phone);

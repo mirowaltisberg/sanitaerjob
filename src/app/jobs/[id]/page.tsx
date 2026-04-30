@@ -264,7 +264,7 @@ export async function generateMetadata(props: JobDetailsPageProps): Promise<Meta
   const description = job.description.slice(0, 155);
 
   return {
-    title: `${job.title} — ${job.company}`,
+    title: `${job.title} | sanitaerjobs.ch`,
     description,
     alternates: {
       canonical: `/jobs/${job.id}`,

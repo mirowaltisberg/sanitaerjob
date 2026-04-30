@@ -42,8 +42,7 @@ export function buildJobPostingSchema(job: JobListing) {
     industry: "Sanitär, Heizung & Gebäudetechnik",
     hiringOrganization: {
       "@type": "Organization",
-      name: job.company?.trim() || "Arbeitgeber auf sanitaerjobs.ch",
-      ...(job.companyUrl ? { sameAs: job.companyUrl } : {}),
+      name: "Arbeitgeber via sanitaerjobs.ch",
     },
     jobLocation: {
       "@type": "Place",
