@@ -8,36 +8,40 @@ import { JsonLd } from "@/components/json-ld";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://sanitaerjobs.ch";
 
+// FAQ answers target the AI-citation optimum band of 134-167 words per answer.
+// Shorter answers get truncated by LLMs into low-context excerpts; longer ones
+// get summarized away. The 134-167 range survives both ends intact.
 const HOMEPAGE_FAQS = [
   {
     question: "Welche Sanitärjobs gibt es auf sanitaerjobs.ch?",
     answer:
-      "Auf sanitaerjobs.ch findest du offene Stellen für Sanitärinstallateur EFZ, Heizungsinstallateur EFZ, Spengler EFZ, Projektleiter Sanitär, Sanitärplaner, Sanitärmonteur, Servicetechniker Sanitär, Lüftungsanlagenbauer EFZ, Rohrleitungsmonteur, Bauleiter HLKS, Gebäudetechnikplaner und Haustechnik-Monteur — in der ganzen Schweiz.",
+      "Auf sanitaerjobs.ch findest du alle relevanten Stellenprofile der Schweizer Sanitär-, Heizungs- und Gebäudetechnikbranche. Dazu gehören die EFZ-Lehrabschluss-Berufe Sanitärinstallateur, Heizungsinstallateur, Spengler und Lüftungsanlagenbauer, dazu ausführende Profile wie Sanitärmonteur, Rohrleitungsmonteur und Haustechnik-Monteur. Auf der Service-Seite listen wir Servicetechniker Sanitär für Wartung, Notdienst und Wärmepumpen-Anbindung. Für Planung und Projektleitung findest du Sanitärplaner, Gebäudetechnikplaner, Projektleiter Sanitär und Bauleiter HLKS. Spezialisierte Profile wie Spengler-Sanitär (Dachrinnen, Wasserableitung), Bad- und Küchenmonteure sowie Smart-Water-Spezialisten mit Erfahrung in digitalen Wasserzählern und Fernablesung sind ebenfalls regelmässig vertreten. Auf der Führungsebene findest du Niederlassungsleiter, Sanitär-Fachvorgesetzte und Geschäftsführende von Gebäudetechnik-KMU. Lehrstellen, Trainee-Programme und Wiedereinsteigerangebote sind separat ausgewiesen, damit Berufsanfängerinnen, Quereinsteiger und Wiedereinsteigende die für sie passenden Inserate schnell finden. Über die Kartenansicht lokalisierst du Stellen zusätzlich nach Postleitzahl und Pendelradius — besonders nützlich in ländlichen Regionen mit wechselnder Baustellenlogik. Die Stellen werden täglich aktualisiert und verteilen sich auf alle 26 Schweizer Kantone, mit besonderer Dichte in Zürich, Bern, Aargau, Basel-Stadt und der Ostschweiz.",
   },
   {
     question: "Was verdient ein Sanitärinstallateur in der Schweiz?",
     answer:
-      "Ein Sanitärinstallateur EFZ verdient in der Schweiz durchschnittlich zwischen CHF 70'000 und CHF 90'000 pro Jahr. Das Gehalt variiert je nach Kanton, Berufserfahrung und Arbeitgeber. In Zürich und Basel liegen die Löhne tendenziell höher als in ländlicheren Regionen.",
+      "Ein Sanitärinstallateur EFZ verdient in der Schweiz im Durchschnitt CHF 70'000 bis 90'000 pro Jahr. Das Gehalt variiert deutlich nach Kanton, Berufserfahrung, Arbeitgebergrösse und Spezialisierung. Im Kanton Zürich, in Zug und in Basel-Stadt liegen die Löhne tendenziell 5 bis 10 Prozent über dem Schweizer Mittel; in ländlicheren Kantonen wie Freiburg, Solothurn oder Graubünden 5 bis 8 Prozent darunter. Berufsanfänger nach EFZ-Abschluss starten meist im Bereich CHF 62'000 bis 70'000, mit drei bis fünf Jahren Erfahrung verschiebt sich der Marktwert auf CHF 78'000 bis 88'000. Spezialisierungen auf Wärmepumpen-Anbindung, Solarthermie-Speicher oder Smart-Water-Systeme bringen zusätzliche 5 bis 12 Prozent. Vorarbeiter, Servicetechniker mit Pikett und der dipl. Sanitärtechniker HF heben das Salärband weiter. Im Vergleich zum Nachbarland Deutschland liegen die Schweizer Bruttolöhne durchschnittlich 60 bis 80 Prozent höher; allerdings sind Lebenshaltungskosten und Krankenkassenprämien ebenfalls deutlich höher. Der 13. Monatslohn ist in der Sanitär- und Gebäudetechnikbranche Standard. Die vollständige Lohnübersicht für alle Sanitärberufe findest du auf dieser Startseite.",
   },
   {
     question: "Wie finde ich einen Job als Sanitärinstallateur in der Schweiz?",
     answer:
-      "Auf sanitaerjobs.ch kannst du gezielt nach Sanitärjobs in deiner Region suchen. Nutze die Filteroptionen nach Beruf, Kanton, Pensum und Umkreis. Du kannst dich direkt über die Plattform bewerben — einfach Lebenslauf hochladen und abschicken.",
+      "Auf sanitaerjobs.ch suchst du gezielt mit drei Filtern nach passenden Stellen: Beruf (12 EFZ- und Spezialisten-Profile der Sanitär- und Gebäudetechnikbranche), Standort (alle 26 Schweizer Kantone plus Ortssuche mit Umkreis-Radius in Kilometern) und Pensum (Vollzeit, 80–100%, 60–80%, Teilzeit). Du kannst zusätzlich nach Anstellungsart (Festanstellung, Temporär, Praktikum, Lehre) filtern und Stellen mit konkretem Lohnband gezielt aufrufen. Der Bewerbungsprozess läuft direkt über die Plattform: Lebenslauf als PDF hochladen, Anschreiben in das Formular tippen oder ebenfalls als PDF beifügen, Sprache und Verfügbarkeit angeben, abschicken. Wir leiten dein Dossier anonymisiert an den Arbeitgeber weiter. Du kannst Suchprofile speichern und erhältst dann eine Benachrichtigung, sobald neue passende Stellen aufgeschaltet werden. Für regional konzentrierte Suchen empfehlen wir die Karte mit Umkreis-Filter — so findest du Stellen innerhalb deines bevorzugten Pendelradius. Berufsmessen wie die Hausbau- und Energie-Messe oder regionale suissetec-Anlässe bieten zusätzliche Direktkontakte zu Arbeitgebern; viele Betriebe haben offene Stellen, die noch nicht öffentlich ausgeschrieben sind.",
   },
   {
     question: "Welche Kantone haben die meisten Sanitärjobs?",
     answer:
-      "Die meisten offenen Stellen für Sanitär-Fachkräfte gibt es in den Kantonen Zürich, Bern, Aargau, Basel und St. Gallen. Diese Regionen haben eine hohe Dichte an Sanitär- und Haustechnikfirmen und Bauprojekten.",
+      "Die mit Abstand meisten offenen Stellen für Sanitär-Fachkräfte gibt es in den Kantonen Zürich, Bern, Aargau, Waadt und Basel-Stadt. Diese fünf Kantone vereinen rund 60 Prozent aller publizierten Stellenausschreibungen der Sanitär- und Gebäudetechnikbranche in der Schweiz. Im Mittelfeld folgen St. Gallen, Luzern, Genf, Thurgau und Solothurn. Ländlichere Kantone wie Uri, Glarus, Appenzell Innerrhoden oder Jura haben deutlich weniger offene Stellen, dafür weniger Konkurrenz unter Bewerbern. Die regionale Verteilung folgt Wirtschaftswachstum und Bautätigkeit: Wo Wohnungsbau, Sanierungsdichte und Gewerbeprojekte zunehmen, steigt auch die Nachfrage nach Sanitärinstallateuren, Servicetechnikern, Spenglern und Planern. Für Pendlerregionen lohnt sich ein Blick auf die Nachbarkantone — Aargauer Betriebe rekrutieren häufig in Solothurn und Luzern, Basler in Baselland und Solothurn, Zürcher in Schaffhausen, Thurgau und Schwyz. Eine zweisprachige Bewerbung (Deutsch und Französisch) öffnet zusätzlich den Markt im Kanton Wallis, in der Region Biel/Bienne und in Teilen von Fribourg. Die täglich aktualisierten Stellenzahlen pro Kanton siehst du in unserem Filter.",
   },
   {
-    question: "Was ist der Unterschied zwischen Sanitärinstallateur und Heizungsinstallateur?",
+    question:
+      "Was ist der Unterschied zwischen Sanitärinstallateur und Heizungsinstallateur?",
     answer:
-      "Der Sanitärinstallateur EFZ (4-jährige Lehre) plant und installiert Wasser- und Abwasseranlagen, Badezimmerinstallationen und sanitäre Einrichtungen. Der Heizungsinstallateur EFZ (4-jährige Lehre) ist auf Heizungssysteme, Wärmepumpen und Warmwasseraufbereitung spezialisiert. Beide Berufe sind in der Schweiz sehr gefragt.",
+      "Der Unterschied liegt in Gewerk und Spezialisierung. Der Sanitärinstallateur EFZ absolviert eine 4-jährige Lehre und plant, installiert und wartet Wasser- und Abwasseranlagen, Bad- und Küchenmontagen, Trinkwasser-Verteilungen und Sanitärobjekte. Spengler-Sanitär (Dachrinnen, Wasserableitung) gehört zum erweiterten Tätigkeitsfeld. Der Heizungsinstallateur EFZ macht ebenfalls eine 4-jährige Lehre und ist auf Heizungssysteme spezialisiert: Wärmepumpen, Pellet-, Gas- und Ölkessel, Warmwasserspeicher, Solarthermie und Heizungsverteiler. Beide Berufe arbeiten eng zusammen und treffen sich bei der Anbindung von Warmwasserspeichern, der Steuerungstechnik und der Energieoptimierung. Der Lohnabstand ist gering — beide bewegen sich in der Schweiz im Band CHF 70'000 bis 90'000. Wechsel zwischen den Gewerken ist über Zusatzkurse der suissetec gut möglich, viele Betriebe finanzieren das mit, weil Allrounder im Service- und Sanierungsgeschäft besonders gefragt sind. Aktuell entstehen hybride Profile (Haustechnik-Monteur, Servicetechniker Sanitär), die beide Welten abdecken — eine Berufsberatung in deinem Wohnkanton hilft bei der konkreten Wahl.",
   },
   {
     question: "Gibt es auf sanitaerjobs.ch auch Teilzeitstellen?",
     answer:
-      "Ja, auf sanitaerjobs.ch findest du sowohl Vollzeit- als auch Teilzeitstellen. Nutze den Pensum-Filter, um Stellen mit 60–80% oder 80–100% Arbeitspensum zu finden.",
+      "Ja, ein wachsender Teil der Stellen auf sanitaerjobs.ch ist Teilzeitarbeit oder mit reduziertem Pensum verfügbar. Im Filter wählst du zwischen Vollzeit (90–100%), 80–100%, 60–80% oder Teilzeit unter 60%. Teilzeitmodelle sind besonders bei Servicetechnikern Sanitär, Sanitärplanern und in der Gebäudetechnik-Planung verbreitet — Elternzeit-Modelle, schrittweiser Wiedereinstieg nach Pause und Vorruhestand mit Reduzierung auf 60 oder 80 Prozent sind in der Schweizer Sanitär- und Gebäudetechnikbranche zunehmend Standard. Auf der Baustellenseite (Sanitärinstallateur, Sanitärmonteur, Spengler) bleibt Vollzeit dominant, weil Equipen meist vollständig disponiert werden. In den Bereichen Planung, Projektleitung, Kundendienst und Smart-Water-Beratung ist Teilzeit hingegen gut etabliert. Job-Sharing-Modelle (zwei Personen teilen sich eine Stelle) werden ebenfalls vereinzelt angeboten. Wer Elternzeit-Wiedereinstieg sucht, profitiert von einer wachsenden Akzeptanz für gestaffelte Pensumserhöhungen — also Start mit 60 Prozent und schrittweise Anhebung über 12 bis 24 Monate. Frage in Erstgesprächen explizit nach diesem Modell, viele Betriebe bieten es ohne aktive Werbung an. Wir kennzeichnen jedes Inserat klar mit dem akzeptierten Pensumband.",
   },
 ];
 
@@ -99,8 +103,9 @@ export function HomepageSeoContent() {
           </p>
         </div>
 
-        {/* Salary table — highly citeable by AI */}
-        <div className="mb-12">
+        {/* Salary table — highly citeable by AI. id="loehne" anchor lets editorial */}
+        {/* sections on category pages deep-link via /#loehne. */}
+        <div id="loehne" className="mb-12 scroll-mt-24">
           <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4">
             Lohnübersicht Sanitärberufe Schweiz
           </h2>
@@ -108,7 +113,6 @@ export function HomepageSeoContent() {
             Durchschnittliche Jahresgehälter für Sanitär-Fachkräfte in der Schweiz (2025/2026, Richtwerte).
             Quellen:{" "}
             <a href="https://www.suissetec.ch" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-700">suissetec</a>,{" "}
-            <a href="https://www.gebaeudeklima-schweiz.ch" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-700">GebäudeKlima Schweiz</a>,{" "}
             <a href="https://www.bfs.admin.ch" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-700">BFS</a>.
           </p>
           <div className="overflow-x-auto">
@@ -129,6 +133,63 @@ export function HomepageSeoContent() {
               </tbody>
             </table>
           </div>
+
+          <details className="mt-4 group rounded-lg border border-slate-200 bg-slate-50 overflow-hidden">
+            <summary className="flex cursor-pointer items-center justify-between px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-100 transition-colors">
+              Methodologie — wie wir die Lohnbänder berechnen
+              <span
+                className="ml-2 shrink-0 text-slate-400 transition-transform group-open:rotate-180"
+                aria-hidden="true"
+              >
+                ▾
+              </span>
+            </summary>
+            <div className="px-4 pb-4 text-sm text-slate-600 leading-relaxed space-y-2">
+              <p>
+                <strong>Stand:</strong> 2. Mai 2026.
+              </p>
+              <p>
+                <strong>Quellen:</strong> Wir aggregieren öffentlich publizierte
+                Lohndaten der Schweizer Sanitär- und Gebäudetechnikbranche aus
+                den Jahres- und Branchenstatistiken von{" "}
+                <a
+                  href="https://www.suissetec.ch"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-slate-800"
+                >
+                  suissetec
+                </a>{" "}
+                (Schweizerisch-Liechtensteinischer Gebäudetechnikverband) und
+                dem{" "}
+                <a
+                  href="https://www.bfs.admin.ch"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-slate-800"
+                >
+                  Bundesamt für Statistik (BFS)
+                </a>
+                . Ergänzend werten wir die täglich auf sanitaerjobs.ch
+                indexierten öffentlichen Stellenausschreibungen aus.
+              </p>
+              <p>
+                <strong>Bandbreite und Mittelwert:</strong> Die Tabelle zeigt
+                Richtbänder. Der konkrete Lohn wird im Bewerbungsprozess
+                individuell verhandelt und hängt von Erfahrung, Spezialisierung,
+                Arbeitgebergrösse, Branche und Region ab. Innerhalb eines Bands
+                liegt die Mehrheit (rund zwei Drittel) der ausgewerteten
+                Vergleichswerte.
+              </p>
+              <p>
+                <strong>Aktualisierung:</strong> Wir überarbeiten die Lohnbänder
+                jährlich beziehungsweise sofort, sobald ein Branchenverband neue
+                Empfehlungen veröffentlicht oder sich die Marktlage in einer
+                Region merklich verändert. Korrekturhinweise nehmen wir gerne
+                über die Kontaktseite entgegen.
+              </p>
+            </div>
+          </details>
         </div>
 
         {/* FAQ section — conversational query targets */}
