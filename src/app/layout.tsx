@@ -19,7 +19,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sanitaerjobs.c
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Sanitär Jobs Schweiz 2026 | Sanitärinstallateur, Heizungsmonteur & mehr",
+    default: "847 Sanitär Jobs Schweiz 2026 | Sanitärinstallateur, Heizungsmonteur & mehr",
     template: "%s | sanitaerjobs.ch",
   },
   description:
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     "Stellen Sanitärbranche Schweiz",
   ],
   openGraph: {
-    title: "Sanitär Jobs Schweiz 2026 | Sanitärinstallateur, Heizungsmonteur & mehr",
+    title: "847 Sanitär Jobs Schweiz 2026 | Sanitärinstallateur, Heizungsmonteur & mehr",
     description:
       "Finde aktuelle Sanitär Jobs in der Schweiz. Stellen für Sanitärinstallateur EFZ, Heizungsinstallateur, Spengler & mehr. Jetzt Lebenslauf einreichen.",
     type: "website",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sanitär Jobs Schweiz 2026 | Sanitärinstallateur, Heizungsmonteur & mehr",
+    title: "847 Sanitär Jobs Schweiz 2026 | Sanitärinstallateur, Heizungsmonteur & mehr",
     description:
       "Finde aktuelle Sanitär Jobs in der Schweiz. Stellen für Sanitärinstallateur EFZ, Heizungsinstallateur, Spengler & mehr. Jetzt Lebenslauf einreichen.",
   },
