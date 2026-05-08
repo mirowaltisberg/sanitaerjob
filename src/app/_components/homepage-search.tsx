@@ -34,6 +34,7 @@ import { trackEvent } from "@/lib/analytics";
 import { TOP_LANDING_PAGES, getLandingPath } from "@/lib/landing-pages";
 import { calculateDistanceKm, getRegionRadius, resolveLocationCoordinate, type Coordinate } from "@/lib/location-distance";
 import { estimateSalary, formatSalaryRange } from "@/lib/salary-estimates";
+import { buildJobSlug } from "@/lib/job-slug";
 
 const JOB_SUGGESTIONS = [
   "Sanitärinstallateur",
@@ -709,7 +710,7 @@ export function HomepageSearch({ initialData }: HomepageSearchProps) {
           <div className="container mx-auto px-4 sm:px-6 text-center">
             <h1 className="animate-hero-title text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-4 sm:mb-6 tracking-tight leading-tight">
               <span className="text-primary">Sanitär Jobs</span> Schweiz
-              <span className="block text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-700 mt-2 sm:mt-4">Alle offenen Stellen</span>
+              <span className="block text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-700 mt-2 sm:mt-4">847 offene Stellen</span>
             </h1>
             <p className="animate-hero-subtitle text-base sm:text-lg text-slate-600 mb-8 sm:mb-10 max-w-2xl mx-auto px-1">
               Live-Stellen mit smarter Filterung für Sanitär-Fachkräfte in der ganzen Schweiz. Finde den perfekten Job (Vollzeit / Teilzeit Pensum).
@@ -945,7 +946,7 @@ export function HomepageSearch({ initialData }: HomepageSearchProps) {
                           loc: job.searchContext?.location ?? activeLocation,
                         },
                       }
-                      : `/jobs/${job.id}`;
+                      : `/jobs/${buildJobSlug(job)}`;
 
                     return (
                       <Link

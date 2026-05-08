@@ -19,11 +19,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sanitaerjobs.c
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Sanitär Jobs Schweiz 2026 | Sanitärinstallateur, Heizungsmonteur & mehr",
+    default: "Sanitär Jobs Schweiz 2026 | Stellenangebote & Lohn",
     template: "%s | sanitaerjobs.ch",
   },
   description:
-    "Finde aktuelle Sanitär Jobs in der Schweiz. Stellen für Sanitärinstallateur EFZ, Heizungsinstallateur, Spengler & mehr. Jetzt Lebenslauf einreichen.",
+    "Finde Sanitär Jobs und Stellenangebote in der Schweiz: Sanitärinstallateur EFZ, Sanitärmonteur, Servicetechniker, Temporär, Festanstellung und Lohninfos.",
   keywords: [
     "Sanitärjobs",
     "Sanitärjobs Schweiz",
@@ -39,11 +39,18 @@ export const metadata: Metadata = {
     "Bauleiter HLKS",
     "Rohrleitungsmonteur",
     "Stellen Sanitärbranche Schweiz",
+    "Sanitär Job Schweiz",
+    "Sanitär Stellen Schweiz",
+    "Sanitärinstallateur Stellenangebote",
+    "Sanitärmonteur Jobs Schweiz",
+    "Sanitärinstallateur Temporär",
+    "Sanitär Festanstellung",
+    "Sanitärinstallateur Lohn Schweiz",
   ],
   openGraph: {
-    title: "Sanitär Jobs Schweiz 2026 | Sanitärinstallateur, Heizungsmonteur & mehr",
+    title: "Sanitär Jobs Schweiz 2026 | Stellenangebote & Lohn",
     description:
-      "Finde aktuelle Sanitär Jobs in der Schweiz. Stellen für Sanitärinstallateur EFZ, Heizungsinstallateur, Spengler & mehr. Jetzt Lebenslauf einreichen.",
+      "Finde Sanitär Jobs und Stellenangebote in der Schweiz: Sanitärinstallateur EFZ, Sanitärmonteur, Servicetechniker, Temporär, Festanstellung und Lohninfos.",
     type: "website",
     url: "/",
     siteName: "sanitaerjobs.ch",
@@ -51,9 +58,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sanitär Jobs Schweiz 2026 | Sanitärinstallateur, Heizungsmonteur & mehr",
+    title: "Sanitär Jobs Schweiz 2026 | Stellenangebote & Lohn",
     description:
-      "Finde aktuelle Sanitär Jobs in der Schweiz. Stellen für Sanitärinstallateur EFZ, Heizungsinstallateur, Spengler & mehr. Jetzt Lebenslauf einreichen.",
+      "Finde Sanitär Jobs und Stellenangebote in der Schweiz: Sanitärinstallateur EFZ, Sanitärmonteur, Servicetechniker, Temporär, Festanstellung und Lohninfos.",
   },
   alternates: {
     canonical: "/",
@@ -113,7 +120,12 @@ const websiteSchema = {
   url: SITE_URL,
   description:
     "Die spezialisierte Jobbörse für Sanitär-Fachkräfte in der Schweiz.",
-  inLanguage: "de",
+  inLanguage: "de-CH",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${SITE_URL}/?q={search_term_string}`,
+    "query-input": "required name=search_term_string",
+  },
 };
 
 export default function RootLayout({

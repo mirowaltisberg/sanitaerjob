@@ -7,9 +7,9 @@ import { JsonLd } from "@/components/json-ld";
 import { buildJobPostingSchema } from "@/lib/job-schema";
 
 export const metadata: Metadata = {
-  title: "Sanitär Jobs Schweiz 2026 | Offene Stellen finden",
+  title: "Sanitär Jobs Schweiz 2026 | Stellenangebote & Lohn",
   description:
-    "Finde aktuelle Sanitär Jobs in der Schweiz. Stellen für Sanitärinstallateur EFZ, Heizungsinstallateur, Spengler & mehr. Jetzt Lebenslauf einreichen.",
+    "Finde Sanitär Jobs und Stellenangebote in der Schweiz: Sanitärinstallateur EFZ, Sanitärmonteur, Servicetechniker, Temporär, Festanstellung und Lohninfos.",
   alternates: { canonical: "/" },
 };
 

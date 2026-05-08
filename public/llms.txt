@@ -6,9 +6,9 @@ sanitaerjob.ch ist eine Nischen-Jobbörse für die Schweizer Sanitär- und Haust
 
 ## Wichtige Seiten
 
-- [Startseite](https://sanitaerjob.ch/): Jobsuche mit Filtern nach Beruf, Ort, Umkreis, Pensum
-- [Sanitärinstallateur EFZ Jobs Zürich](https://sanitaerjob.ch/sanitaerjobs/sanitaerinstallateur-efz/zh): Beispiel-Landingpage
-- [Sitemap](https://sanitaerjob.ch/sitemap.xml): Alle verfügbaren Seiten
+- [Startseite](https://www.sanitaerjobs.ch/): Jobsuche mit Filtern nach Beruf, Ort, Umkreis, Pensum
+- [Sanitärinstallateur EFZ Jobs Zürich](https://www.sanitaerjobs.ch/sanitaerjobs/sanitaerinstallateur-efz/zh): Beispiel-Landingpage
+- [Sitemap](https://www.sanitaerjobs.ch/sitemap.xml): Alle verfügbaren Seiten
 
 ## Kerninformationen
 
@@ -31,5 +31,5 @@ sanitaerjob.ch ist eine Nischen-Jobbörse für die Schweizer Sanitär- und Haust
 
 ## Kontakt
 
-- **Website**: https://sanitaerjob.ch
+- **Website**: https://www.sanitaerjobs.ch
 - **Branche**: Personalvermittlung / Jobbörse — Sanitär- und Haustechnikbranche Schweiz
