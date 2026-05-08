@@ -19,11 +19,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sanitaerjobs.c
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Sanitär Jobs Schweiz 2026 | Stellenangebote & Lohn",
+    default: "Sanitärinstallateur Jobs Schweiz 2026 | Stellen, Lohn & Ausbildung",
     template: "%s | sanitaerjobs.ch",
   },
   description:
-    "Finde Sanitär Jobs und Stellenangebote in der Schweiz: Sanitärinstallateur EFZ, Sanitärmonteur, Servicetechniker, Temporär, Festanstellung und Lohninfos.",
+    "Finde Sanitärinstallateur Jobs in der Schweiz: Sanitärmonteur, Haustechniker, Servicetechniker, Sanitärplaner. Lohn, Ausbildung & tägliche Stellen-Updates.",
   keywords: [
     "Sanitärjobs",
     "Sanitärjobs Schweiz",

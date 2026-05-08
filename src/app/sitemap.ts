@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getIndexableJobListings } from "@/lib/job-catalog";
 import { getLandingPath, TOP_LANDING_PAGES } from "@/lib/landing-pages";
+import { SANITAER_CITIES } from "@/lib/sanitaer-cities";
 
 export const revalidate = 3600;
 
@@ -41,6 +42,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.5,
     },
+    {
+      url: toAbsolute("/lohn-sanitaerinstallateur-schweiz"),
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.85,
+    },
+    {
+      url: toAbsolute("/sanitaerinstallateur-ausbildung"),
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    },
+    {
+      url: toAbsolute("/sanitaer-in-der-naehe"),
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.75,
+    },
+    ...SANITAER_CITIES.map((c) => ({
+      url: toAbsolute(`/sanitaer-jobs/${c.slug}`),
+      lastModified: now,
+      changeFrequency: "daily" as const,
+      priority: 0.85,
+    })),
     ...TOP_LANDING_PAGES.map((page) => ({
       url: toAbsolute(getLandingPath(page)),
       lastModified: now,
