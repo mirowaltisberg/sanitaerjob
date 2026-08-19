@@ -1,0 +1,9 @@
+node_modules
+.next
+.next*
+.vercel
+.playwright-mcp
+.claude
+scripts/.venv
+*.log
+.DS_Store

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { SiteFooter } from "@/components/site-footer";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://sanitaerjobs.ch";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sanitaerjobs.ch";
 
 export const metadata: Metadata = {
   title: "Über die Redaktion | sanitaerjobs.ch",

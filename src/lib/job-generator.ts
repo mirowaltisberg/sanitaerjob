@@ -115,7 +115,7 @@ const BENEFIT_TEMPLATES = [
   "Strukturierte Einarbeitung durch erfahrene Kollegen.",
   "Spannende Projekte mit langfristiger Perspektive.",
   "Attraktive Zulagen für Pikett und Spezialaufträge.",
-  "Regelmäßige Team-Events und Fachworkshops.",
+  "Regelmässige Team-Events und Fachworkshops.",
   "Möglichkeit zur Spezialisierung in Zukunftsthemen.",
 ];
 

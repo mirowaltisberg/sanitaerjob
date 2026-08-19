@@ -6,7 +6,7 @@ import { JsonLd } from "@/components/json-ld";
 // This content is always visible to search engines even though the
 // main job search is client-rendered.
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://sanitaerjobs.ch";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sanitaerjobs.ch";
 
 // FAQ answers target the AI-citation optimum band of 134-167 words per answer.
 // Shorter answers get truncated by LLMs into low-context excerpts; longer ones
@@ -100,6 +100,10 @@ export function HomepageSeoContent() {
             Ob du in Zürich, Bern, Basel, Luzern, St. Gallen oder einem anderen Schweizer Kanton
             suchst — mit unserer smarten Filterung nach Beruf, Ort, Umkreis und Pensum findest du
             schnell die passende Stelle. Bewirb dich direkt über die Plattform mit wenigen Klicks.
+          </p>
+
+          <p className="text-slate-600 text-base leading-relaxed mt-4">
+            Zusätzlich findest du Festanstellungen, Temporärstellen, Teilzeitpensen, Lehrstellen und Stellenangebote mit Lohnband. Besonders gesucht werden Fachkräfte mit EFZ/EBA, Erfahrung im Service, in der Montage oder Projektleitung und regionaler Mobilität. Damit eignet sich die Suche für klassische Sanitär Jobs in der Schweiz ebenso wie für spezialisierte Profile wie Sanitärinstallateur EFZ, Sanitärmonteur, Servicetechniker Sanitär und Projektleiter Sanitär.
           </p>
         </div>
 

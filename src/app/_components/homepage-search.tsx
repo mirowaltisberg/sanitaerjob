@@ -34,6 +34,7 @@ import { trackEvent } from "@/lib/analytics";
 import { TOP_LANDING_PAGES, getLandingPath } from "@/lib/landing-pages";
 import { calculateDistanceKm, getRegionRadius, resolveLocationCoordinate, type Coordinate } from "@/lib/location-distance";
 import { estimateSalary, formatSalaryRange } from "@/lib/salary-estimates";
+import { buildJobSlug } from "@/lib/job-slug";
 
 const JOB_SUGGESTIONS = [
   "Sanitärinstallateur",
@@ -945,7 +946,7 @@ export function HomepageSearch({ initialData }: HomepageSearchProps) {
                           loc: job.searchContext?.location ?? activeLocation,
                         },
                       }
-                      : `/jobs/${job.id}`;
+                      : `/jobs/${buildJobSlug(job)}`;
 
                     return (
                       <Link

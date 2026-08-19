@@ -139,7 +139,7 @@ export function SiteFooter() {
             <a href="https://www.elektrojob.ch" target="_blank" rel="noopener" className="text-sm hover:text-white transition-colors">Elektrojobs</a>
             <a href="https://heizungjob.ch" target="_blank" rel="noopener" className="text-sm hover:text-white transition-colors">Heizungsjobs</a>
             <a href="https://spenglerjob.ch" target="_blank" rel="noopener" className="text-sm hover:text-white transition-colors">Spenglerjobs</a>
-            <a href="https://dachdeckerjob.ch" target="_blank" rel="noopener" className="text-sm hover:text-white transition-colors">Dachdeckerjobs</a>
+            <a href="https://www.dachdeckerjobs.ch" target="_blank" rel="noopener" className="text-sm hover:text-white transition-colors">Dachdeckerjobs</a>
             <a href="https://schreinerjob.ch" target="_blank" rel="noopener" className="text-sm hover:text-white transition-colors">Schreinerjobs</a>
             <a href="https://zimmermannjob.ch" target="_blank" rel="noopener" className="text-sm hover:text-white transition-colors">Zimmermannjobs</a>
             <a href="https://bodenlegerjob.ch" target="_blank" rel="noopener" className="text-sm hover:text-white transition-colors">Bodenlegerjobs</a>
