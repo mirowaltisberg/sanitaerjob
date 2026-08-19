@@ -1,35 +1,21 @@
-# sanitaerjob.ch
+# sanitaerjobs.ch
 
-> Die spezialisierte Jobbörse für Sanitär-Fachkräfte in der Schweiz.
+> Stellenangebote für Sanitär-Fachkräfte in der Schweiz.
 
-sanitaerjob.ch ist eine Nischen-Jobbörse für die Schweizer Sanitär- und Haustechnikbranche. Die Plattform richtet sich an Sanitärinstallateure, Heizungsinstallateure, Spengler, Projektleiter Sanitär, Sanitärplaner, Sanitärmonteure, Servicetechniker Sanitär, Lüftungsanlagenbauer, Rohrleitungsmonteure, Bauleiter HLKS, Gebäudetechnikplaner und Haustechnik-Monteure.
+sanitaerjobs.ch bündelt öffentlich zugängliche Stelleninserate mit klarem Bezug zum Sanitärgewerk. Dazu gehören insbesondere Stellen für Sanitärinstallateurinnen und Sanitärinstallateure, Sanitärmonteurinnen und Sanitärmonteure, Servicetechnik Sanitär sowie Planung und Projektleitung Sanitär.
 
 ## Wichtige Seiten
 
-- [Startseite](https://www.sanitaerjobs.ch/): Jobsuche mit Filtern nach Beruf, Ort, Umkreis, Pensum
-- [Sanitärinstallateur EFZ Jobs Zürich](https://www.sanitaerjobs.ch/sanitaerjobs/sanitaerinstallateur-efz/zh): Beispiel-Landingpage
-- [Sitemap](https://www.sanitaerjobs.ch/sitemap.xml): Alle verfügbaren Seiten
+- [Startseite und Stellensuche](https://sanitaerjobs.ch/)
+- [Ausbildung Sanitärinstallateur/in EFZ](https://sanitaerjobs.ch/sanitaerinstallateur-ausbildung)
+- [Lohn und GAV richtig einordnen](https://sanitaerjobs.ch/lohn-sanitaerinstallateur-schweiz)
+- [Sitemap](https://sanitaerjobs.ch/sitemap.xml)
 
-## Kerninformationen
+## Quellenstandard
 
-- **Sprache**: Deutsch (Schweizer Markt)
-- **Regionen**: Alle Schweizer Kantone — Zürich, Bern, Basel, Aargau, St. Gallen, Luzern, Solothurn, Zug und weitere
-- **Berufe**: Sanitärinstallateur EFZ, Heizungsinstallateur EFZ, Spengler EFZ, Projektleiter Sanitär, Sanitärplaner, Sanitärmonteur, Servicetechniker Sanitär, Lüftungsanlagenbauer EFZ, Rohrleitungsmonteur, Bauleiter HLKS, Gebäudetechnikplaner, Haustechnik-Monteur
-- **Lohndaten (Richtwerte, CHF/Jahr)**:
-  - Bauleiter HLKS: 90'000 – 120'000
-  - Projektleiter Sanitär: 85'000 – 110'000
-  - Sanitärplaner: 80'000 – 100'000
-  - Gebäudetechnikplaner: 78'000 – 98'000
-  - Servicetechniker Sanitär: 72'000 – 88'000
-  - Sanitärinstallateur EFZ: 70'000 – 90'000
-  - Heizungsinstallateur EFZ: 70'000 – 90'000
-  - Lüftungsanlagenbauer EFZ: 68'000 – 85'000
-  - Rohrleitungsmonteur: 68'000 – 85'000
-  - Haustechnik-Monteur: 68'000 – 85'000
-  - Sanitärmonteur: 68'000 – 82'000
-  - Spengler EFZ: 65'000 – 82'000
+Berufs- und Ausbildungsinformationen stützen sich auf offizielle Schweizer Quellen wie berufsberatung.ch und suissetec. Hinweise zum Gesamtarbeitsvertrag verlinken auf die aktuelle Übersicht des Staatssekretariats für Wirtschaft SECO. sanitaerjobs.ch publiziert keine eigenen pauschalen Lohnbänder.
 
 ## Kontakt
 
-- **Website**: https://www.sanitaerjobs.ch
-- **Branche**: Personalvermittlung / Jobbörse — Sanitär- und Haustechnikbranche Schweiz
+- **Website**: https://sanitaerjobs.ch
+- **E-Mail**: info@sanitaerjobs.ch

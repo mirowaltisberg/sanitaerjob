@@ -33,11 +33,19 @@ const nextConfig: NextConfig = {
       ["freiburg", "fr"],
       ["graubuenden", "gr"],
     ];
-    return cantonAliases.map(([from, to]) => ({
-      source: `/sanitaerjobs/:role/${from}`,
-      destination: `/sanitaerjobs/:role/${to}`,
-      permanent: true,
-    }));
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host" as const, value: "www.sanitaerjobs.ch" }],
+        destination: "https://sanitaerjobs.ch/:path*",
+        permanent: true,
+      },
+      ...cantonAliases.map(([from, to]) => ({
+        source: `/sanitaerjobs/:role/${from}`,
+        destination: `/sanitaerjobs/:role/${to}`,
+        permanent: true,
+      })),
+    ];
   },
 
   async headers() {
@@ -73,12 +81,6 @@ const nextConfig: NextConfig = {
         headers: [
           ...securityHeaders,
           { key: "X-Robots-Tag", value: "noindex, nofollow" },
-        ],
-      },
-      {
-        source: "/_next/static/(.*)",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
       {

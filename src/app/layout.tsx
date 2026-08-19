@@ -1,43 +1,32 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 import { JsonLd } from "@/components/json-ld";
 import { HapticProvider } from "@/components/haptic-provider";
 import "./globals.css";
 
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta",
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-});
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sanitaerjobs.ch";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://sanitaerjobs.ch";
+const ANALYTICS_ENABLED = process.env.ANALYTICS_ENABLED === "true";
+const GA_ID = ANALYTICS_ENABLED ? process.env.NEXT_PUBLIC_GA_ID : undefined;
+const FB_PIXEL_ID = ANALYTICS_ENABLED ? process.env.NEXT_PUBLIC_FB_PIXEL_ID : undefined;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Sanitärinstallateur Jobs Schweiz 2026 | Stellen, Lohn & Ausbildung",
+    default: "Sanitär Jobs Schweiz | Stellen für Sanitär-Fachkräfte",
     template: "%s | sanitaerjobs.ch",
   },
   description:
-    "Finde Sanitärinstallateur Jobs in der Schweiz: Sanitärmonteur, Haustechniker, Servicetechniker, Sanitärplaner. Lohn, Ausbildung & tägliche Stellen-Updates.",
+    "Finde Stellen für Sanitärinstallateurinnen und Sanitärinstallateure, Sanitärmonteure, Servicetechnik, Planung und Projektleitung Sanitär in der Schweiz.",
   keywords: [
     "Sanitärjobs",
     "Sanitärjobs Schweiz",
     "Sanitärinstallateur Jobs",
-    "Heizungsinstallateur Jobs",
-    "Spengler Jobs",
     "Projektleiter Sanitär",
     "Sanitärmonteur",
     "Sanitärplaner Jobs",
-    "Haustechnik Jobs Schweiz",
     "Servicetechniker Sanitär",
-    "Lüftungsanlagenbauer",
-    "Bauleiter HLKS",
-    "Rohrleitungsmonteur",
     "Stellen Sanitärbranche Schweiz",
     "Sanitär Job Schweiz",
     "Sanitär Stellen Schweiz",
@@ -48,9 +37,9 @@ export const metadata: Metadata = {
     "Sanitärinstallateur Lohn Schweiz",
   ],
   openGraph: {
-    title: "Sanitär Jobs Schweiz 2026 | Stellenangebote & Lohn",
+    title: "Sanitär Jobs Schweiz | Stellenangebote",
     description:
-      "Finde Sanitär Jobs und Stellenangebote in der Schweiz: Sanitärinstallateur EFZ, Sanitärmonteur, Servicetechniker, Temporär, Festanstellung und Lohninfos.",
+      "Finde Stellenangebote für Sanitärinstallateur EFZ, Sanitärmonteur, Servicetechnik, Planung und Projektleitung Sanitär.",
     type: "website",
     url: "/",
     siteName: "sanitaerjobs.ch",
@@ -58,9 +47,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sanitär Jobs Schweiz 2026 | Stellenangebote & Lohn",
+    title: "Sanitär Jobs Schweiz | Stellenangebote",
     description:
-      "Finde Sanitär Jobs und Stellenangebote in der Schweiz: Sanitärinstallateur EFZ, Sanitärmonteur, Servicetechniker, Temporär, Festanstellung und Lohninfos.",
+      "Finde Stellenangebote für Sanitärinstallateur EFZ, Sanitärmonteur, Servicetechnik, Planung und Projektleitung Sanitär.",
   },
   alternates: {
     canonical: "/",
@@ -96,10 +85,9 @@ const organizationSchema = {
   "@type": "Organization",
   name: "sanitaerjobs.ch",
   url: SITE_URL,
-  logo: `${SITE_URL}/logo.png`,
+  logo: `${SITE_URL}/logo.svg`,
   description:
-    "sanitaerjobs.ch ist die spezialisierte Jobbörse für Sanitär-Fachkräfte in der Schweiz. Finde offene Stellen als Sanitärinstallateur, Heizungsinstallateur, Spengler, Projektleiter Sanitär und mehr.",
-  foundingDate: "2026",
+    "sanitaerjobs.ch bündelt Stellenangebote mit klarem Bezug zum Sanitärgewerk in der Schweiz.",
   areaServed: {
     "@type": "Country",
     name: "Switzerland",
@@ -109,7 +97,7 @@ const organizationSchema = {
     "@type": "ContactPoint",
     contactType: "customer service",
     availableLanguage: "German",
-    url: `${SITE_URL}/`,
+    url: `${SITE_URL}/kontakt`,
   },
 };
 
@@ -134,10 +122,38 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de">
+    <html lang="de-CH">
       <head>
-        <Script id="fb-pixel" strategy="afterInteractive">
-          {`
+        {FB_PIXEL_ID && <link rel="dns-prefetch" href="https://connect.facebook.net" />}
+      </head>
+      <body lang="de-CH" className="antialiased font-sans">
+        <a className="skip-link" href="#main-content">
+          Zum Inhalt
+        </a>
+        <JsonLd data={organizationSchema} />
+        <JsonLd data={websiteSchema} />
+        <HapticProvider>{children}</HapticProvider>
+        {ANALYTICS_ENABLED && <Analytics />}
+        {ANALYTICS_ENABLED && <SpeedInsights />}
+        {GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="lazyOnload"
+            />
+            <Script id="gtag-init" strategy="lazyOnload">
+              {`
+            window.dataLayer=window.dataLayer||[];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js',new Date());
+            gtag('config','${GA_ID}');
+          `}
+            </Script>
+          </>
+        )}
+        {FB_PIXEL_ID && (
+          <Script id="fb-pixel" strategy="lazyOnload">
+            {`
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -146,17 +162,23 @@ export default function RootLayout({
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', process.env.NEXT_PUBLIC_FB_PIXEL_ID || '00000000000');
+            fbq('init', '${FB_PIXEL_ID}');
             fbq('track', 'PageView');
           `}
-        </Script>
-      </head>
-      <body lang="de" className={`${plusJakarta.variable} antialiased font-sans bg-slate-50`}>
-        <JsonLd data={organizationSchema} />
-        <JsonLd data={websiteSchema} />
-        <HapticProvider>{children}</HapticProvider>
-        <Analytics />
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-0000000000"} />
+          </Script>
+        )}
+        {FB_PIXEL_ID && (
+          <noscript>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              height="1"
+              width="1"
+              style={{ display: "none" }}
+              src={`https://www.facebook.com/tr?id=${FB_PIXEL_ID}&ev=PageView&noscript=1`}
+              alt=""
+            />
+          </noscript>
+        )}
       </body>
     </html>
   );

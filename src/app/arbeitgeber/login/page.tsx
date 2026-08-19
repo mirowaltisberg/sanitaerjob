@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { SiteFooter } from "@/components/site-footer";
+import { SiteBrand } from "@/components/site-brand";
 
 export const metadata: Metadata = {
-  title: "Arbeitgeber-Login",
+  title: "Arbeitgeber-Bereich im Aufbau",
   description:
-    "Loggen Sie sich ein, um Ihre Stelleninserate auf sanitaerjobs.ch zu verwalten.",
+    "Der Arbeitgeber-Bereich von sanitaerjobs.ch ist noch nicht verfügbar.",
   robots: {
     index: false,
     follow: true,
@@ -16,31 +17,26 @@ export const metadata: Metadata = {
 export default function ArbeitgeberLoginPage() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
-      <header className="border-b header-blur sticky top-0 z-30">
-        <div className="container mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center">
+      <header className="trade-header border-b sticky top-0 z-30">
+        <div className="container mx-auto px-4 sm:px-6 h-16 sm:h-[4.5rem] flex items-center">
           <Link href="/" className="flex items-center shrink-0">
-            <img
-              src="/logo.png"
-              alt="sanitaerjobs.ch"
-              width={142}
-              height={29}
-              className="h-7 sm:h-8 w-auto"
-            />
+            <SiteBrand />
           </Link>
         </div>
       </header>
 
-      <main className="flex-1 container mx-auto px-4 sm:px-6 py-12 sm:py-16 max-w-lg">
+      <main id="main-content" className="flex-1 container mx-auto px-4 sm:px-6 py-12 sm:py-16 max-w-lg">
         <h1 className="text-2xl sm:text-3xl font-black text-slate-900 mb-4">
           Arbeitgeber-Login
         </h1>
         <p className="text-slate-600 mb-6 leading-relaxed">
           Der Arbeitgeber-Bereich von sanitaerjobs.ch befindet sich im Aufbau.
-          Kontaktieren Sie uns, um Ihre Stellenangebote zu veröffentlichen.
+          Es gibt derzeit keinen Self-Service-Login. Fragen zum geplanten
+          Publikationsangebot beantworten wir per E-Mail.
         </p>
         <div className="rounded-xl border border-slate-200 bg-white p-6">
           <p className="text-sm text-slate-600 mb-4">
-            Schreiben Sie uns eine E-Mail, um Zugang zu erhalten:
+            Eine Kontaktaufnahme begründet noch keine Buchung oder Publikation:
           </p>
           <Button asChild className="w-full">
             <a href="mailto:info@sanitaerjobs.ch">info@sanitaerjobs.ch kontaktieren</a>

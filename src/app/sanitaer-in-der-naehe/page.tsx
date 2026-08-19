@@ -8,13 +8,24 @@ import { SANITAER_CITIES } from "@/lib/sanitaer-cities";
 export const metadata: Metadata = {
   title: "Sanitärinstallateur in der Nähe | Jobs in deiner Stadt finden",
   description:
-    "Sanitärinstallateur Jobs in deiner Nähe — finde offene Stellen in Zürich, Bern, Basel, Luzern, St. Gallen und allen Schweizer Städten. Tägliche Updates.",
+    "Sanitärstellen nach ausgewählten Schweizer Städten und Regionen durchsuchen.",
   alternates: { canonical: "/sanitaer-in-der-naehe" },
+  openGraph: {
+    title: "Sanitärinstallateur in der Nähe | Jobs in deiner Stadt finden",
+    description: "Sanitärstellen nach ausgewählten Schweizer Städten und Regionen durchsuchen.",
+    url: "/sanitaer-in-der-naehe",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sanitärinstallateur in der Nähe | Jobs in deiner Stadt finden",
+    description: "Sanitärstellen nach ausgewählten Schweizer Städten und Regionen durchsuchen.",
+  },
 };
 
 export const revalidate = 86400;
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sanitaerjobs.ch";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://sanitaerjobs.ch";
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -30,8 +41,8 @@ export default function NaehePage() {
     <>
       <JsonLd data={breadcrumbSchema} />
 
-      <main className="bg-white">
-        <section className="bg-primary/5 border-b">
+      <main id="main-content" className="bg-background">
+        <section className="trade-hero">
           <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 max-w-4xl">
             <nav className="text-sm text-slate-500 mb-3" aria-label="Breadcrumb">
               <Link href="/" className="hover:text-primary">Startseite</Link>
@@ -42,37 +53,38 @@ export default function NaehePage() {
               Sanitärinstallateur <span className="text-primary">in deiner Nähe</span>
             </h1>
             <p className="text-slate-600 text-lg leading-relaxed max-w-3xl">
-              Sanitärinstallateure und Sanitärmonteure sind die Rückgrate jeder Schweizer Wohn- und Gewerbeimmobilie. Wähle deine Stadt und finde offene Stellen mit Pendelradius — typischerweise findest du in 25 km Umkreis 2- bis 3-mal mehr passende Inserate.
+              Wähle eine Stadt als Ausgangspunkt für die Stellensuche. Die
+              Trefferzahl und der genaue Arbeitsort ergeben sich aus dem
+              aktuellen Inseratebestand.
             </p>
           </div>
         </section>
 
         <section className="container mx-auto px-4 sm:px-6 py-10 max-w-5xl">
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">Schweizer Städte mit hoher Nachfrage</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Städte durchsuchen</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             { SANITAER_CITIES.map((c) => (
               <Link
                 key={c.slug}
                 href={`/sanitaer-jobs/${c.slug}`}
-                className="rounded-lg border border-slate-200 bg-white p-4 hover:border-primary/40 transition"
+                className="link-tile block p-4 pr-10 hover:border-primary/50 transition"
               >
                 <div className="font-semibold text-slate-900 mb-1">Sanitärinstallateur Jobs {c.name}</div>
                 <div className="text-sm text-slate-600 mb-2">{c.region} · {c.cantonAbbr}</div>
-                <div className="text-xs text-slate-500">Lohn-Band: {c.salaryBand}</div>
-                <div className="text-xs text-slate-500 mt-1">Pendelorte: {c.commuterTowns.slice(0, 3).join(", ")}</div>
+                <div className="text-xs text-slate-500">Orte in der Region: {c.nearbyPlaces.slice(0, 3).join(", ")}</div>
               </Link>
             ))}
           </div>
         </section>
 
-        <section className="bg-slate-50 border-y">
+        <section className="editorial-surface border-y">
           <div className="container mx-auto px-4 sm:px-6 py-10 max-w-4xl">
             <h2 className="text-2xl font-bold text-slate-900 mb-4">So findest du Stellen in deiner Nähe</h2>
             <ol className="space-y-3 text-slate-700 list-decimal list-inside">
-              <li>Wähle oben deine Stadt — du bekommst die offenen Sanitärinstallateur Stellen für die Region.</li>
-              <li>Erweitere den Suchradius auf typische Pendelorte (z. B. 25 km, 30 Minuten ÖV) — die Auswahl verdoppelt oder verdreifacht sich.</li>
-              <li>Achte auf Lohn-Bandbreiten der jeweiligen Region — Zürich, Zug und Basel zahlen 5 bis 12 Prozent über dem Mittel.</li>
-              <li>Servicetechniker und Vorarbeiter erhalten oft ein Geschäftsfahrzeug — der Pendelweg ist dann kein Hindernis.</li>
+              <li>Wähle eine Stadt als Ausgangspunkt.</li>
+              <li>Prüfe den genauen Arbeitsort im jeweiligen Inserat.</li>
+              <li>Erweitere den Ortsfilter bei Bedarf auf umliegende Orte oder den Kanton.</li>
+              <li>Verlasse dich bei Pensum, Lohn und Mobilität auf die Angaben des Inserats.</li>
             </ol>
           </div>
         </section>
@@ -81,7 +93,7 @@ export default function NaehePage() {
           <div className="container mx-auto px-4 sm:px-6 py-10 max-w-3xl text-center">
             <h2 className="text-2xl font-bold text-slate-900 mb-3">Direkt zur Stellensuche</h2>
             <p className="text-slate-600 mb-5">
-              Tausende offene Sanitärinstallateur Stellen in der Schweiz — täglich aktualisiert.
+              Durchsuche den aktuell verfügbaren Inseratebestand.
             </p>
             <Button asChild>
               <Link href="/">Jetzt Stellen durchsuchen</Link>

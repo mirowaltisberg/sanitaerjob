@@ -1,0 +1,128 @@
+{
+  "jobs": [
+    {
+      "trade": "sanitaer",
+      "id": "scraped-sanitaer-840295e6f404",
+      "jobUrl": "https://jobs.example.ch/reject-1",
+      "source": "indeed",
+      "title": "Elektroinstallateur EFZ",
+      "description": "Der Betrieb führt neben Elektroarbeiten auch Sanitärprojekte aus.",
+      "datePosted": "$TODAY",
+      "expectedDisposition": "REJECT"
+    },
+    {
+      "trade": "sanitaer",
+      "id": "scraped-sanitaer-b9830013de12",
+      "jobUrl": "https://jobs.example.ch/reject-2",
+      "source": "google",
+      "title": "Projektleiter Gebäudetechnik",
+      "description": "Im Projekt geht es ausschliesslich um Sanitäranlagen und Trinkwasser.",
+      "datePosted": "$TODAY",
+      "expectedDisposition": "REJECT"
+    },
+    {
+      "trade": "sanitaer",
+      "id": "scraped-sanitaer-57265693ff45",
+      "jobUrl": "https://jobs.example.ch/review-1",
+      "source": "linkedin",
+      "title": "Sanitärinstallateur / Heizungsinstallateur",
+      "description": "Gemischte Funktion für Sanitär- und Heizungsanlagen.",
+      "datePosted": "$TODAY",
+      "expectedDisposition": "REVIEW"
+    },
+    {
+      "trade": "sanitaer",
+      "id": "scraped-sanitaer-958b224d4fb5",
+      "jobUrl": "https://jobs.example.ch/reject-3",
+      "source": "indeed",
+      "title": "Pflegefachperson Sanitärabteilung",
+      "description": "Pflege und Betreuung in einer medizinischen Einrichtung.",
+      "datePosted": "$TODAY",
+      "expectedDisposition": "REJECT"
+    },
+    {
+      "trade": "elektro",
+      "id": "scraped-sanitaer-fb418c1d08fd",
+      "jobUrl": "https://jobs.example.ch/wrong-trade",
+      "source": "indeed",
+      "title": "Sanitärinstallateur",
+      "description": "Sanitärinstallationen in Neu- und Umbauten.",
+      "datePosted": "$TODAY",
+      "expectedDisposition": "ACCEPT",
+      "expectedIdentityError": "wrong-trade"
+    },
+    {
+      "trade": "sanitaer",
+      "id": "scraped-sanitaer-000000000000",
+      "jobUrl": "https://jobs.example.ch/id-mismatch",
+      "source": "indeed",
+      "title": "Sanitärmonteur",
+      "description": "Montage und Prüfung von Sanitäranlagen.",
+      "datePosted": "$TODAY",
+      "expectedDisposition": "ACCEPT",
+      "expectedIdentityError": "id-url-mismatch"
+    },
+    {
+      "trade": "sanitaer",
+      "id": "scraped-sanitaer-4fbd9d1ea600",
+      "jobUrl": "https://jobs.example.ch/generic-monteur",
+      "source": "indeed",
+      "title": "Monteur 100%",
+      "description": "Montage von Sanitäranlagen und Trinkwasserleitungen.",
+      "datePosted": "$TODAY",
+      "expectedDisposition": "REJECT"
+    },
+    {
+      "trade": "sanitaer",
+      "id": "scraped-sanitaer-863c496aa5f5",
+      "jobUrl": "https://jobs.example.ch/pipe-without-context",
+      "source": "google",
+      "title": "Rohrleitungsmonteur",
+      "description": "Rohrleitungsbau für industrielle Prozesse.",
+      "datePosted": "$TODAY",
+      "expectedDisposition": "REJECT"
+    },
+    {
+      "trade": "sanitaer",
+      "id": "scraped-sanitaer-F146A51E95B4",
+      "jobUrl": "https://jobs.example.ch/uppercase-id",
+      "source": "linkedin",
+      "title": "Sanitärinstallateur",
+      "description": "Sanitärinstallationen in Neu- und Umbauten.",
+      "datePosted": "$TODAY",
+      "expectedDisposition": "ACCEPT",
+      "expectedIdentityError": "invalid-id"
+    },
+    {
+      "trade": "sanitaer",
+      "id": "scraped-3fd524fd2f33",
+      "jobUrl": "https://jobs.example.ch/legacy-id",
+      "source": "indeed",
+      "title": "Sanitärinstallateur",
+      "description": "Sanitärinstallationen in Neu- und Umbauten.",
+      "datePosted": "$TODAY",
+      "expectedDisposition": "ACCEPT",
+      "expectedIdentityError": "invalid-id"
+    },
+    {
+      "trade": "sanitaer",
+      "id": "scraped-sanitaer-d3f3b9dbf6d7",
+      "jobUrl": "https://jobs.example.ch/sanitary-sales",
+      "source": "indeed",
+      "title": "Verkaufsberater Bad und Sanitär",
+      "description": "Beratung und Verkauf im Ausstellungsraum.",
+      "datePosted": "$TODAY",
+      "expectedDisposition": "REJECT"
+    },
+    {
+      "trade": "sanitaer",
+      "id": "scraped-sanitaer-df770f64aed4",
+      "jobUrl": "https://jobs.example.ch/body-only-planer",
+      "source": "google",
+      "title": "Gebäudetechnikplaner",
+      "description": "Planung von Sanitäranlagen.",
+      "datePosted": "$TODAY",
+      "expectedDisposition": "REJECT"
+    }
+  ]
+}

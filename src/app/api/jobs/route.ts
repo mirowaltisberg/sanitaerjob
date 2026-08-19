@@ -1,11 +1,7 @@
 import { NextResponse } from "next/server";
 import { searchJobListings } from "@/lib/job-catalog";
-import type { JobListing, JobSearchParams, JobSort, RemoteFilter } from "@/lib/job-types";
-
-function stripCompany(job: JobListing): Omit<JobListing, "company" | "companyUrl"> {
-  const { company: _c, companyUrl: _cu, ...rest } = job;
-  return rest;
-}
+import type { JobSearchParams, JobSort, RemoteFilter } from "@/lib/job-types";
+import { assertNoForbiddenPublicFields, serializePublicJob } from "@/lib/public-job-boundary";
 
 function parseRemote(value: string | null): RemoteFilter {
   if (value === "true" || value === "false" || value === "any") {
@@ -38,8 +34,10 @@ export async function GET(request: Request) {
   };
 
   const result = await searchJobListings(params);
+  const payload = { ...result, jobs: result.jobs.map(serializePublicJob) };
+  assertNoForbiddenPublicFields(payload, "GET /api/jobs response");
   return NextResponse.json(
-    { ...result, jobs: result.jobs.map(stripCompany) },
+    payload,
     { headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=3600" } },
   );
 }

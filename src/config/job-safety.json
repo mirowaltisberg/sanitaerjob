@@ -1,0 +1,151 @@
+{
+  "trade": "sanitaer",
+  "idPattern": "^scraped-sanitaer-[0-9a-f]{12}$",
+  "allowedSources": ["google", "indeed", "linkedin"],
+  "tradeContextPatterns": [
+    "sanitär",
+    "sanitaer"
+  ],
+  "hardNegativeTitlePatterns": [
+    "pflege",
+    "spitex",
+    "gesundheit",
+    "sozial",
+    "verkauf",
+    "sales",
+    "marketing",
+    "jurist",
+    "anwalt",
+    "fahrer",
+    "chauffeur",
+    "logistik",
+    "reinigung",
+    "koch",
+    "küche",
+    "kueche",
+    "arzt",
+    "medizin",
+    "software",
+    "developer",
+    "data scientist",
+    "human resources",
+    "product manager",
+    "product owner",
+    "frontend",
+    "backend",
+    "devops",
+    "buchhalt",
+    "accounting",
+    "controller",
+    "internship",
+    "ingénieur",
+    "technicien",
+    "électricien",
+    "elettricista",
+    "disegnatore"
+  ],
+  "otherTradeTitlePatterns": [
+    "elektro",
+    "elektriker",
+    "heizung",
+    "heizungsinstallateur",
+    "heizungsmonteur",
+    "wärmepump",
+    "waermepump",
+    "lüftung",
+    "lueftung",
+    "kälte",
+    "kaelte",
+    "klima",
+    "spengler",
+    "dachdecker",
+    "zimmermann",
+    "holzbau",
+    "schreiner",
+    "bodenleger",
+    "plattenleger",
+    "gärtner",
+    "gaertner",
+    "hlks",
+    "hvac"
+  ],
+  "highSpecificityTitles": [
+    { "pattern": "sanitärinstallateur|sanitaerinstallateur", "publicTitle": "Sanitärinstallateur/in", "profile": "installation" },
+    { "pattern": "sanitärmonteur|sanitaermonteur", "publicTitle": "Sanitärmonteur/in", "profile": "installation" },
+    { "pattern": "sanitärplaner|sanitaerplaner", "publicTitle": "Sanitärplaner/in", "profile": "planning" },
+    { "pattern": "sanitärtechniker|sanitaertechniker", "publicTitle": "Sanitärtechniker/in", "profile": "service" }
+  ],
+  "broadTitlesRequiringTradeContext": [
+    { "pattern": "projektleit", "publicTitle": "Projektleiter/in Sanitär", "profile": "leadership" },
+    { "pattern": "bauleit", "publicTitle": "Bauleiter/in Gebäudetechnik Sanitär", "profile": "leadership" },
+    { "pattern": "gebäudetechnikplan|gebaeudetechnikplan", "publicTitle": "Gebäudetechnikplaner/in Sanitär", "profile": "planning" },
+    { "pattern": "fachplan|zeichner|planer", "publicTitle": "Sanitärplaner/in", "profile": "planning" },
+    { "pattern": "servicetech|servicemonte|kundendienst|instandhalt|wartung", "publicTitle": "Servicetechniker/in Sanitär", "profile": "service" },
+    { "pattern": "badplan|badberat", "publicTitle": "Badplaner/in Sanitär", "profile": "planning" },
+    { "pattern": "chefmonteur|teamleit", "publicTitle": "Chefmonteur/in Sanitär", "profile": "leadership" },
+    { "pattern": "rohrleit|rohrinstall|entwässer|entwaesser|abwasser|trinkwasser|kanalisation", "publicTitle": "Rohrleitungsmonteur/in Sanitär", "profile": "pipe" },
+    { "pattern": "installateur|monteur|techniker", "publicTitle": "Sanitärinstallateur/in", "profile": "installation" }
+  ],
+  "profiles": {
+    "leadership": {
+      "responsibilities": [
+        "Sanitärprojekte planen, koordinieren und bis zur Übergabe begleiten",
+        "Termine, Qualität und Arbeitssicherheit auf der Baustelle sicherstellen",
+        "Absprachen mit Fachplanung, Bauleitung und Kundschaft führen"
+      ],
+      "requirements": [
+        "Abgeschlossene Ausbildung im Sanitärbereich",
+        "Erfahrung in der Leitung oder Koordination von Sanitärarbeiten",
+        "Selbstständige, zuverlässige und lösungsorientierte Arbeitsweise"
+      ]
+    },
+    "planning": {
+      "responsibilities": [
+        "Sanitärpläne, Schemas und technische Unterlagen erstellen",
+        "Planungsdetails mit den beteiligten Fachbereichen koordinieren",
+        "Projektunterlagen prüfen, nachführen und termingerecht bereitstellen"
+      ],
+      "requirements": [
+        "Abgeschlossene Ausbildung in Sanitärplanung oder Gebäudetechnik",
+        "Gutes Verständnis für Normen, Schemas und technische Dokumentation",
+        "Strukturierte, sorgfältige und teamorientierte Arbeitsweise"
+      ]
+    },
+    "service": {
+      "responsibilities": [
+        "Sanitäranlagen warten, prüfen und bei Störungen instand setzen",
+        "Fehler vor Ort eingrenzen und nachhaltige Lösungen umsetzen",
+        "Ausgeführte Arbeiten sauber dokumentieren und übergeben"
+      ],
+      "requirements": [
+        "Abgeschlossene Ausbildung im Sanitärbereich",
+        "Erfahrung in Service, Unterhalt oder Störungsbehebung",
+        "Zuverlässiges Auftreten und selbstständige Arbeitsweise"
+      ]
+    },
+    "pipe": {
+      "responsibilities": [
+        "Rohrleitungs- und Entwässerungssysteme fachgerecht montieren",
+        "Leitungen prüfen, instand setzen und Arbeiten dokumentieren",
+        "Pläne und Sicherheitsvorgaben auf der Baustelle umsetzen"
+      ],
+      "requirements": [
+        "Ausbildung oder fundierte Erfahrung im Sanitär- oder Rohrleitungsbau",
+        "Sicherer Umgang mit Plänen, Werkzeugen und Verbindungstechniken",
+        "Sorgfältige, belastbare und teamorientierte Arbeitsweise"
+      ]
+    },
+    "installation": {
+      "responsibilities": [
+        "Sanitärinstallationen fachgerecht montieren, prüfen und dokumentieren",
+        "Pläne und technische Vorgaben sicher in die Praxis umsetzen",
+        "Im Team für saubere, dichte und termingerechte Arbeiten sorgen"
+      ],
+      "requirements": [
+        "Abgeschlossene Ausbildung oder fundierte Erfahrung im Sanitärbereich",
+        "Verantwortungsbewusste und selbstständige Arbeitsweise",
+        "Zuverlässigkeit, Teamgeist und ein hohes Qualitätsbewusstsein"
+      ]
+    }
+  }
+}

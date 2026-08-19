@@ -1,7 +1,3 @@
-// SEO-DECISION: Comprehensive landing page matrix covering 12 roles × 8 cantons = 96 combinations.
-// Each page has unique title, description, intro text, and FAQs for content depth and
-// geographic targeting without keyword cannibalization.
-
 export interface LandingFaq {
   question: string;
   answer: string;
@@ -14,257 +10,109 @@ export interface LandingPageConfig {
   description: string;
   intro: string;
   roleDescription: string;
-  salaryRange: string;
   requirements: string;
   career: string;
   cantonContext: string;
   faqs: LandingFaq[];
 }
 
-// --- Role-specific content templates ---
-// Used to generate unique content per role × canton combination.
-
 interface RoleContent {
-  /** Short role label for titles */
   label: string;
-  /** Longer description of what this role does */
   roleDescription: string;
-  /** Typical salary range string */
-  salaryRange: string;
-  /** Key requirements */
   requirements: string;
-  /** Career progression options */
   career: string;
-  /** Related roles */
-  related: string[];
 }
 
+// Sanitär-only search labels. Broad or neighbouring trades are deliberately
+// excluded from public SEO navigation.
 const ROLE_CONTENT: Record<string, RoleContent> = {
   "Sanitärinstallateur EFZ": {
     label: "Sanitärinstallateur EFZ",
     roleDescription:
-      "Sanitärinstallateure EFZ planen, installieren und warten Sanitäranlagen in Wohn-, Gewerbe- und Industriebauten. Sie führen Wasser-, Abwasser- und Gasinstallationen aus und sorgen für die fachgerechte Inbetriebnahme.",
-    salaryRange: "CHF 70'000 – 90'000",
+      "Sanitärinstallateurinnen und Sanitärinstallateure EFZ planen und montieren Trinkwasser-, Gas- und Abwasserleitungen, schliessen Sanitärapparate an und führen Unterhalts- und Reparaturarbeiten aus.",
     requirements:
-      "Abgeschlossene 4-jährige Lehre als Sanitärinstallateur EFZ, gute Kenntnisse der SIA-Normen, Fahrausweis Kategorie B.",
+      "Für Stellen mit dem geschützten EFZ-Titel ist in der Regel ein entsprechender Abschluss oder eine im Inserat als gleichwertig bezeichnete Qualifikation erforderlich.",
     career:
-      "Weiterbildung zum Sanitärmeister, Projektleiter Sanitär oder Gründung eines eigenen Sanitärbetriebs.",
-    related: ["Heizungsinstallateur EFZ", "Servicetechniker Sanitär", "Sanitärmonteur"],
+      "Das offizielle Berufsprofil nennt unter anderem Chefmonteur/in Sanitär BP und Sanitärmeister/in HFP als Weiterbildungswege. Zulassungsbedingungen sind beim jeweiligen Träger zu prüfen.",
   },
-  "Heizungsinstallateur EFZ": {
-    label: "Heizungsinstallateur EFZ",
-    roleDescription:
-      "Heizungsinstallateure EFZ installieren und warten Heizungssysteme wie Öl-, Gas-, Wärmepumpen- und Pelletsanlagen. Sie nehmen Heizsysteme in Betrieb und führen Servicearbeiten durch.",
-    salaryRange: "CHF 70'000 – 90'000",
-    requirements:
-      "Abgeschlossene 4-jährige Lehre als Heizungsinstallateur EFZ, Kenntnisse in Heizungstechnik, Fahrausweis Kategorie B.",
-    career:
-      "Spezialisierung auf Wärmepumpen, Weiterbildung zum Projektleiter Heizung.",
-    related: ["Sanitärinstallateur EFZ", "Servicetechniker Sanitär", "Lüftungsanlagenbauer EFZ"],
-  },
-  "Spengler EFZ": {
-    label: "Spengler EFZ",
-    roleDescription:
-      "Spengler EFZ arbeiten mit Blech für Bedachungen, Fassaden und Entwässerungssysteme. Sie fertigen und montieren Blechteile und sorgen für den fachgerechten Wasserablauf an Gebäuden.",
-    salaryRange: "CHF 65'000 – 82'000",
-    requirements:
-      "Abgeschlossene 4-jährige Lehre als Spengler EFZ, Schwindelfreiheit, präzises Arbeiten.",
-    career:
-      "Weiterbildung zum Spenglermeister oder Bauleiter.",
-    related: ["Sanitärinstallateur EFZ", "Sanitärmonteur", "Haustechnik-Monteur"],
-  },
-  "Projektleiter Sanitär": {
-    label: "Projektleiter Sanitär",
-    roleDescription:
-      "Projektleiter Sanitär leiten Sanitärprojekte von der Offerte über die Planung bis zur Übergabe. Sie führen Montageequipen, kontrollieren Kosten und Termine und beraten Bauherren und Architekten.",
-    salaryRange: "CHF 85'000 – 110'000",
-    requirements:
-      "Weiterbildung zum Projektleiter, Führungserfahrung, Verhandlungsgeschick.",
-    career:
-      "Aufstieg zum Bereichsleiter, Geschäftsführer oder Gründung eines eigenen Sanitärbetriebs.",
-    related: ["Bauleiter HLKS", "Sanitärplaner", "Sanitärinstallateur EFZ"],
-  },
-  "Sanitärplaner": {
-    label: "Sanitärplaner",
-    roleDescription:
-      "Sanitärplaner erstellen Installationspläne für Sanitäranlagen in Neubauten und Umbauten. Sie dimensionieren Leitungssysteme und arbeiten eng mit Architekten und Bauherren zusammen.",
-    salaryRange: "CHF 80'000 – 100'000",
-    requirements:
-      "Ausbildung als Sanitärinstallateur EFZ mit Weiterbildung zum Planer, CAD-Kenntnisse.",
-    career:
-      "Aufstieg zum Planungsleiter, Spezialisierung auf Energieberatung.",
-    related: ["Projektleiter Sanitär", "Bauleiter HLKS", "Gebäudetechnikplaner"],
-  },
-  "Sanitärmonteur": {
+  Sanitärmonteur: {
     label: "Sanitärmonteur",
     roleDescription:
-      "Sanitärmonteure führen Rohr- und Armaturenarbeiten auf Baustellen aus. Sie verlegen Leitungen, montieren Sanitärapparate und sorgen für dichte und normgerechte Installationen.",
-    salaryRange: "CHF 68'000 – 82'000",
+      "Stellen mit der Bezeichnung Sanitärmonteur betreffen üblicherweise Montage- und Installationsarbeiten im Sanitärbereich. Aufgaben und Verantwortung unterscheiden sich je nach Inserat.",
     requirements:
-      "Ausbildung im Sanitärbereich, Teamfähigkeit, handwerkliches Geschick.",
+      "Massgebend sind die im Inserat verlangte Ausbildung, Erfahrung und allfällige Bewilligungen.",
     career:
-      "Weiterbildung zum Vorarbeiter oder Sanitärinstallateur EFZ.",
-    related: ["Sanitärinstallateur EFZ", "Rohrleitungsmonteur", "Heizungsinstallateur EFZ"],
+      "Weiterbildungen und Anschlussqualifikationen hängen vom vorhandenen Abschluss und der Berufserfahrung ab.",
   },
   "Servicetechniker Sanitär": {
     label: "Servicetechniker Sanitär",
     roleDescription:
-      "Servicetechniker Sanitär beheben Sanitär- und Heizungsstörungen direkt beim Kunden, führen Wartungsarbeiten durch und beraten Kunden zu Sanitär- und Heizungsanlagen.",
-    salaryRange: "CHF 72'000 – 88'000",
+      "Servicestellen im Sanitärbereich können Wartung, Diagnose, Reparaturen und Kundenkontakt umfassen. Der genaue Bereitschafts- und Einsatzumfang steht im Inserat.",
     requirements:
-      "Ausbildung als Sanitärinstallateur EFZ, Freude am Kundenkontakt, Fahrausweis.",
+      "Massgebend sind die im Inserat verlangte Sanitärqualifikation, Berufserfahrung und Mobilität.",
     career:
-      "Weiterbildung zum Kundendienstleiter oder Spezialist Wärmepumpen.",
-    related: ["Sanitärinstallateur EFZ", "Heizungsinstallateur EFZ", "Haustechnik-Monteur"],
+      "Herstellerkurse oder formale Weiterbildungen können je nach Funktion relevant sein; daraus folgt keine pauschale Lohn- oder Aufstiegszusage.",
   },
-  "Lüftungsanlagenbauer EFZ": {
-    label: "Lüftungsanlagenbauer EFZ",
+  "Gebäudetechnikplaner Sanitär EFZ": {
+    label: "Gebäudetechnikplaner Sanitär EFZ",
     roleDescription:
-      "Lüftungsanlagenbauer EFZ bauen und installieren Lüftungs- und Klimaanlagen. Sie fertigen Luftkanäle, montieren Ventilatoren und sorgen für ein optimales Raumklima in Gebäuden.",
-    salaryRange: "CHF 68'000 – 85'000",
+      "Gebäudetechnikplanerinnen und Gebäudetechnikplaner Sanitär planen Wasser-, Abwasser- und Gaseinrichtungen, zeichnen Pläne, berechnen Ausführungsdetails und begleiten die Montage.",
     requirements:
-      "Abgeschlossene Lehre als Lüftungsanlagenbauer EFZ, Kenntnisse in Lüftungstechnik.",
+      "Für EFZ-Stellen ist der entsprechende Abschluss oder eine im Inserat als gleichwertig bezeichnete Qualifikation massgebend.",
     career:
-      "Weiterbildung zum Projektleiter Lüftung oder Gebäudetechnikplaner.",
-    related: ["Heizungsinstallateur EFZ", "Sanitärinstallateur EFZ", "Gebäudetechnikplaner"],
+      "Mögliche Weiterbildungen und Zulassungsbedingungen sind in den offiziellen Berufs- und Bildungsinformationen zu prüfen.",
   },
-  "Rohrleitungsmonteur": {
-    label: "Rohrleitungsmonteur",
+  "Projektleiter Sanitär": {
+    label: "Projektleiter Sanitär",
     roleDescription:
-      "Rohrleitungsmonteure installieren Rohrleitungssysteme für Wasser, Gas und industrielle Anwendungen. Sie arbeiten mit verschiedenen Materialien und Verbindungstechniken.",
-    salaryRange: "CHF 68'000 – 85'000",
+      "Projektleitungsstellen im Sanitärbereich können Planung, Kalkulation, Koordination, Termine und Kommunikation mit Projektbeteiligten umfassen.",
     requirements:
-      "Ausbildung im Rohrleitungsbau, Schweisserkenntnisse, präzises Arbeiten.",
+      "Ausbildung, Fachpraxis und Führungserfahrung sind je nach Inserat unterschiedlich gewichtet.",
     career:
-      "Weiterbildung zum Vorarbeiter oder Bauleiter.",
-    related: ["Sanitärmonteur", "Sanitärinstallateur EFZ", "Heizungsinstallateur EFZ"],
+      "Die Funktion ist keine pauschale Zusage für eine bestimmte Weiterbildung, Verantwortung oder Vergütung.",
   },
-  "Bauleiter HLKS": {
-    label: "Bauleiter HLKS",
+  "Chefmonteur Sanitär": {
+    label: "Chefmonteur Sanitär",
     roleDescription:
-      "Bauleiter HLKS koordinieren und überwachen Heizungs-, Lüftungs-, Klima- und Sanitärinstallationen auf Grossbaustellen. Sie sind verantwortlich für Terminplanung, Kostenkontrolle und Qualitätssicherung.",
-    salaryRange: "CHF 90'000 – 120'000",
+      "Chefmonteur-Stellen Sanitär verbinden fachliche Montagearbeit mit der Organisation und Führung auf Baustellen oder in Projekten.",
     requirements:
-      "Weiterbildung zum Bauleiter oder Projektleiter, mehrjährige Führungserfahrung.",
+      "Massgebend sind die im Inserat verlangte Grundbildung, Berufspraxis und allfällige eidgenössische Berufsprüfung.",
     career:
-      "Aufstieg zum Gesamtprojektleiter oder Geschäftsführer.",
-    related: ["Projektleiter Sanitär", "Sanitärplaner", "Sanitärinstallateur EFZ"],
+      "Die Prüfungsordnung der Berufsprüfung Chefmonteur/in Sanitär nennt je nach Vorbildung unterschiedliche Praxisanforderungen.",
   },
-  "Gebäudetechnikplaner": {
-    label: "Gebäudetechnikplaner",
+  Sanitärplaner: {
+    label: "Sanitärplaner",
     roleDescription:
-      "Gebäudetechnikplaner planen gebäudetechnische Anlagen (Heizung, Lüftung, Sanitär, Brandschutz). Sie erstellen Installationspläne und arbeiten mit modernen CAD- und BIM-Systemen.",
-    salaryRange: "CHF 78'000 – 98'000",
+      "Sanitärplanungsstellen betreffen die Planung und Dokumentation sanitärtechnischer Anlagen. Die verwendete Berufsbezeichnung und der Aufgabenbereich sind im Inserat zu prüfen.",
     requirements:
-      "Ausbildung im Bereich Gebäudetechnik, CAD- und BIM-Kenntnisse.",
+      "Massgebend sind die ausgeschriebene Ausbildung sowie die verlangten Planungs- und Softwarekenntnisse.",
     career:
-      "Aufstieg zum Planungsleiter oder Spezialisierung auf Energieberatung.",
-    related: ["Sanitärplaner", "Projektleiter Sanitär", "Bauleiter HLKS"],
-  },
-  "Haustechnik-Monteur": {
-    label: "Haustechnik-Monteur",
-    roleDescription:
-      "Haustechnik-Monteure sind vielseitige Fachkräfte für Heizungs-, Lüftungs- und Sanitäranlagen. Sie führen Installations-, Wartungs- und Reparaturarbeiten in Gebäuden aus.",
-    salaryRange: "CHF 68'000 – 85'000",
-    requirements:
-      "Ausbildung im Bereich Haustechnik, handwerkliches Geschick, Teamfähigkeit.",
-    career:
-      "Weiterbildung zum Servicetechniker oder Projektleiter.",
-    related: ["Sanitärinstallateur EFZ", "Heizungsinstallateur EFZ", "Servicetechniker Sanitär"],
+      "Mögliche Weiterbildungen hängen vom vorhandenen Abschluss und der angestrebten Funktion ab.",
   },
 };
 
-// --- Canton-specific content ---
-
 interface CantonContent {
-  /** Full canton name for titles */
   name: string;
-  /** Short canton abbreviation */
   abbr: string;
-  /** Brief economic context for the sanitary industry */
-  context: string;
 }
 
 const CANTON_CONTENT: Record<string, CantonContent> = {
-  ZH: {
-    name: "Zürich",
-    abbr: "ZH",
-    context:
-      "Der Kanton Zürich ist der grösste Arbeitsmarkt der Schweiz mit zahlreichen Neubauprojekten, Sanierungsinitiativen und einer hohen Dichte an Sanitärinstallationsfirmen.",
-  },
-  BE: {
-    name: "Bern",
-    abbr: "BE",
-    context:
-      "Im Kanton Bern gibt es eine starke Nachfrage nach Sanitär-Fachkräften, besonders in der Bundesstadt und im Berner Oberland — von Wohnbau bis Infrastrukturprojekte.",
-  },
-  BS: {
-    name: "Basel",
-    abbr: "BS",
-    context:
-      "Basel-Stadt und die Region Nordwestschweiz bieten attraktive Arbeitsbedingungen mit zahlreichen Industriebetrieben, Pharmaunternehmen und grossen Bauprojekten.",
-  },
-  AG: {
-    name: "Aargau",
-    abbr: "AG",
-    context:
-      "Der Kanton Aargau ist ein wichtiger Industriestandort mit vielen Sanitärinstallationsfirmen und einer hohen Nachfrage nach Sanitär-Fachkräften in Industrie und Bau.",
-  },
-  SG: {
-    name: "St. Gallen",
-    abbr: "SG",
-    context:
-      "Die Ostschweiz mit dem Kanton St. Gallen bietet vielfältige Möglichkeiten für Sanitär-Fachkräfte — von KMU-Betrieben bis zu grossen Gebäudetechnik-Unternehmen.",
-  },
-  LU: {
-    name: "Luzern",
-    abbr: "LU",
-    context:
-      "Im Kanton Luzern wächst die Nachfrage nach Sanitär-Fachkräften stetig — getrieben durch Neubauprojekte, Tourismus-Infrastruktur und Sanierungsprojekte.",
-  },
-  SO: {
-    name: "Solothurn",
-    abbr: "SO",
-    context:
-      "Der Kanton Solothurn bietet als Industriestandort zwischen Bern und Basel gute Karrierechancen für Sanitär-Fachkräfte in Produktion, Bau und Instandhaltung.",
-  },
-  ZG: {
-    name: "Zug",
-    abbr: "ZG",
-    context:
-      "Der Kanton Zug bietet als wirtschaftsstarker Standort überdurchschnittliche Löhne und spannende Projekte im Bereich Gebäudetechnik und Hightech-Infrastruktur.",
-  },
-  TG: {
-    name: "Thurgau",
-    abbr: "TG",
-    context:
-      "Der Kanton Thurgau bietet als wachsender Wirtschaftsstandort in der Ostschweiz zunehmend Chancen für Sanitär-Fachkräfte — besonders in Industrie, Wohnungsbau und Gebäudetechnik.",
-  },
-  GR: {
-    name: "Graubünden",
-    abbr: "GR",
-    context:
-      "Im Kanton Graubünden sind Sanitär-Fachkräfte gefragt — von Tourismusinfrastruktur und Bergbahnen über Sanierungsprojekte bis zu Neubauten in den Ferienorten.",
-  },
-  SH: {
-    name: "Schaffhausen",
-    abbr: "SH",
-    context:
-      "Der Kanton Schaffhausen bietet als kompakter Industriestandort attraktive Stellen für Sanitär-Fachkräfte, insbesondere in der Haustechnik und im Anlagenbau.",
-  },
-  FR: {
-    name: "Fribourg",
-    abbr: "FR",
-    context:
-      "Der zweisprachige Kanton Fribourg wächst dynamisch und bietet Sanitär-Fachkräften vielfältige Möglichkeiten in Wohnungsbau, Industrie und öffentlicher Infrastruktur.",
-  },
+  ZH: { name: "Zürich", abbr: "ZH" },
+  BE: { name: "Bern", abbr: "BE" },
+  BS: { name: "Basel-Stadt", abbr: "BS" },
+  AG: { name: "Aargau", abbr: "AG" },
+  SG: { name: "St. Gallen", abbr: "SG" },
+  LU: { name: "Luzern", abbr: "LU" },
+  SO: { name: "Solothurn", abbr: "SO" },
+  ZG: { name: "Zug", abbr: "ZG" },
+  TG: { name: "Thurgau", abbr: "TG" },
+  GR: { name: "Graubünden", abbr: "GR" },
+  SH: { name: "Schaffhausen", abbr: "SH" },
+  FR: { name: "Freiburg", abbr: "FR" },
 };
 
-// --- All role keys ---
 const ALL_ROLES = Object.keys(ROLE_CONTENT);
 const ALL_CANTONS = Object.keys(CANTON_CONTENT);
-
-// --- Content generation ---
 
 function buildLandingConfig(roleKey: string, cantonKey: string): LandingPageConfig {
   const role = ROLE_CONTENT[roleKey];
@@ -274,50 +122,42 @@ function buildLandingConfig(roleKey: string, cantonKey: string): LandingPageConf
     throw new Error(`Invalid role "${roleKey}" or canton "${cantonKey}"`);
   }
 
-  const relatedRolesList = role.related.join(", ");
+  const cantonContext = `Der Ortsfilter verwendet den Kanton ${canton.name} (${canton.abbr}). Der genaue Arbeitsort und ein allfälliger Einsatzradius ergeben sich aus dem jeweiligen Inserat.`;
 
   return {
     role: roleKey,
     canton: cantonKey,
     title: `${role.label} Jobs in ${canton.name}`,
-    description: `Aktuelle ${role.label} Stellen im Kanton ${canton.name}. ${role.roleDescription.split(".")[0]}. Jetzt bewerben auf sanitaerjobs.ch.`,
-    intro: `Als ${role.label} in ${canton.name} findest du auf sanitaerjobs.ch alle aktuellen Stellenangebote in deiner Region. ${role.roleDescription} ${canton.context} Die Nachfrage nach qualifizierten ${role.label}-Fachkräften im Kanton ${canton.name} ist hoch — Arbeitgeber suchen gezielt nach Kandidaten mit ${role.requirements.split(",")[0].toLowerCase()}. Das durchschnittliche Jahresgehalt für ${role.label} in der Schweiz liegt bei ${role.salaryRange}. Verwandte Berufe wie ${relatedRolesList} bieten zusätzliche Karrieremöglichkeiten in der Sanitärbranche. ${role.career} Nutze unsere smarte Filterung nach Pensum, Umkreis und Anstellungsart, um die passende Stelle zu finden. Bewirb dich direkt online und lade deinen Lebenslauf hoch.`,
+    description: `Stelleninserate mit Bezug zu ${role.label} im Kanton ${canton.name}. Aufgaben, Anforderungen und Arbeitsort im jeweiligen Inserat prüfen.`,
+    intro: `Diese Suchseite zeigt Treffer für ${role.label} mit Ortsbezug zum Kanton ${canton.name}. Sie erhebt keinen Anspruch auf Vollständigkeit. ${cantonContext}`,
     roleDescription: role.roleDescription,
-    salaryRange: role.salaryRange,
     requirements: role.requirements,
     career: role.career,
-    cantonContext: canton.context,
+    cantonContext,
     faqs: [
       {
-        question: `Was verdient ein ${role.label} im Kanton ${canton.name}?`,
-        answer: `Ein ${role.label} verdient in der Schweiz durchschnittlich ${role.salaryRange} pro Jahr. Im Kanton ${canton.name} können die Löhne je nach Arbeitgeber, Erfahrung und Spezialisierung variieren.`,
+        question: `Wie viele ${role.label} Stellen gibt es in ${canton.name}?`,
+        answer: `Die Zahl der Treffer wird auf dieser Seite aus dem aktuellen öffentlichen Bestand berechnet und kann sich ändern. sanitaerjobs.ch verspricht keine vollständige Marktabdeckung.`,
       },
       {
-        question: `Welche Voraussetzungen braucht man als ${role.label}?`,
+        question: `Welche Voraussetzungen gelten für ${role.label}?`,
         answer: role.requirements,
       },
       {
-        question: `Welche Karrieremöglichkeiten hat ein ${role.label}?`,
-        answer: role.career,
+        question: `Was verdient ein ${role.label} in ${canton.name}?`,
+        answer: `Massgebend ist eine Lohnangabe im konkreten Inserat oder Arbeitsvertrag. Für statistische Vergleiche verweist sanitaerjobs.ch auf Salarium des Bundesamts für Statistik; eigene pauschale Lohnbänder werden nicht ergänzt.`,
       },
       {
-        question: `Wie viele ${role.label} Jobs gibt es in ${canton.name}?`,
-        answer: `Auf sanitaerjobs.ch findest du aktuelle ${role.label} Stellen im Kanton ${canton.name}. Die Anzahl verfügbarer Jobs variiert — nutze unsere Suche für die aktuellsten Ergebnisse.`,
-      },
-      {
-        question: `Wie ist der Arbeitsmarkt für ${role.label} in ${canton.name}?`,
-        answer: `${canton.context} Die Nachfrage nach qualifizierten ${role.label}-Fachkräften im Kanton ${canton.name} ist hoch. Das Durchschnittsgehalt liegt bei ${role.salaryRange} pro Jahr. Arbeitgeber suchen gezielt nach Kandidaten mit ${role.requirements.split(",")[0].toLowerCase()}.`,
+        question: `Wo befindet sich die Stelle im Kanton ${canton.name}?`,
+        answer: cantonContext,
       },
     ],
   };
 }
 
-// --- Build full matrix ---
 export const TOP_LANDING_PAGES: LandingPageConfig[] = ALL_ROLES.flatMap((roleKey) =>
   ALL_CANTONS.map((cantonKey) => buildLandingConfig(roleKey, cantonKey))
 );
-
-// --- Slug helpers ---
 
 function normalizeSlug(value: string): string {
   return value
@@ -350,22 +190,16 @@ export function findLandingPageBySlug(roleSlug: string, cantonSlug: string): Lan
   );
 }
 
-/**
- * Get landing pages for the same canton (different roles) or same role (different cantons).
- * Used for cross-linking on landing pages.
- */
 export function getRelatedLandingPages(config: LandingPageConfig, limit = 8): LandingPageConfig[] {
   const sameCantonDifferentRole = TOP_LANDING_PAGES.filter(
-    (p) => p.canton === config.canton && p.role !== config.role
+    (page) => page.canton === config.canton && page.role !== config.role
   );
   const sameRoleDifferentCanton = TOP_LANDING_PAGES.filter(
-    (p) => p.role === config.role && p.canton !== config.canton
+    (page) => page.role === config.role && page.canton !== config.canton
   );
-
-  // Mix: take some from same canton, some from same role
-  const mixed: LandingPageConfig[] = [];
   const maxPerGroup = Math.ceil(limit / 2);
-  mixed.push(...sameCantonDifferentRole.slice(0, maxPerGroup));
-  mixed.push(...sameRoleDifferentCanton.slice(0, maxPerGroup));
-  return mixed.slice(0, limit);
+  return [
+    ...sameCantonDifferentRole.slice(0, maxPerGroup),
+    ...sameRoleDifferentCanton.slice(0, maxPerGroup),
+  ].slice(0, limit);
 }

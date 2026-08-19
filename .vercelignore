@@ -7,3 +7,6 @@ node_modules
 scripts/.venv
 *.log
 .DS_Store
+# Raw source data is a local scraper artifact. Runtime code never reads it;
+# production reads a minimal server-only column set and must not bundle it.
+src/data/scraped-jobs.json

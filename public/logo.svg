@@ -1,10 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 48" fill="none">
-  <!-- Water droplet mark -->
-  <g transform="translate(0, 9) scale(0.667)">
-    <path d="M15.5 3 C10 12 5 21 5 30.5 C5 38.5 9.7 45 15.5 45 C21.3 45 26 38.5 26 30.5 C26 21 21 12 15.5 3 Z" fill="#2563eb"/>
-  </g>
-
-  <text font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" x="28" y="36">
-    <tspan font-weight="900" fill="#1e293b">Sanit&#xe4;r</tspan><tspan font-weight="900" fill="#2563eb">job</tspan><tspan font-weight="400" font-size="22" fill="#94a3b8">.ch</tspan>
-  </text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-labelledby="title">
+  <title id="title">sanitaerjobs.ch</title>
+  <rect width="64" height="64" rx="8" fill="#f1eee6"/>
+  <path d="M10 8v18a9 9 0 0 0 9 9h26a9 9 0 0 1 9 9v12" stroke="#276f6b" stroke-width="7"/>
+  <path d="M10 17h11M43 47h11" stroke="#276f6b" stroke-width="4"/>
+  <circle cx="10" cy="8" r="6" fill="#a96843"/>
+  <circle cx="54" cy="56" r="6" fill="#a96843"/>
 </svg>

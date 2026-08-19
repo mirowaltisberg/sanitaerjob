@@ -1,0 +1,79 @@
+{
+  "jobs": [
+    {
+      "trade": "sanitaer",
+      "id": "scraped-sanitaer-f4e373d4b0d0",
+      "jobUrl": "https://jobs.example.ch/san-1",
+      "source": "indeed",
+      "title": "Sanitärinstallateur EFZ",
+      "company": "Beispiel Haustechnik AG",
+      "location": "Zürich, Zürich",
+      "type": "Vollzeit",
+      "workload": "100%",
+      "datePosted": "$TODAY",
+      "description": "Installation und Wartung von Sanitäranlagen in Neu- und Umbauten in der Region Zürich.",
+      "expectedDisposition": "ACCEPT",
+      "expectedPublicTitle": "Sanitärinstallateur/in EFZ"
+    },
+    {
+      "trade": "sanitaer",
+      "id": "scraped-sanitaer-030ef3743bd9",
+      "jobUrl": "https://jobs.example.ch/san-2",
+      "source": "linkedin",
+      "title": "Projektleiter Sanitär 80–100%",
+      "company": "Muster Gebäudetechnik GmbH",
+      "location": "Bern, Bern",
+      "type": "Festanstellung",
+      "workload": "80-100%",
+      "datePosted": "$TODAY",
+      "description": "Koordination von Sanitärprojekten, Terminen und Fachpartnern vom Start bis zur Übergabe.",
+      "expectedDisposition": "ACCEPT",
+      "expectedPublicTitle": "Projektleiter/in Sanitär"
+    },
+    {
+      "trade": "sanitaer",
+      "id": "scraped-sanitaer-8ba81f4ba665",
+      "jobUrl": "https://jobs.example.ch/san-3",
+      "source": "google",
+      "title": "Rohrleitungsmonteur Sanitär",
+      "company": "Rohrbau Beispiel AG",
+      "location": "Basel, Basel-Stadt",
+      "type": "Vollzeit",
+      "workload": "100%",
+      "datePosted": "$TODAY",
+      "description": "Montage und Prüfung von Rohrleitungssystemen für Trinkwasser- und Entwässerungsanlagen.",
+      "expectedDisposition": "ACCEPT",
+      "expectedPublicTitle": "Rohrleitungsmonteur/in Sanitär"
+    },
+    {
+      "trade": "sanitaer",
+      "id": "scraped-sanitaer-b37efe683685",
+      "jobUrl": "https://jobs.example.ch/san-4",
+      "source": "indeed",
+      "title": "Servicetechniker Sanitär",
+      "company": "Service Muster AG",
+      "location": "Luzern, Luzern",
+      "type": "Vollzeit",
+      "workload": "80-100%",
+      "datePosted": "$TODAY",
+      "description": "Service, Unterhalt und Störungsbehebung an Sanitäranlagen im zugeteilten Einsatzgebiet.",
+      "expectedDisposition": "ACCEPT",
+      "expectedPublicTitle": "Servicetechniker/in Sanitär"
+    },
+    {
+      "trade": "sanitaer",
+      "id": "scraped-sanitaer-1ef9f3ce280e",
+      "jobUrl": "https://jobs.example.ch/san-efz-token",
+      "source": "indeed",
+      "title": "Sanitärmonteur EFZPlus",
+      "company": "Token Test AG",
+      "location": "Zug, Zug",
+      "type": "Vollzeit",
+      "workload": "100%",
+      "datePosted": "$TODAY",
+      "description": "Montage und Prüfung von Sanitäranlagen in Neu- und Umbauten im Einsatzgebiet Zug.",
+      "expectedDisposition": "ACCEPT",
+      "expectedPublicTitle": "Sanitärmonteur/in"
+    }
+  ]
+}
