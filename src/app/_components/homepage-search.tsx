@@ -6,9 +6,9 @@ import Link from "next/link";
 import {
   ArrowRight,
   ArrowUpWideNarrow,
+  Building2,
   CalendarDays,
   Clock,
-  FilterX,
   Loader2,
   MapPin,
   RefreshCw,
@@ -23,6 +23,7 @@ import { FEATURE_FLAGS } from "@/lib/feature-flags";
 import { trackEvent } from "@/lib/analytics";
 import { TOP_LANDING_PAGES, getLandingPath } from "@/lib/landing-pages";
 import { formatSwissDate, formatSwissDateTime } from "@/lib/date-format";
+import { buildDirectHireOpportunities } from "@/lib/direct-hire-opportunities";
 
 const PAGE_SIZE = 12;
 const SCRAPE_STALE_HOURS = 72;
@@ -358,6 +359,17 @@ export function HomepageSearch({ initialData, initialFilters }: HomepageSearchPr
 
   const visibleJobs = jobs.length;
   const canLoadMore = visibleJobs < totalJobs;
+  const directHireOpportunities = useMemo(
+    () => buildDirectHireOpportunities({
+      realJobCount: visibleJobs,
+      query: activeQuery,
+      location: activeLocation,
+      workload: workloadFilter,
+      remote: remoteFilter,
+    }),
+    [activeLocation, activeQuery, remoteFilter, visibleJobs, workloadFilter],
+  );
+  const visibleFeedItems = visibleJobs + directHireOpportunities.length;
 
   const salaryMap = useMemo(() => {
     const map = new Map<string, string | null>();
@@ -439,12 +451,13 @@ export function HomepageSearch({ initialData, initialFilters }: HomepageSearchPr
                   </p>
                 )}
               </div>
-              {totalJobs > 0 && (
+              {(totalJobs > 0 || directHireOpportunities.length > 0) && (
                 <span className="font-mono text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                   <span key={searchKey} className="count-animate">
-                    {visibleJobs} von {totalJobs}
-                  </span>{" "}
-                  Stellen
+                    {directHireOpportunities.length > 0
+                      ? `${visibleFeedItems} Chancen`
+                      : `${visibleJobs} von ${totalJobs} Stellen`}
+                  </span>
                 </span>
               )}
             </div>
@@ -558,19 +571,6 @@ export function HomepageSearch({ initialData, initialFilters }: HomepageSearchPr
                   />
                 ))}
               </div>
-            )}
-
-            {!isLoading && !errorMessage && jobs.length === 0 && (
-              <Card className="py-0 gap-0">
-                <CardContent className="p-6 text-center">
-                  <p className="font-semibold text-slate-900">Keine passenden Jobs gefunden</p>
-                  <p className="text-sm text-slate-500 mt-1">Passe deine Suchbegriffe oder Filter an.</p>
-                  <Button onClick={resetFilters} variant="outline" className="mt-4">
-                    <FilterX className="h-4 w-4 mr-1" />
-                    Filter zurücksetzen
-                  </Button>
-                </CardContent>
-              </Card>
             )}
 
             {jobs.length > 0 && (
@@ -697,6 +697,76 @@ export function HomepageSearch({ initialData, initialFilters }: HomepageSearchPr
                   </div>
                 )}
               </>
+            )}
+
+            {!isLoading && directHireOpportunities.length > 0 && (
+              <div className={`${jobs.length > 0 ? "mt-4" : ""} space-y-3 sm:space-y-4`}>
+                {directHireOpportunities.map((opportunity) => (
+                  <Link
+                    key={opportunity.id}
+                    href={opportunity.contactHref}
+                    className="block group"
+                    data-nosnippet
+                    aria-label={`${opportunity.title} in ${opportunity.location}: Direktstelle anfragen`}
+                  >
+                    <Card className="job-card py-0 gap-0 border-primary/35">
+                      <CardContent className="p-5 pl-6 sm:p-6 sm:pl-7">
+                        <div className="mb-3 flex min-w-0 flex-wrap items-center gap-2">
+                          <h3 className="basis-full min-w-0 text-base sm:text-xl font-bold text-slate-900 group-hover:text-primary transition-colors duration-200 [overflow-wrap:anywhere]">
+                            {opportunity.title}
+                          </h3>
+                          <Badge className="bg-primary text-primary-foreground hover:bg-primary">
+                            Direktanstellung
+                          </Badge>
+                          <Badge variant="outline" className="border-primary/30 text-primary">
+                            Laufende Suche
+                          </Badge>
+                        </div>
+
+                        <div className="job-facts">
+                          <div className="job-fact">
+                            <span className="job-fact__value">
+                              <MapPin className="h-3.5 w-3.5 text-primary shrink-0" />
+                              <span className="truncate">{opportunity.location}</span>
+                            </span>
+                            <span className="job-fact__label">Suchregion</span>
+                          </div>
+                          <div className="job-fact">
+                            <span className="job-fact__value">
+                              <Building2 className="h-3.5 w-3.5 text-primary shrink-0" />
+                              <span className="truncate">{opportunity.type}</span>
+                            </span>
+                            <span className="job-fact__label">Anstellung</span>
+                          </div>
+                          <div className="job-fact">
+                            <span className="job-fact__value">
+                              <Clock className="h-3.5 w-3.5 text-primary shrink-0" />
+                              <span className="truncate">{opportunity.workload}</span>
+                            </span>
+                            <span className="job-fact__label">Zielpensum</span>
+                          </div>
+                          <div className="job-fact">
+                            <span className="job-fact__value">
+                              <CalendarDays className="h-3.5 w-3.5 text-primary shrink-0" />
+                              <span className="truncate">{opportunity.workModel}</span>
+                            </span>
+                            <span className="job-fact__label">Arbeitsmodell</span>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+                          <p className="text-slate-600 text-sm line-clamp-2 flex-1 min-w-0">
+                            {opportunity.description}
+                          </p>
+                          <span className="job-card__action inline-flex shrink-0 items-center gap-1">
+                            Direktstelle anfragen <ArrowRight className="h-3.5 w-3.5" />
+                          </span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
             )}
 
             <div className="mt-10 sm:mt-12">

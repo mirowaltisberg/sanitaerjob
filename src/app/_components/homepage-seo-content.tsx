@@ -6,7 +6,12 @@ const HOMEPAGE_FAQS = [
   {
     question: "Welche Stellen finde ich auf sanitaerjobs.ch?",
     answer:
-      "Die Suche bündelt öffentlich zugängliche Stelleninserate mit klarem Bezug zum Sanitärgewerk. Dazu können Stellen für Sanitärinstallateurinnen und Sanitärinstallateure, Sanitärmonteurinnen und Sanitärmonteure, Servicetechnik Sanitär, Sanitärplanung und Projektleitung Sanitär gehören. Welche Treffer vorhanden sind, zeigt die aktuelle Ergebnisliste; sanitaerjobs.ch verspricht weder eine vollständige Abdeckung des Schweizer Arbeitsmarkts noch eine bestimmte Zahl an Inseraten.",
+      "Die Suche bündelt öffentlich zugängliche Stelleninserate mit klarem Bezug zum Sanitärgewerk und laufende Suchprofile für Direktanstellungen. Dazu können Stellen für Sanitärinstallateurinnen und Sanitärinstallateure, Sanitärmonteurinnen und Sanitärmonteure, Servicetechnik Sanitär, Sanitärplanung und Projektleitung Sanitär gehören. sanitaerjobs.ch verspricht keine vollständige Abdeckung des Schweizer Arbeitsmarkts.",
+  },
+  {
+    question: "Was bedeutet eine laufende Suche zur Direktanstellung?",
+    answer:
+      "Bei einer laufenden Suche wird fortlaufend ein passender Sanitärbetrieb für das bezeichnete Berufsprofil und die Region gesucht. Sie ist keinem erfundenen Arbeitgeber zugeordnet und behauptet keine bestimmte bereits ausgeschriebene Stelle. Kommt eine Anstellung zustande, wird der Arbeitsvertrag direkt mit dem Betrieb geschlossen; sanitaerjobs.ch ist nicht der Arbeitgeber und keine Temporärarbeitgeberin.",
   },
   {
     question: "Wie suche ich nach einem Sanitärjob?",
@@ -52,8 +57,9 @@ export function HomepageSeoContent() {
           </h2>
           <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-4">
             sanitaerjobs.ch bündelt Stelleninserate mit klarem Bezug zum
-            Sanitärgewerk. Suche nach Beruf und Ort und prüfe auf der Detailseite
-            die im Inserat veröffentlichten Aufgaben und Anforderungen.
+            Sanitärgewerk und laufende Suchprofile für eine Direktanstellung.
+            Bei Inseraten stehen die veröffentlichten Aufgaben und Anforderungen
+            auf der Detailseite; Suchprofile führen zur direkten Kontaktaufnahme.
           </p>
           <p className="text-slate-600 text-base leading-relaxed">
             Fehlende Lohn- oder Arbeitgeberangaben werden nicht durch eigene

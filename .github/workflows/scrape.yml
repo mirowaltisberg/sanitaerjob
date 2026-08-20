@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: "0 9 * * *"
   workflow_dispatch:
+    inputs:
+      confirm_publish:
+        description: "Type PUBLISH to allow the guarded publish job"
+        required: false
+        default: ""
+        type: string
 
 permissions:
   contents: read
@@ -54,9 +60,9 @@ jobs:
 
   publish:
     needs: scrape
-    # A push or scheduled scrape must never authorize a production mutation.
-    # Enable this repository variable only for an explicitly approved cutover.
-    if: ${{ vars.SANITAER_PUBLISHING_APPROVED == 'true' }}
+    # Scheduled scrapes are read-only. A production mutation requires both the
+    # repository approval variable and an explicit manual-run confirmation.
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.confirm_publish == 'PUBLISH' && vars.SANITAER_PUBLISHING_APPROVED == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
 

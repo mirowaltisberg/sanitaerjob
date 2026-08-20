@@ -44,11 +44,13 @@ The scheduled workflow runs five isolated scrape workers with at most two active
 
 The publisher is intentionally fail-closed. Use `--dry-run` for an offline artifact check. Use `--plan` for aggregate, read-only comparison with the current Sanitär inventory. Publishing or pruning production rows requires an intentional authorized run.
 
-The scheduled publisher is disabled unless the repository variable
-`SANITAER_PUBLISHING_APPROVED` is explicitly set to `true`. A code push,
-schedule or manual scrape dispatch is not publication approval; set the
-variable only for an approved, reviewed production cutover and disable it
-again afterward.
+Scheduled runs are scrape-only and can never publish. A production publish
+requires a manual workflow dispatch with `confirm_publish` set exactly to
+`PUBLISH` **and** the repository variable `SANITAER_PUBLISHING_APPROVED` set
+to `true`. A code push, schedule, ordinary manual scrape dispatch or either
+factor by itself is not publication approval; enable both only for an
+approved, reviewed production cutover and disable the variable again
+afterward.
 
 ## Applications and privacy
 

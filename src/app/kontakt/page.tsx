@@ -56,6 +56,7 @@ export default function KontaktPage() {
           <div>
             <h2 className="text-sm font-semibold text-slate-900 mb-1">Anliegen</h2>
             <ul className="text-sm text-slate-600 space-y-1">
+              <li>Anfragen zu laufenden Suchprofilen und Direktanstellungen</li>
               <li>Fragen zum geplanten Arbeitgeber-Angebot</li>
               <li>Technischer Support</li>
               <li>Feedback & Verbesserungsvorschläge</li>
@@ -63,7 +64,7 @@ export default function KontaktPage() {
             </ul>
           </div>
           <Button asChild className="w-full">
-            <a href="mailto:info@sanitaerjobs.ch">E-Mail senden</a>
+            <a href="mailto:info@sanitaerjobs.ch?subject=Anfrage%20Direktanstellung">E-Mail senden</a>
           </Button>
         </div>
         <div className="mt-6 text-center">
