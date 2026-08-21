@@ -705,6 +705,7 @@ export function HomepageSearch({ initialData, initialFilters }: HomepageSearchPr
                   <Link
                     key={opportunity.id}
                     href={opportunity.contactHref}
+                    data-analytics-action={`direct_hire_contact:${opportunity.id}`}
                     className="block group"
                     data-nosnippet
                     aria-label={`${opportunity.title} in ${opportunity.location}: Direktstelle anfragen`}
